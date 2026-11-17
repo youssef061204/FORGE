@@ -10,3 +10,5 @@ playwright-report/
 *.tsbuildinfo
 .venv-ml/
 __pycache__/
+.forge/
+.forge-build/

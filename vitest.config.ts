@@ -1,10 +1,13 @@
 import { defineConfig } from "vitest/config";
+import { resolve } from "node:path";
+
 export default defineConfig({
+  resolve: { alias: { "@": resolve(__dirname, "src") } },
   test: {
     include: ["tests/**/*.test.ts"],
-    testTimeout: 60000,
-    // Concurrent TypeScript compilers and isolated workers otherwise compete
-    // with the broker's real per-node deadlines on development machines.
+    globalSetup: ["tests/setup/build-worker.ts"],
+    testTimeout: 60_000,
     maxWorkers: 2,
+    env: { NEXT_TELEMETRY_DISABLED: "1" },
   },
 });
