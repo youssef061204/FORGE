@@ -61,6 +61,8 @@ lists every failure with a replayable tape.
 | Legacy IR pipeline, dev (`c8b172f`) | 1 / 18 | run unmodified before FORGE 2; 13 of 14 file missions failed IR admission |
 | FORGE 2, validation, first run (`27b8ed7`) | 56 / 71 (78.9%, 68.0–86.8%) | 8/10 decisions; 5 verified-but-wrong; p50 time to preview 7.4 s |
 | FORGE 2, dev (`eb13a9c`) | 17 / 18 (94.4%) | the miss: a draft never adds a derive step the output needs |
+| FORGE 2, validation, final (`4c14e0c`) | 58 / 71 (81.7%, 71.2–89.0%) | 8/10 decisions; 7 verified-but-wrong; p50 time to preview 5.9 s. Same set, run again after D11/D20, so no longer a pristine first look |
+| FORGE 2, sealed holdout (`c8d9788` freeze) | 17 / 100 (10.9–25.5%) | one run; see below |
 
 Later runs are listed on the Scorecard; each names its commit.
 
