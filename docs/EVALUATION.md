@@ -92,4 +92,50 @@ All 15 failures of the first run (27b8ed7), from `validation.json`:
 
 ## Sealed holdout
 
-See the section below, filled in from `evaluation/results/holdout-latest.json`.
+**17 of 100 (11–25.5%)** on one run, at source freeze `c8d9788`
+(tag `holdout-freeze`, src tree `6708efc`, record
+`evaluation/results/holdout-freeze.json`). The seal was verified before
+capture and again before scoring. The oracle was opened only after all 100
+missions had been captured. Result: `evaluation/results/2026-11-17-354d463-holdout/holdout.json`.
+
+```bash
+npx tsx evaluation/holdout-capture.ts --freeze=evaluation/results/holdout-freeze.json
+npx tsx evaluation/holdout-score.ts --dir=evaluation/results/2026-11-17-354d463-holdout
+```
+
+The holdout was written in 2026-11 for the *legacy* runtime: Gmail and
+calendar connectors, notifications, scheduler ticks, persisted program state,
+and reuse/extension/composition of already-installed programs. FORGE 2 has
+none of those yet. Its only effects are output files. Per the protocol, a
+missing capability is a failure, not an exclusion, so the headline counts all
+100. Both views:
+
+| view | result | 95% interval |
+| --- | --- | --- |
+| all 100 missions (headline) | 17 / 100 | 10.9–25.5% |
+| the 58 whose every predicate FORGE 2 can represent | 17 / 58 | 19.2–42.0% |
+| the 42 that need a capability FORGE 2 lacks | 0 / 42 | — |
+
+Other metrics: route accuracy 63/100; exact permissions 29 of 70 built tools;
+connect/clarify/unsupported 7 of 21 correct; **19 verified-but-wrong** (a tool
+reached review with output that didn't match); median total time 12.9 s
+(18.1 s for missions that built a tool, p95 77.7 s).
+
+**Erratum 1** (`erratum-1.json`, scoring only, product unchanged): the
+connection check matched words literally. core-073 (asked for "email", oracle
+says "gmail") and core-076 ("text messages" vs "SMS delivery") named the right
+resource. Corrected: 19 / 100. The original 17 stays the headline.
+
+What it says, read after the run:
+
+- **This is much lower than validation (79%), and the gap is real.** Holdout
+  requests are written against connector data shapes (mail threads,
+  calendar events, nested API payloads) that reached FORGE 2 as JSON files,
+  and many need date arithmetic, nested-field access or set comparisons that
+  drafts got wrong or never completed (25 builds ended with no passing draft).
+- **Clarification is the weakest decision.** 0 of 8 clarify missions asked a
+  question. The model either drafted a tool anyway or asked for a connection.
+- **19 verified-but-wrong** is the number to fix first: drafts agreed on a
+  plausible reading (wrong key, missing label prefix, wrong grouping).
+- Everything after this is a developmental follow-up, not a pristine holdout
+  score.

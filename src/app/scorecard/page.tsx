@@ -124,9 +124,17 @@ export default function Scorecard() {
           <div className="mt-5 border-t border-line pt-4">
             <Eyebrow>Sealed holdout</Eyebrow>
             {holdout ? (
-              <p className="mt-2 text-steel-hi">
-                {holdout.summary.passed} of {holdout.summary.n}
-              </p>
+              <>
+                <p className="mt-2 font-display text-3xl font-semibold text-steel-hi">
+                  {holdout.summary.passed} of {holdout.summary.n}
+                </p>
+                <p className="num mt-1 text-[13px] text-faint">
+                  95% interval {pct(holdout.summary.interval95[0])}–{pct(holdout.summary.interval95[1])} · one run at commit {holdout.summary.commit}
+                </p>
+                <p className="mt-2 text-[13px] text-dim">
+                  Written for the earlier runtime. 42 of its missions need connectors, notifications, schedules or reuse of installed tools, which FORGE 2 doesn&apos;t have yet, and they count as failures. See docs/EVALUATION.md.
+                </p>
+              </>
             ) : (
               <p className="mt-2 text-[14px] text-dim">Still sealed. It is opened once, at the final source freeze, and its result is reported whatever it is.</p>
             )}

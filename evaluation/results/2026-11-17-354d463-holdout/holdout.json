@@ -1,0 +1,2449 @@
+{
+  "summary": {
+    "corpus": "holdout",
+    "corpusHash": "a11da48b82f9db9e171237325924815684eca36d606e63ffb57313d459f1dad9",
+    "model": "qwen2.5:7b-instruct",
+    "hardware": "NVIDIA GeForce RTX 5050 Laptop GPU (8 GB)",
+    "commit": "354d463",
+    "dirty": false,
+    "date": "2026-11-17T07:40:46.709Z",
+    "drafts": 5,
+    "n": 100,
+    "passed": 17,
+    "passRate": 0.17,
+    "interval95": [
+      0.109,
+      0.255
+    ],
+    "verifiedFalseSuccess": 19,
+    "decisions": {
+      "n": 21,
+      "correct": 7
+    },
+    "representable": {
+      "n": 58,
+      "passed": 17,
+      "interval95": [
+        0.192,
+        0.42
+      ]
+    },
+    "routeAccuracy": {
+      "n": 100,
+      "correct": 63
+    },
+    "permissionsExact": {
+      "n": 70,
+      "correct": 29
+    },
+    "byCategory": {
+      "local-files": {
+        "n": 20,
+        "passed": 8
+      },
+      "gmail": {
+        "n": 8,
+        "passed": 1
+      },
+      "calendar": {
+        "n": 8,
+        "passed": 0
+      },
+      "cross-service": {
+        "n": 10,
+        "passed": 0
+      },
+      "monitoring": {
+        "n": 10,
+        "passed": 0
+      },
+      "installed-programs": {
+        "n": 15,
+        "passed": 0
+      },
+      "missing-connection": {
+        "n": 8,
+        "passed": 2
+      },
+      "clarification": {
+        "n": 8,
+        "passed": 0
+      },
+      "unsupported": {
+        "n": 5,
+        "passed": 5
+      },
+      "unseen-api": {
+        "n": 8,
+        "passed": 1
+      }
+    },
+    "byScope": {
+      "within FORGE 2's scope": {
+        "n": 58,
+        "passed": 17
+      },
+      "needs a capability FORGE 2 lacks": {
+        "n": 42,
+        "passed": 0
+      }
+    },
+    "timeToPreviewP50Ms": 18066,
+    "timeToPreviewP95Ms": 77678,
+    "totalP50Ms": 12889,
+    "modelCalls": 575,
+    "command": "npx tsx evaluation/holdout-capture.ts --freeze=evaluation/results/holdout-freeze.json && npx tsx evaluation/holdout-score.ts --dir=evaluation/results/2026-11-17-354d463-holdout",
+    "oracleOpenedAt": "2026-11-17T08:12:01.737Z",
+    "note": "Times are total time per mission (the capture did not record first-preview time separately)."
+  },
+  "results": [
+    {
+      "id": "core-001",
+      "category": "local-files",
+      "status": "failed",
+      "why": "weighted.json differs: got [ 70, 89 ] ",
+      "route": "SYNTHESIZE",
+      "ms": 25522,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "weighted.json differs: got [ 70, 89 ] "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-002",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 7303,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-003",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 11015,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-004",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 36259,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-005",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named utc.json",
+      "route": "SYNTHESIZE",
+      "ms": 31368,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named utc.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-006",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 8300,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-007",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named outstanding.json",
+      "route": "SYNTHESIZE",
+      "ms": 36545,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named outstanding.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-008",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 9166,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-009",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 14564,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-010",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 17577,
+      "agreement": "2 of 5 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-011",
+      "category": "local-files",
+      "status": "failed",
+      "why": "nonnull.json differs: got [] ",
+      "route": "SYNTHESIZE",
+      "ms": 16525,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "nonnull.json differs: got [] "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-012",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named words.json",
+      "route": "SYNTHESIZE",
+      "ms": 31424,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named words.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-013",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named versions.json",
+      "route": "SYNTHESIZE",
+      "ms": 26064,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named versions.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-014",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named unmatched.json",
+      "route": "SYNTHESIZE",
+      "ms": 76243,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named unmatched.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-015",
+      "category": "local-files",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 19755,
+      "agreement": "3 of 4 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-016",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named overlaps.json",
+      "route": "SYNTHESIZE",
+      "ms": 91735,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named overlaps.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-017",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named transposed.json",
+      "route": "SYNTHESIZE",
+      "ms": 150893,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named transposed.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-018",
+      "category": "local-files",
+      "status": "failed",
+      "why": "labels.txt text differs: got \"North, upper\\nSouth\\n\"",
+      "route": "SYNTHESIZE",
+      "ms": 7827,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "labels.txt text differs: got \"North, upper\\nSouth\\n\""
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-019",
+      "category": "local-files",
+      "status": "failed",
+      "why": "course-pages.json differs: got [ { \"course\": \"ART\", \"pages\": 4 }, { \"course\": \"BIO\", \"pages\": 26 } ] ",
+      "route": "SYNTHESIZE",
+      "ms": 25264,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "course-pages.json differs: got [ { \"course\": \"ART\", \"pages\": 4 }, { \"course\": \"BIO\", \"pages\": 26 } ] "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-020",
+      "category": "local-files",
+      "status": "failed",
+      "why": "no output named changed-keys.json",
+      "route": "SYNTHESIZE",
+      "ms": 81308,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named changed-keys.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-021",
+      "category": "gmail",
+      "status": "failed",
+      "why": "no output named office-hours.json",
+      "route": "SYNTHESIZE",
+      "ms": 16902,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named office-hours.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-022",
+      "category": "gmail",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 1857,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-023",
+      "category": "gmail",
+      "status": "failed",
+      "why": "no output named assignments.json",
+      "route": "SYNTHESIZE",
+      "ms": 24372,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named assignments.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-024",
+      "category": "gmail",
+      "status": "failed",
+      "why": "sender-counts.json differs: got { \"a\": 1, \"b\": 1 } ",
+      "route": "SYNTHESIZE",
+      "ms": 77678,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "sender-counts.json differs: got { \"a\": 1, \"b\": 1 } "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-025",
+      "category": "gmail",
+      "status": "failed",
+      "why": "no output named receipt-total.json",
+      "route": "SYNTHESIZE",
+      "ms": 15284,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named receipt-total.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-026",
+      "category": "gmail",
+      "status": "failed",
+      "why": "latest-recruiters.json differs: got { \"arc@jobs.test\": \"Arc next round\", \"zen@jobs.test\": \"Zen updated slot\" } ",
+      "route": "SYNTHESIZE",
+      "ms": 7396,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "latest-recruiters.json differs: got { \"arc@jobs.test\": \"Arc next round\", \"zen@jobs.test\": \"Zen updated slot\" } "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-027",
+      "category": "gmail",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 6759,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-028",
+      "category": "gmail",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2658,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-029",
+      "category": "calendar",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2386,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-030",
+      "category": "calendar",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 21533,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-031",
+      "category": "calendar",
+      "status": "failed",
+      "why": "no output named conflicts.json",
+      "route": "SYNTHESIZE",
+      "ms": 41066,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named conflicts.json"
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-032",
+      "category": "calendar",
+      "status": "failed",
+      "why": "no output named busy-minutes.json",
+      "route": "SYNTHESIZE",
+      "ms": 26051,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named busy-minutes.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-033",
+      "category": "calendar",
+      "status": "failed",
+      "why": "needs collectionCount, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 20139,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionCount",
+          "ok": false,
+          "why": "needs collectionCount, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-034",
+      "category": "calendar",
+      "status": "failed",
+      "why": "earliest.json differs: got { \"id\": null } ",
+      "route": "SYNTHESIZE",
+      "ms": 24694,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "earliest.json differs: got { \"id\": null } "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-035",
+      "category": "calendar",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 15484,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-036",
+      "category": "calendar",
+      "status": "failed",
+      "why": "needs notificationContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 18245,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-037",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2127,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-038",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 1786,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-039",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 29731,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-040",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "untracked.json differs: got [ \"Essay\", \"Lab\" ] ",
+      "route": "SYNTHESIZE",
+      "ms": 39501,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "untracked.json differs: got [ \"Essay\", \"Lab\" ] "
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-041",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2266,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-042",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "no output named matching-mail.json",
+      "route": "SYNTHESIZE",
+      "ms": 43851,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named matching-mail.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-043",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2191,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-044",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "no output named named-orders.json",
+      "route": "SYNTHESIZE",
+      "ms": 27210,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named named-orders.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-045",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 3172,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named interview-options.json"
+        },
+        {
+          "kind": "collectionUnchanged",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-046",
+      "category": "cross-service",
+      "status": "failed",
+      "why": "no output named mentor-agenda.json",
+      "route": "SYNTHESIZE",
+      "ms": 30763,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named mentor-agenda.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-047",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 16707,
+      "agreement": "2 of 5 drafts agree",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-048",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2618,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-049",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 18288,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named snapshot.json"
+        },
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named snapshot.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-050",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 22438,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-051",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 2245,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-052",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 20161,
+      "agreement": "3 of 4 drafts agree",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-053",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 32058,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-054",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 23223,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-055",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "route CONNECT not in SYNTHESIZE",
+      "route": "CONNECT",
+      "ms": 3205,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named progress.json"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-056",
+      "category": "monitoring",
+      "status": "failed",
+      "why": "needs programPersisted, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 32741,
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "programStateContains",
+          "ok": false,
+          "why": "needs programStateContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-057",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in REUSE",
+      "route": "SYNTHESIZE",
+      "ms": 5918,
+      "agreement": "3 of 3 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "active.json differs: got [ { \"name\": \"Sora\" } ] "
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-058",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in REUSE",
+      "route": "SYNTHESIZE",
+      "ms": 6285,
+      "agreement": "3 of 3 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "urgent.json differs: got [ { \"id\": \"b\" } ] "
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-059",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in REUSE",
+      "route": "SYNTHESIZE",
+      "ms": 18276,
+      "agreement": "2 of 5 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-060",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route CONNECT not in REUSE",
+      "route": "CONNECT",
+      "ms": 2366,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named event-count.json"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-061",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route CONNECT not in REUSE",
+      "route": "CONNECT",
+      "ms": 1826,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-062",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in EXTEND",
+      "route": "SYNTHESIZE",
+      "ms": 6655,
+      "agreement": "3 of 3 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named priority.json (got high-medium-priority-tasks.json)"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        },
+        {
+          "kind": "extensionLineage",
+          "ok": false,
+          "why": "needs extensionLineage, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-063",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in EXTEND",
+      "route": "SYNTHESIZE",
+      "ms": 12303,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named tax.json (got tax_calculator_20_percent.json)"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        },
+        {
+          "kind": "extensionLineage",
+          "ok": false,
+          "why": "needs extensionLineage, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-064",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in EXTEND",
+      "route": "SYNTHESIZE",
+      "ms": 5886,
+      "agreement": "3 of 3 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        },
+        {
+          "kind": "extensionLineage",
+          "ok": false,
+          "why": "needs extensionLineage, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-065",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in EXTEND",
+      "route": "SYNTHESIZE",
+      "ms": 34821,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named daily-report.json (got report.json)"
+        },
+        {
+          "kind": "programPersisted",
+          "ok": false,
+          "why": "needs programPersisted, which FORGE 2 does not have"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        },
+        {
+          "kind": "extensionLineage",
+          "ok": false,
+          "why": "needs extensionLineage, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-066",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in EXTEND",
+      "route": "SYNTHESIZE",
+      "ms": 18066,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named study-events.json"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        },
+        {
+          "kind": "extensionLineage",
+          "ok": false,
+          "why": "needs extensionLineage, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-067",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in COMPOSE",
+      "route": "SYNTHESIZE",
+      "ms": 12013,
+      "agreement": "3 of 4 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "western-names.txt text differs: got \"Ari\\nBea\\nZed\\n\""
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-068",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in COMPOSE",
+      "route": "SYNTHESIZE",
+      "ms": 23618,
+      "agreement": "2 of 5 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "expense-summary.json differs: got { \"Books\": 23.5, \"Fare\": 6.5 } "
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-069",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in COMPOSE",
+      "route": "SYNTHESIZE",
+      "ms": 15799,
+      "agreement": "3 of 5 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "passing-max.json differs: got { \"max_value\": 9 } "
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-070",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in COMPOSE",
+      "route": "SYNTHESIZE",
+      "ms": 7363,
+      "agreement": "3 of 3 drafts agree",
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-071",
+      "category": "installed-programs",
+      "status": "failed",
+      "why": "route CONNECT not in COMPOSE",
+      "route": "CONNECT",
+      "ms": 2364,
+      "representable": false,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named workload.json"
+        },
+        {
+          "kind": "existingProgramsUsed",
+          "ok": false,
+          "why": "needs existingProgramsUsed, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-072",
+      "category": "missing-connection",
+      "status": "failed",
+      "why": "route UNSUPPORTED not in CONNECT",
+      "route": "UNSUPPORTED",
+      "ms": 1563,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": false,
+          "why": "expected a connection request, got unsupported"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-073",
+      "category": "missing-connection",
+      "status": "failed",
+      "why": "connection request did not name gmail",
+      "route": "CONNECT",
+      "ms": 1433,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": false,
+          "why": "connection request did not name gmail"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-074",
+      "category": "missing-connection",
+      "status": "passed",
+      "route": "CONNECT",
+      "ms": 1685,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-075",
+      "category": "missing-connection",
+      "status": "failed",
+      "why": "route UNSUPPORTED not in CONNECT",
+      "route": "UNSUPPORTED",
+      "ms": 1596,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": false,
+          "why": "expected a connection request, got unsupported"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-076",
+      "category": "missing-connection",
+      "status": "failed",
+      "why": "connection request did not name SMS delivery",
+      "route": "CONNECT",
+      "ms": 1893,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": false,
+          "why": "connection request did not name SMS delivery"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-077",
+      "category": "missing-connection",
+      "status": "failed",
+      "why": "route CLARIFY not in CONNECT",
+      "route": "CLARIFY",
+      "ms": 2314,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": false,
+          "why": "expected a connection request, got clarify"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-078",
+      "category": "missing-connection",
+      "status": "failed",
+      "why": "connection request did not name learning portal",
+      "route": "CONNECT",
+      "ms": 2034,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": false,
+          "why": "connection request did not name learning portal"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-079",
+      "category": "missing-connection",
+      "status": "passed",
+      "route": "CONNECT",
+      "ms": 1841,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "connectionRequest",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-080",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in CLARIFY",
+      "route": "SYNTHESIZE",
+      "ms": 12889,
+      "agreement": "3 of 4 drafts agree",
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about which interview and destination time, got review"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": false,
+          "why": "a tool was produced"
+        },
+        {
+          "kind": "noWrites",
+          "ok": false,
+          "why": "outputs were written"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-081",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route CONNECT not in CLARIFY",
+      "route": "CONNECT",
+      "ms": 1991,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about time zone, morning or evening, and duration, got connect"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-082",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route CONNECT not in CLARIFY",
+      "route": "CONNECT",
+      "ms": 1551,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about which Sam and delivery service, got connect"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-083",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in CLARIFY",
+      "route": "SYNTHESIZE",
+      "ms": 16085,
+      "agreement": "3 of 5 drafts agree",
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about which uploaded file, got review"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": false,
+          "why": "a tool was produced"
+        },
+        {
+          "kind": "noWrites",
+          "ok": false,
+          "why": "outputs were written"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-084",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in CLARIFY",
+      "route": "SYNTHESIZE",
+      "ms": 5448,
+      "agreement": "3 of 3 drafts agree",
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about which metric, threshold, and monitoring interval, got review"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": false,
+          "why": "a tool was produced"
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-085",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in CLARIFY",
+      "route": "SYNTHESIZE",
+      "ms": 14018,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about which installed notifier, got review"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": false,
+          "why": "a tool was produced"
+        },
+        {
+          "kind": "noWrites",
+          "ok": false,
+          "why": "outputs were written"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-086",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route SYNTHESIZE not in CLARIFY",
+      "route": "SYNTHESIZE",
+      "ms": 7328,
+      "agreement": "3 of 4 drafts agree",
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about output filename and format; no saved preference exists, got review"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": false,
+          "why": "a tool was produced"
+        },
+        {
+          "kind": "noWrites",
+          "ok": false,
+          "why": "outputs were written"
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-087",
+      "category": "clarification",
+      "status": "failed",
+      "why": "route CONNECT not in CLARIFY",
+      "route": "CONNECT",
+      "ms": 1809,
+      "representable": true,
+      "routeOk": false,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "clarificationQuestion",
+          "ok": false,
+          "why": "expected a question about study block duration and acceptable time window, got connect"
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-088",
+      "category": "unsupported",
+      "status": "passed",
+      "route": "UNSUPPORTED",
+      "ms": 1402,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "unsupportedExplanation",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-089",
+      "category": "unsupported",
+      "status": "passed",
+      "route": "UNSUPPORTED",
+      "ms": 1943,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "unsupportedExplanation",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-090",
+      "category": "unsupported",
+      "status": "passed",
+      "route": "UNSUPPORTED",
+      "ms": 1870,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "unsupportedExplanation",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-091",
+      "category": "unsupported",
+      "status": "passed",
+      "route": "UNSUPPORTED",
+      "ms": 1347,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "unsupportedExplanation",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-092",
+      "category": "unsupported",
+      "status": "passed",
+      "route": "UNSUPPORTED",
+      "ms": 2343,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "unsupportedExplanation",
+          "ok": true
+        },
+        {
+          "kind": "noProgramCreated",
+          "ok": true
+        },
+        {
+          "kind": "noWrites",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-093",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 12966,
+      "agreement": "1 of 5 drafts agrees",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-094",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 14428,
+      "agreement": "2 of 5 drafts agree",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-095",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "ready-quantity.json differs: got { \"total_quantity\": 3 } ",
+      "route": "SYNTHESIZE",
+      "ms": 12743,
+      "agreement": "3 of 4 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "ready-quantity.json differs: got { \"total_quantity\": 3 } "
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-096",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 14201,
+      "agreement": "2 of 5 drafts agree",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-097",
+      "category": "unseen-api",
+      "status": "passed",
+      "route": "SYNTHESIZE",
+      "ms": 11209,
+      "agreement": "2 of 5 drafts agree",
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": true,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": true
+        }
+      ],
+      "falseSuccess": false
+    },
+    {
+      "id": "core-098",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "needs notificationContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 8053,
+      "agreement": "3 of 3 drafts agree",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "notificationContains",
+          "ok": false,
+          "why": "needs notificationContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-099",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "needs collectionContains, which FORGE 2 does not have",
+      "route": "SYNTHESIZE",
+      "ms": 10002,
+      "agreement": "2 of 5 drafts agree",
+      "representable": false,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        },
+        {
+          "kind": "collectionContains",
+          "ok": false,
+          "why": "needs collectionContains, which FORGE 2 does not have"
+        }
+      ],
+      "falseSuccess": true
+    },
+    {
+      "id": "core-100",
+      "category": "unseen-api",
+      "status": "failed",
+      "why": "no output named math-terms.json",
+      "route": "SYNTHESIZE",
+      "ms": 17051,
+      "representable": true,
+      "routeOk": true,
+      "permissionsOk": false,
+      "postconditions": [
+        {
+          "kind": "artifactEquals",
+          "ok": false,
+          "why": "no output named math-terms.json"
+        }
+      ],
+      "falseSuccess": false
+    }
+  ]
+}

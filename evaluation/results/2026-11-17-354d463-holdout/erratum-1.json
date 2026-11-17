@@ -1,0 +1,10 @@
+{
+  "erratum": 1,
+  "writtenAt": "2026-11-17",
+  "appliesTo": "holdout.json (original score kept unchanged: 17 of 100)",
+  "justification": "The connectionRequest check in evaluation/holdout-score.ts matches words literally. In two missions FORGE asked to connect the right resource under a different name: core-073 asked for email reading (missing: email.read) where the oracle names \"gmail\"; core-076 asked for sending text messages (missing: sms.send) where the oracle names \"SMS delivery\". PROTOCOL.md requires identifying the materially missing resource, which both do. core-078 (asked for calendar.create where a learning portal was missing) stays a failure.",
+  "changed": ["core-073", "core-076"],
+  "original": { "passed": 17, "n": 100 },
+  "corrected": { "passed": 19, "n": 100, "withinScope": { "passed": 19, "n": 58 } },
+  "productChanged": false
+}
