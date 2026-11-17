@@ -21,6 +21,8 @@ const csp = [
 
 const config: NextConfig = {
   poweredByHeader: false,
+  // The showcase build goes to its own folder so it never clobbers a local build.
+  distDir: process.env.FORGE_MODE === "showcase" ? ".next-showcase" : ".next",
   serverExternalPackages: ["typescript", "esbuild"],
   async headers() {
     return [

@@ -45,5 +45,5 @@ export default defineConfig([
       "no-restricted-syntax": ["error", { selector: "CallExpression[callee.name='fetch']", message: "Use egressFetch from server/egress.ts (loopback only)." }],
     },
   },
-  globalIgnores([".venv-ml/**", ".next/**", ".forge/**", ".forge-build/**", "data/**", "artifacts/**", "playwright-report/**", "test-results/**", "next-env.d.ts", "evaluation/core-holdout-2026-11-12/*.cjs"]),
+  globalIgnores([".venv-ml/**", ".next/**", ".next-showcase/**", ".forge/**", ".forge-build/**", "data/**", "artifacts/**", "playwright-report/**", "test-results/**", "next-env.d.ts", "evaluation/core-holdout-2026-11-12/*.cjs"]),
 ]);

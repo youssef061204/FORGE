@@ -1,0 +1,45 @@
+name: ci
+on:
+  push:
+    branches: [main, forge-2]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - name: Build
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Tape-driven end-to-end tests (scripted model, desktop and phone)
+        run: npx playwright test
+      - name: Screenshots
+        if: always()
+        run: |
+          npx next start --hostname 127.0.0.1 --port 3110 &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:3110/ && break; sleep 2; done
+          node scripts/shoot.mjs http://127.0.0.1:3110 /=home /tour=tour=3000 /safety=safety /scorecard=scorecard /forge/tape-contacts-1=floor=6000
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots-and-report
+          path: |
+            artifacts/shots
+            playwright-report
+            test-results
+          retention-days: 14

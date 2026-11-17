@@ -7,12 +7,13 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   reporter: [["list"], ["html", { open: "never" }]],
-  use: { baseURL: "http://127.0.0.1:3119", trace: "retain-on-failure", screenshot: "only-on-failure" },
+  use: { baseURL: process.env.PW_BASE_URL ?? "http://127.0.0.1:3119", trace: "retain-on-failure", screenshot: "only-on-failure" },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
     { name: "phone", use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 } } },
   ],
-  webServer: {
+  // PW_BASE_URL points the tests at an already running FORGE (e.g. the showcase build).
+  webServer: process.env.PW_BASE_URL ? undefined : {
     command: "npx next dev --hostname 127.0.0.1 --port 3119",
     url: "http://127.0.0.1:3119/",
     reuseExistingServer: false,

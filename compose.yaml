@@ -1,0 +1,20 @@
+# docker compose up --build -d   →   http://127.0.0.1:3110
+# The port is published on loopback only. Ollama keeps running on the host.
+name: forge2
+services:
+  forge:
+    build: .
+    image: forge2:local
+    ports:
+      - "127.0.0.1:3110:3110"
+    environment:
+      FORGE_OLLAMA_URL: http://host.docker.internal:11435
+      FORGE_PUBLIC_URL: http://127.0.0.1:3110
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # A new volume name: the legacy forge_forge-data volume is never touched.
+      - forge2-store:/data
+    restart: unless-stopped
+volumes:
+  forge2-store:

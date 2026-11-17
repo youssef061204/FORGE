@@ -1,7 +1,9 @@
 node_modules
 .next
-.git
-data*
+.forge
+.forge-build
+data
+data-local-inference
 artifacts
 test-results
 playwright-report
@@ -9,3 +11,4 @@ playwright-report
 *.tsbuildinfo
 .venv-ml
 __pycache__
+.git

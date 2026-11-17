@@ -12,3 +12,4 @@ playwright-report/
 __pycache__/
 .forge/
 .forge-build/
+.next-showcase/

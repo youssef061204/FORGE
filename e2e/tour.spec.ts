@@ -12,7 +12,8 @@ async function hold(page: Page, name: RegExp) {
 
 test("a first-time visitor walks the whole tour, then runs a tool on their own file", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Scripted model")).toBeVisible({ timeout: 90_000 });
+  // Hydrated once the status pill renders (scripted locally, Showcase in the showcase build).
+  await expect(page.getByText(/^(Scripted model|Showcase|No model)$/).first()).toBeVisible({ timeout: 90_000 });
   await expect(page.getByRole("heading", { level: 1 })).toContainText("AI assistants can only use the tools");
   await page.getByRole("link", { name: "Watch a tool get built" }).click();
   await expect(page).toHaveURL(/\/tour/);

@@ -20,7 +20,10 @@ export class EgressBlocked extends Error {
 export function isLoopbackUrl(url: string | URL): boolean {
   try {
     const u = new URL(url);
-    return (u.protocol === "http:" || u.protocol === "https:") && LOOPBACK.has(u.hostname);
+    // Inside FORGE's own container the host machine is host.docker.internal:
+    // still this computer, admitted only when compose.yaml says so.
+    const dockerHost = process.env.FORGE_IN_DOCKER === "1" && u.hostname === "host.docker.internal";
+    return (u.protocol === "http:" || u.protocol === "https:") && (LOOPBACK.has(u.hostname) || dockerHost);
   } catch {
     return false;
   }
