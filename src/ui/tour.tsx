@@ -99,7 +99,7 @@ function TourPlayer({ tape, autoplay }: { tape: Tape; autoplay: boolean }) {
 
   // Each build step plays the recording up to its milestone, on the recording's own timeline.
   useEffect(() => {
-    const until = STEPS[step].until;
+    const until = STEPS[step]?.until;
     if (!until) return;
     const reached = player.events.some((e) => e.t === until);
     player.setPlaying(!reached);

@@ -130,3 +130,13 @@ body::before {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Grid and flex children may shrink below their content; wide tables scroll
+   inside their own container instead of widening the page. */
+.grid > *,
+main {
+  min-width: 0;
+}
+body {
+  overflow-x: clip;
+}

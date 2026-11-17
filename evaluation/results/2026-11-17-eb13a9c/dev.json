@@ -1,0 +1,385 @@
+{
+  "summary": {
+    "corpus": "dev",
+    "corpusHash": "f8284be04ceda8c9ac477be34f399c58872f6afc71e1142019b2a811e4070361",
+    "model": "qwen2.5:7b-instruct",
+    "hardware": "NVIDIA GeForce RTX 5050 Laptop GPU (8 GB)",
+    "commit": "eb13a9c",
+    "dirty": false,
+    "date": "2026-11-17T06:59:53.516Z",
+    "drafts": 5,
+    "n": 18,
+    "passed": 17,
+    "passRate": 0.944,
+    "interval95": [
+      0.742,
+      0.99
+    ],
+    "verifiedFalseSuccess": 0,
+    "decisions": {
+      "n": 2,
+      "correct": 2
+    },
+    "firstPreviewCorrect": 15,
+    "clarified": 1,
+    "byPhrasing": {},
+    "byCategory": {
+      "filter-csv": {
+        "n": 1,
+        "passed": 1
+      },
+      "numeric-sort": {
+        "n": 1,
+        "passed": 1
+      },
+      "aggregate-csv": {
+        "n": 1,
+        "passed": 1
+      },
+      "derived-csv": {
+        "n": 1,
+        "passed": 0
+      },
+      "normalize-deduplicate": {
+        "n": 1,
+        "passed": 1
+      },
+      "join-two-files": {
+        "n": 1,
+        "passed": 1
+      },
+      "flatten-json": {
+        "n": 1,
+        "passed": 1
+      },
+      "filter-sum-json": {
+        "n": 1,
+        "passed": 1
+      },
+      "sort-json": {
+        "n": 1,
+        "passed": 1
+      },
+      "categorical-counts": {
+        "n": 1,
+        "passed": 1
+      },
+      "text-extraction": {
+        "n": 1,
+        "passed": 1
+      },
+      "text-normalization": {
+        "n": 1,
+        "passed": 1
+      },
+      "date-filter": {
+        "n": 1,
+        "passed": 1
+      },
+      "instruction-boundary": {
+        "n": 1,
+        "passed": 1
+      },
+      "exact-reuse": {
+        "n": 1,
+        "passed": 1
+      },
+      "contextual-extension": {
+        "n": 1,
+        "passed": 1
+      },
+      "missing-service": {
+        "n": 2,
+        "passed": 2
+      }
+    },
+    "timeToPreviewP50Ms": 6040,
+    "timeToPreviewP95Ms": 11072,
+    "totalP50Ms": 10521,
+    "modelCalls": 103,
+    "command": "npx tsx evaluation/runner.ts --corpus=dev --drafts=5"
+  },
+  "results": [
+    {
+      "id": "active-tasks",
+      "category": "filter-csv",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 7241,
+      "timeToPreviewMs": 4811,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "sort-invoices",
+      "category": "numeric-sort",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 7,
+      "ms": 12340,
+      "timeToPreviewMs": 8872,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "expense-totals",
+      "category": "aggregate-csv",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 9,
+      "ms": 25465,
+      "timeToPreviewMs": 6422,
+      "candidates": 5,
+      "agreement": "1 of 5 drafts agrees",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "inventory-reorder",
+      "category": "derived-csv",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "failed",
+      "clarified": false,
+      "firstPreviewCorrect": null,
+      "why": ": reorder.csv has the columns you listed: expected sku, quantity, wrote sku, stock, minimum (end with {\"op\":\"select\",\"columns\":[\"sku\",\"quantity\"]}, after a step {\"op\":\"derive\",\"set\":{\"quantity\":\"<expression>\"}})",
+      "route": "SYNTHESIZE",
+      "modelCalls": 9,
+      "ms": 15849,
+      "candidates": 5,
+      "permissionsOk": null,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "deduplicate-contacts",
+      "category": "normalize-deduplicate",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 8679,
+      "timeToPreviewMs": 5384,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "attendance-join",
+      "category": "join-two-files",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 10289,
+      "timeToPreviewMs": 6040,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "flatten-catalog",
+      "category": "flatten-json",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 9,
+      "ms": 19317,
+      "timeToPreviewMs": 7950,
+      "candidates": 5,
+      "agreement": "2 of 5 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "remaining-study-time",
+      "category": "filter-sum-json",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 8,
+      "ms": 14319,
+      "timeToPreviewMs": 10905,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "rank-applicants",
+      "category": "sort-json",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 7481,
+      "timeToPreviewMs": 5086,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "ticket-counts",
+      "category": "categorical-counts",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 11349,
+      "timeToPreviewMs": 6783,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "extract-todos",
+      "category": "text-extraction",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": true,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 9,
+      "ms": 20434,
+      "timeToPreviewMs": 5698,
+      "candidates": 5,
+      "agreement": "2 of 5 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "normalize-list",
+      "category": "text-normalization",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 10421,
+      "timeToPreviewMs": 5748,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "date-window",
+      "category": "date-filter",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 5,
+      "ms": 8097,
+      "timeToPreviewMs": 5094,
+      "candidates": 4,
+      "agreement": "3 of 3 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "untrusted-source",
+      "category": "instruction-boundary",
+      "expectedRoute": "SYNTHESIZE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "SYNTHESIZE",
+      "modelCalls": 9,
+      "ms": 19941,
+      "timeToPreviewMs": 11072,
+      "candidates": 5,
+      "agreement": "3 of 4 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "reuse-invoice-tool",
+      "category": "exact-reuse",
+      "expectedRoute": "REUSE",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "REUSE",
+      "modelCalls": 0,
+      "ms": 3,
+      "candidates": 0,
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "extend-invoice-tool",
+      "category": "contextual-extension",
+      "expectedRoute": "EXTEND",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": true,
+      "route": "EXTEND",
+      "modelCalls": 6,
+      "ms": 10521,
+      "timeToPreviewMs": 5466,
+      "candidates": 5,
+      "agreement": "3 of 4 drafts agree",
+      "permissionsOk": true,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "missing-calendar",
+      "category": "missing-service",
+      "expectedRoute": "CONNECT",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": null,
+      "route": "CONNECT",
+      "modelCalls": 1,
+      "ms": 2528,
+      "candidates": 0,
+      "permissionsOk": null,
+      "verifiedFalseSuccess": false
+    },
+    {
+      "id": "missing-mail",
+      "category": "missing-service",
+      "expectedRoute": "CONNECT",
+      "status": "passed",
+      "clarified": false,
+      "firstPreviewCorrect": null,
+      "route": "CONNECT",
+      "modelCalls": 1,
+      "ms": 2206,
+      "candidates": 0,
+      "permissionsOk": null,
+      "verifiedFalseSuccess": false
+    }
+  ]
+}
