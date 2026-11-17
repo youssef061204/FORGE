@@ -349,12 +349,29 @@ export async function runCrucible(request: string, rawFiles: InputFile[], option
     try {
       c.plan = compileRecipe(parsed.recipe, schemas, { now });
     } catch (error) {
-      if (error instanceof RecipeError) {
+      // Host repair: a column the output needs was dropped by a summarize with
+      // no "by"; group by it, which is the only reading that keeps it.
+      const fix = error instanceof RecipeError ? error.diagnostics.find((d) => d.fix)?.fix : undefined;
+      if (fix && fix.kind === "group-by") {
+        const steps = parsed.recipe.steps.map((s, i) => (i === fix.step && s.op === "summarize" ? { ...s, by: [...(s.by ?? []), fix.column] } : s));
+        try {
+          const repaired = { ...parsed.recipe, steps };
+          c.plan = compileRecipe(repaired, schemas, { now });
+          c.recipe = repaired;
+          emit({ t: "check.result", id: c.id, kind: "property", name: "Host repair: group by", passed: true, detail: `step ${fix.step + 1} now groups by ${fix.column}, which the output needs` });
+          emit({ t: "candidate.parsed", id: c.id, recipe: repaired, english: englishRecipe(repaired, (s) => tables[s]?.columns ?? []).map((l) => l.text) });
+        } catch {
+          /* the fix didn't compile; report the original problem */
+        }
+      }
+      if (c.plan) {
+        /* repaired */
+      } else if (error instanceof RecipeError) {
         reject(c, error.diagnostics[0]?.code === "PARSE" ? "parse" : "type", error.diagnostics);
         return false;
-      }
-      throw error;
+      } else throw error;
     }
+    if (!c.plan || !c.recipe) return false;
     const aligned = alignShapes(c.recipe, c.plan, intentShapes);
     if (aligned.notes.length) {
       c.recipe = aligned.recipe;
@@ -489,7 +506,10 @@ export async function runCrucible(request: string, rawFiles: InputFile[], option
       provisionalShown = true;
       preview(c, true);
     }
-    if (settled(groups)) controller.abort();
+    // Early exit counts only drafts that produce something on the real data:
+    // three drafts agreeing on an empty result is not evidence of anything.
+    const productive = members.filter((m) => !candidates.find((x) => x.id === m.id)?.emptyOnReal);
+    if (settled(clusterize(productive))) controller.abort();
   };
 
   const concurrency = Math.max(1, Math.min(options.concurrency ?? 2, K));

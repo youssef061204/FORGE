@@ -8,6 +8,8 @@ export type Diagnostic = {
   /** The expression text and the character offset of the problem. */
   expr?: string;
   at?: number;
+  /** A fix the host can apply without guessing. */
+  fix?: { kind: "group-by"; step: number; column: string };
 };
 
 export class RecipeError extends Error {

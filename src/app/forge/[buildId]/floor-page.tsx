@@ -76,6 +76,13 @@ function Recorded({ name, showcase }: { name: string; showcase: boolean }) {
         <Button size="sm" tone="ghost" onClick={() => player.seek()} disabled={player.done}>
           Skip to end
         </Button>
+        {player.view.review && (
+          <a href={`/try/${name}`} className="ml-auto">
+            <Button size="sm" tone="molten">
+              Run this tool on your own file
+            </Button>
+          </a>
+        )}
       </div>
       <ForgeFloor view={player.view} events={player.events} readOnly showcase={showcase} />
     </>

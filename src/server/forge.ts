@@ -5,10 +5,11 @@ import { Bus } from "./bus";
 import { SandboxPool } from "./sandbox/pool";
 import { openDatabase } from "./store/db";
 import { Repo } from "./store/repo";
+import { McpHub } from "./mcp/hub";
 
 export type Forge = { repo: Repo; bus: Bus; pool: SandboxPool; broker: Broker; builds: BuildService };
 
-const g = globalThis as typeof globalThis & { __forge?: Forge };
+const g = globalThis as typeof globalThis & { __forge?: Forge; __mcp?: McpHub };
 
 export function forge(): Forge {
   if (!g.__forge) {
@@ -22,4 +23,9 @@ export function forge(): Forge {
 
 export function isShowcase(): boolean {
   return process.env.FORGE_MODE === "showcase";
+}
+
+export function mcpHub(): McpHub {
+  g.__mcp ??= new McpHub(forge());
+  return g.__mcp;
 }

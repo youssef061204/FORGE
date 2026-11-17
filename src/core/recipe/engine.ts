@@ -1030,7 +1030,7 @@ export function compileRecipe(recipe: Recipe, inputs: InputSchemas, options: { n
           const guess = didYouMean(col, cols);
           // A column lost to a summarize without "by" is the commonest cause.
           const lost = steps.find((st) => st.op === "summarize" && !(recipe.steps[st.index] as { by?: string[] }).by?.length && (tableSchemas[st.source] ?? []).some((c) => c.name === col));
-          diagnostics.push({ code: "UNKNOWN_COLUMN", where: `${where}.${at}`, message: `output uses unknown column "${col}"`, hint: lost ? `step ${lost.index + 1} summarizes without "by", which drops ${col}; add "by": ["${col}"] to that summarize` : guess ? `did you mean ${guess}?` : `insert a step {"op":"derive","set":{"${col}":"<expression>"}} before saving; the columns now are ${cols.slice(0, 12).join(", ")}` });
+          diagnostics.push({ code: "UNKNOWN_COLUMN", where: `${where}.${at}`, message: `output uses unknown column "${col}"`, ...(lost ? { fix: { kind: "group-by" as const, step: lost.index, column: col } } : {}), hint: lost ? `step ${lost.index + 1} summarizes without "by", which drops ${col}; add "by": ["${col}"] to that summarize` : guess ? `did you mean ${guess}?` : `insert a step {"op":"derive","set":{"${col}":"<expression>"}} before saving; the columns now are ${cols.slice(0, 12).join(", ")}` });
         }
       };
       if (output.kind === "file") {
