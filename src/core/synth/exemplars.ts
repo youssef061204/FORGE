@@ -400,18 +400,18 @@ export const EXEMPLARS: Exemplar[] = [
     expect: "job,state,priority\nj3,queued,2\nj2,running,3\n",
   },
   {
-    id: "concat-full-name",
-    request: "Build a full_name column from first and last in people.tsv and save names.csv with only full_name.",
-    files: csv("people", "people.tsv", "first\tlast\nMae\tJemison\nKatherine\tJohnson\n"),
+    id: "concat-display-name",
+    request: "Join the given and family names in crew.tsv into one display_name column, then save display.csv holding only display_name.",
+    files: csv("crew", "crew.tsv", "given\tfamily\nMae\tJemison\nKatherine\tJohnson\n"),
     recipe: {
-      inputs: [{ slot: "people", format: "tsv" }],
+      inputs: [{ slot: "crew", format: "tsv" }],
       steps: [
-        { op: "derive", set: { full_name: "concat(first, ' ', last)" } },
-        { op: "select", columns: ["full_name"] },
+        { op: "derive", set: { display_name: "concat(given, ' ', family)" } },
+        { op: "select", columns: ["display_name"] },
       ],
-      outputs: [{ kind: "file", name: "names.csv", format: "csv" }],
+      outputs: [{ kind: "file", name: "display.csv", format: "csv" }],
     },
-    expect: "full_name\nMae Jemison\nKatherine Johnson\n",
+    expect: "display_name\nMae Jemison\nKatherine Johnson\n",
   },
   {
     id: "coalesce-missing",
@@ -500,7 +500,7 @@ export const EXEMPLARS: Exemplar[] = [
   },
   {
     id: "json-rows-output",
-    request: "Convert cities.csv to cities.json as a list of objects with name and population as a number.",
+    request: "Turn cities.csv into JSON records in cities.json, storing population numerically.",
     files: csv("cities", "cities.csv", "name,population\nQuito,2800000\nBergen,285000\n"),
     recipe: {
       inputs: [{ slot: "cities", format: "csv" }],
