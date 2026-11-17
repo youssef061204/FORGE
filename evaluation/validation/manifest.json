@@ -1,0 +1,12 @@
+{
+  "file": "missions.json",
+  "sha256": "8236ac9f49c6a1fbf043f8478db46f8e8fd1678a5757a8c912d87c19d08081cd",
+  "cases": 71,
+  "phrasing": {
+    "precise": 26,
+    "ordinary": 31,
+    "vague": 14
+  },
+  "frozenAt": "2026-11-17T02:48:51.060Z",
+  "rule": "Frozen before its first run. Changes require a versioned erratum that keeps the original and reports both scores."
+}

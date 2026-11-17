@@ -19,11 +19,13 @@ import { requestKey } from "../src/core/synth/route";
 import { chooseModel, discoverOllama, OllamaTransport } from "../src/server/models/ollama";
 import { lowerAndVerify } from "../src/server/verify";
 import { keyOf, type Json } from "../src/core/table";
+import type { Recipe } from "../src/core/recipe/schema";
 
+type FileExpect = { kind: "file"; name: string; anyHeader?: boolean; alternatives?: string[][] };
 type Expected =
-  | { kind: "file"; name: string; format: "csv"; rows: string[][] }
-  | { kind: "file"; name: string; format: "json"; value: unknown }
-  | { kind: "file"; name: string; format: "text"; lines: string[] }
+  | (FileExpect & { format: "csv" | "tsv"; rows: string[][] })
+  | (FileExpect & { format: "json"; value: unknown })
+  | (FileExpect & { format: "text"; lines: string[] })
   | { kind: "connection"; serviceTerms: string[] }
   | { kind: "clarify"; terms?: string[] }
   | { kind: "unsupported" };
@@ -55,6 +57,8 @@ function loadCorpus(): { name: string; hash: string; cases: Mission[] } {
     };
   }
   const text = readFileSync(`evaluation/validation/missions.json`, "utf8");
+  const manifest = JSON.parse(readFileSync("evaluation/validation/manifest.json", "utf8"));
+  if (sha(text) !== manifest.sha256) throw new Error("validation/missions.json does not match its frozen hash; record an erratum instead of editing it");
   const c = JSON.parse(text);
   return { name: "validation", hash: sha(text), cases: c.cases };
 }
@@ -65,11 +69,12 @@ function sha(text: string) {
 
 function compareFile(expected: Extract<Expected, { kind: "file" }>, out: { name: string; text: string; value?: unknown } | undefined): { ok: boolean; why?: string } {
   if (!out) return { ok: false, why: `no output named ${expected.name}` };
-  if (expected.format === "csv") {
+  if (expected.format === "csv" || expected.format === "tsv") {
     try {
-      const parsed = parseDelimited(out.text);
-      const rows = [parsed.columns, ...parsed.rows];
-      const ok = JSON.stringify(rows) === JSON.stringify(expected.rows);
+      const parsed = parseDelimited(out.text, { delimiter: expected.format === "tsv" ? "	" : "," });
+      const rows = expected.anyHeader ? parsed.rows : [parsed.columns, ...parsed.rows];
+      const want = expected.anyHeader ? expected.rows.slice(1) : expected.rows;
+      const ok = JSON.stringify(rows) === JSON.stringify(want);
       return ok ? { ok } : { ok, why: `csv differs: got ${JSON.stringify(rows).slice(0, 300)}` };
     } catch (e) {
       return { ok: false, why: `csv unreadable: ${(e as Error).message}` };
@@ -86,7 +91,7 @@ function compareFile(expected: Extract<Expected, { kind: "file" }>, out: { name:
     return ok ? { ok } : { ok, why: `json differs: got ${JSON.stringify(v).slice(0, 300)}` };
   }
   const lines = out.text.replace(/\r\n/g, "\n").replace(/\n$/, "").split("\n");
-  const ok = JSON.stringify(lines) === JSON.stringify(expected.lines);
+  const ok = [(expected as { lines: string[] }).lines, ...(expected.alternatives ?? [])].some((alt) => JSON.stringify(lines) === JSON.stringify(alt));
   return ok ? { ok } : { ok, why: `text differs: got ${JSON.stringify(lines).slice(0, 300)}` };
 }
 
@@ -143,10 +148,39 @@ async function main() {
     let candidates = 0;
     let verifiedFalse = false;
     let permissionsOk: boolean | null = null;
+    const recipes = new Map<string, Recipe>();
+    const emitAll = (body: BuildEventBody) => {
+      if (body.t === "candidate.parsed") recipes.set(body.id, body.recipe);
+      emit(body);
+    };
+    const exp = m.expected;
+    // Score a recipe on this mission's own files against the independent expectation.
+    const score = (recipe: Recipe, slots: string[]): { ok: boolean; why?: string; permsOk: boolean | null } => {
+      if (exp.kind !== "file") return { ok: false, permsOk: null };
+      const runFiles = (files.length ? files : (base?.files ?? [])).map((f, i) => ({ slot: slots[i] ?? recipe.inputs[i]?.slot, name: f.name, format: f.format as never, text: f.text }));
+      try {
+        const inputs = loadInputs(recipe, runFiles);
+        const plan = compileRecipe(recipe, Object.fromEntries(Object.entries(inputs).map(([k, t]) => [k, schemaOf(profileTable(t))])));
+        const run = runPlan(plan, inputs, { now: "2026-10-21T16:00:00.000Z" });
+        const out = run.outputs.find((o) => o.kind === "file" && o.name === exp.name) as { name: string; text: string; value?: unknown } | undefined;
+        const cmp = compareFile(exp, out);
+        let permsOk: boolean | null = null;
+        if (m.expectedPermissions) {
+          const reads = recipe.inputs.map((i) => `read:${runFiles.find((f) => f.slot === i.slot)?.name ?? i.slot}`);
+          const perms = [...new Set([...reads, ...(recipe.outputs.some((o) => o.kind === "file") ? ["write:outputs"] : [])])].sort();
+          permsOk = JSON.stringify(perms) === JSON.stringify([...m.expectedPermissions].sort());
+        }
+        return { ok: cmp.ok, why: cmp.why, permsOk };
+      } catch (error) {
+        return { ok: false, why: `run failed: ${(error as Error).message}`, permsOk: null };
+      }
+    };
+    let clarified = false;
+    let firstCorrect: boolean | null = null;
     try {
       const result = await runCrucible(m.request, files.map((f) => ({ name: f.name, text: f.text, format: f.format as never })), {
         transport,
-        emit,
+        emit: emitAll,
         drafts,
         now: "2026-10-21T16:00:00.000Z",
         tools: [...installed.values()].map((x) => x.tool),
@@ -155,19 +189,28 @@ async function main() {
         verify: async (recipe, plan, inputs) => lowerAndVerify(recipe, plan, inputs).checks,
         provenance: "live",
         hardware: process.env.FORGE_HARDWARE ?? "NVIDIA GeForce RTX 5050 Laptop GPU",
+        // A simulated person picks the reading whose result on their own file is
+        // the one they wanted. It sees only the offered options.
+        ask: async ({ options }) => {
+          clarified = true;
+          const started = events.find((e) => e.t === "build.started") as Extract<BuildEvent, { t: "build.started" }> | undefined;
+          const slots = started?.inputs.map((i) => i.slot) ?? [];
+          const verdicts = options.map((o) => ({ o, ok: recipes.has(o.candidate) && score(recipes.get(o.candidate)!, slots).ok }));
+          firstCorrect = verdicts[0]?.ok ?? false;
+          const pick = verdicts.find((v) => v.ok);
+          return pick ? { cluster: pick.o.cluster } : undefined;
+        },
       });
       route = result.route;
       modelCalls = result.modelCalls;
       ttp = result.timeToPreviewMs;
       candidates = result.candidates.filter((c) => !c.parent).length;
       agreement = result.winner?.agreement;
-      const exp = m.expected;
       if (exp.kind === "connection") {
         const text = `${events.map((e) => (e.t === "route.decided" ? `${e.reason} ${(e.missing ?? []).join(" ")}` : "")).join(" ")}`.toLowerCase();
         const ok = result.outcome === "connect" && exp.serviceTerms.some((t) => text.includes(t));
         status = ok ? "passed" : "failed";
         why = ok ? "" : `expected CONNECT, got ${result.outcome}`;
-        permissionsOk = ok;
       } else if (exp.kind === "clarify") {
         status = result.outcome === "clarify" ? "passed" : "failed";
         why = status === "passed" ? "" : `expected CLARIFY, got ${result.outcome}`;
@@ -177,27 +220,17 @@ async function main() {
       } else {
         let recipe = result.winner?.recipe;
         if (result.outcome === "reuse" && result.reuseToolId) recipe = [...installed.values()].find((x) => x.tool.toolId === result.reuseToolId)?.tool.recipe;
-        if (!recipe) {
-          why = result.reason ?? result.outcome;
-        } else {
-          const runFiles = (files.length ? files : (base?.files ?? [])).map((f, i) => ({ slot: result.files[i]?.slot ?? recipe!.inputs[i]?.slot, name: f.name, format: f.format as never, text: f.text }));
-          const slotted = runFiles.map((f, i) => ({ ...f, slot: f.slot ?? recipe!.inputs[i].slot }));
-          const plan = result.winner?.plan ?? compileRecipe(recipe, Object.fromEntries(Object.entries(loadInputs(recipe, slotted)).map(([k, t]) => [k, schemaOf(profileTable(t))])));
-          const run = runPlan(plan, loadInputs(recipe, slotted), { now: "2026-10-21T16:00:00.000Z" });
-          const out = run.outputs.find((o) => o.kind === "file" && o.name === exp.name) as { name: string; text: string; value?: unknown } | undefined;
-          const cmp = compareFile(exp, out);
-          // Permissions: reads of the input files actually used, plus writes.
-          if (m.expectedPermissions) {
-            const reads = recipe.inputs.map((i) => `read:${slotted.find((f) => f.slot === i.slot)?.name ?? i.slot}`);
-            const perms = [...reads, ...(recipe.outputs.some((o) => o.kind === "file") ? ["write:outputs"] : [])].sort();
-            permissionsOk = JSON.stringify(perms) === JSON.stringify([...m.expectedPermissions].sort());
-          }
-          const routeOk = m.expectedRoute === route || (m.expectedRoute === "SYNTHESIZE" && route === "SYNTHESIZE");
-          status = cmp.ok && routeOk && permissionsOk !== false ? "passed" : "failed";
-          why = !cmp.ok ? (cmp.why ?? "output differs") : !routeOk ? `route ${route}, expected ${m.expectedRoute}` : permissionsOk === false ? "permissions differ" : "";
-          verifiedFalse = !cmp.ok;
+        if (!recipe) why = result.reason ?? result.outcome;
+        else {
+          const slots = result.files.map((f) => f.slot as string);
+          const scored = score(recipe, slots.length ? slots : recipe.inputs.map((i) => i.slot));
+          permissionsOk = scored.permsOk;
+          const routeOk = m.expectedRoute === route;
+          status = scored.ok && routeOk && permissionsOk !== false ? "passed" : "failed";
+          why = !scored.ok ? (scored.why ?? "output differs") : !routeOk ? `route ${route}, expected ${m.expectedRoute}` : permissionsOk === false ? "reads a file it does not need" : "";
+          verifiedFalse = !scored.ok && result.outcome === "review";
+          if (!clarified) firstCorrect = scored.ok;
           if (result.winner) {
-            const slots = recipe.inputs.map((i) => i.slot);
             installed.set(m.id, {
               tool: {
                 toolId: `tool-${m.id}`,
@@ -205,8 +238,8 @@ async function main() {
                 description: result.winner.description,
                 requestKey: requestKey(m.request),
                 recipe,
-                slots,
-                columns: Object.fromEntries(slots.map((s) => [s, result.tables[s]?.columns ?? []])),
+                slots: recipe.inputs.map((i) => i.slot),
+                columns: Object.fromEntries(recipe.inputs.map((i) => [i.slot, result.tables[i.slot]?.columns ?? []])),
               },
               files,
             });
@@ -221,7 +254,7 @@ async function main() {
       why = `crashed: ${(error as Error).stack?.slice(0, 400)}`;
     }
     const ms = Date.now() - started;
-    const record = { id: m.id, category: m.category, phrasing: m.phrasing, status, why: why || undefined, route, modelCalls, ms, timeToPreviewMs: ttp !== undefined ? Math.round(ttp) : undefined, candidates, agreement, permissionsOk, verifiedFalseSuccess: verifiedFalse };
+    const record = { id: m.id, category: m.category, phrasing: m.phrasing, expectedRoute: m.expectedRoute, status, clarified, firstPreviewCorrect: firstCorrect, why: why || undefined, route, modelCalls, ms, timeToPreviewMs: ttp !== undefined ? Math.round(ttp) : undefined, candidates, agreement, permissionsOk, verifiedFalseSuccess: verifiedFalse };
     results.push(record);
     if (status === "failed") writeFileSync(join(outDir, "tapes", `${m.id}.json`), JSON.stringify({ format: "forge-tape/1", id: `${corpus.name}-${m.id}`, title: m.id, provenance: "recorded", model, hardware: process.env.FORGE_HARDWARE ?? "NVIDIA GeForce RTX 5050 Laptop GPU", recordedAt: new Date().toISOString(), commit, request: m.request, files: files.map((f, i) => ({ slot: events.find((e) => e.t === "build.started")?.t === "build.started" ? ((events.find((e) => e.t === "build.started") as Extract<BuildEvent, { t: "build.started" }>).inputs[i]?.slot ?? f.name) : f.name, name: f.name, format: f.format, text: f.text })), events }) + "\n");
     console.log(JSON.stringify(record));
@@ -241,7 +274,25 @@ async function main() {
     passed,
     passRate: results.length ? Math.round((passed / results.length) * 1000) / 1000 : 0,
     interval95: wilson(passed, results.length),
-    verifiedFalseSuccess: results.filter((r) => r.verifiedFalseSuccess && r.status !== "passed" && r.route === "SYNTHESIZE").length,
+    verifiedFalseSuccess: results.filter((r) => r.verifiedFalseSuccess).length,
+    decisions: (() => {
+      const d = results.filter((r) => ["CONNECT", "CLARIFY", "UNSUPPORTED"].includes(r.expectedRoute as string));
+      return { n: d.length, correct: d.filter((r) => r.status === "passed").length };
+    })(),
+    firstPreviewCorrect: results.filter((r) => r.firstPreviewCorrect === true).length,
+    clarified: results.filter((r) => r.clarified).length,
+    byPhrasing: Object.fromEntries(
+      ["precise", "ordinary", "vague"]
+        .map((p) => [p, results.filter((r) => r.phrasing === p)] as const)
+        .filter(([, rs]) => rs.length)
+        .map(([p, rs]) => [p, { n: rs.length, passed: rs.filter((r) => r.status === "passed").length }]),
+    ),
+    byCategory: Object.fromEntries(
+      [...new Set(results.map((r) => r.category as string))].map((c) => {
+        const rs = results.filter((r) => r.category === c);
+        return [c, { n: rs.length, passed: rs.filter((r) => r.status === "passed").length }];
+      }),
+    ),
     timeToPreviewP50Ms: percentile(ttps, 50),
     timeToPreviewP95Ms: percentile(ttps, 95),
     totalP50Ms: percentile(results.map((r) => r.ms as number), 50),

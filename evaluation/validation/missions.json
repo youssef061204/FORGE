@@ -1,0 +1,2502 @@
+{
+  "version": 1,
+  "frozenBeforeExecution": true,
+  "description": "71 validation missions written for FORGE 2. Independent hand-computed expectations. Never used for prompts, exemplars or tuning.",
+  "now": "2026-11-17T12:00:00.000Z",
+  "cases": [
+    {
+      "id": "v01-filter",
+      "category": "filter",
+      "phrasing": "precise",
+      "request": "Read bakery.csv and save ready-orders.csv containing only rows whose status is ready, with all columns in the original order.",
+      "files": [
+        {
+          "name": "bakery.csv",
+          "format": "csv",
+          "text": "order,item,status\nB1,croissant,ready\nB2,bagel,pending\nB3,muffin,ready\nB4,scone,cancelled\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:bakery.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "ready-orders.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "order",
+            "item",
+            "status"
+          ],
+          [
+            "B1",
+            "croissant",
+            "ready"
+          ],
+          [
+            "B3",
+            "muffin",
+            "ready"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v02-filter",
+      "category": "filter",
+      "phrasing": "ordinary",
+      "request": "From marathon.csv, give me the runners who finished under 4 hours (minutes below 240) as fast.csv.",
+      "files": [
+        {
+          "name": "marathon.csv",
+          "format": "csv",
+          "text": "runner,minutes,country\nAsha,232,KE\nBen,251,US\nCleo,239,FR\nDan,240,DE\n"
+        },
+        {
+          "name": "notes.txt",
+          "format": "text",
+          "text": "Reminder: call the plumber\nBuy milk\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:marathon.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "fast.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "runner",
+            "minutes",
+            "country"
+          ],
+          [
+            "Asha",
+            "232",
+            "KE"
+          ],
+          [
+            "Cleo",
+            "239",
+            "FR"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v03-filter",
+      "category": "filter",
+      "phrasing": "vague",
+      "request": "Which hotel bookings got cancelled? Save cancelled.csv.",
+      "files": [
+        {
+          "name": "hotel.csv",
+          "format": "csv",
+          "text": "booking,guest,nights,state\nH1,Ito,2,confirmed\nH2,Moss,1,cancelled\nH3,Ruiz,4,Cancelled\nH4,Yeo,3,confirmed\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:hotel.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "cancelled.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "booking",
+            "guest",
+            "nights",
+            "state"
+          ],
+          [
+            "H2",
+            "Moss",
+            "1",
+            "cancelled"
+          ],
+          [
+            "H3",
+            "Ruiz",
+            "4",
+            "Cancelled"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v04-derive",
+      "category": "derive",
+      "phrasing": "precise",
+      "request": "Read bills.csv and save bills-total.csv with every original column plus a column total equal to numeric usage multiplied by numeric rate, rounded to 2 decimals.",
+      "files": [
+        {
+          "name": "bills.csv",
+          "format": "csv",
+          "text": "account,usage,rate\nA1,120,0.15\nA2,75.5,0.2\nA3,0,0.18\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:bills.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "bills-total.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "account",
+            "usage",
+            "rate",
+            "total"
+          ],
+          [
+            "A1",
+            "120",
+            "0.15",
+            "18"
+          ],
+          [
+            "A2",
+            "75.5",
+            "0.2",
+            "15.1"
+          ],
+          [
+            "A3",
+            "0",
+            "0.18",
+            "0"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v05-derive",
+      "category": "derive",
+      "phrasing": "ordinary",
+      "request": "Add a column called full_address to venues.csv combining street and city like '12 Elm St, Oslo'. Save venues-full.csv.",
+      "files": [
+        {
+          "name": "venues.csv",
+          "format": "csv",
+          "text": "venue,street,city\nHall,12 Elm St,Oslo\nDome,4 Bay Rd,Lima\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:venues.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "venues-full.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "venue",
+            "street",
+            "city",
+            "full_address"
+          ],
+          [
+            "Hall",
+            "12 Elm St",
+            "Oslo",
+            "12 Elm St, Oslo"
+          ],
+          [
+            "Dome",
+            "4 Bay Rd",
+            "Lima",
+            "4 Bay Rd, Lima"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v06-derive",
+      "category": "derive",
+      "phrasing": "vague",
+      "request": "Mark which readings in solar.csv are low (under 50 watts) with a yes/no column named low. Save solar-flagged.csv.",
+      "files": [
+        {
+          "name": "solar.csv",
+          "format": "csv",
+          "text": "panel,watts\nP1,48\nP2,120\nP3,50\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:solar.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "solar-flagged.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "panel",
+            "watts",
+            "low"
+          ],
+          [
+            "P1",
+            "48",
+            "yes"
+          ],
+          [
+            "P2",
+            "120",
+            "no"
+          ],
+          [
+            "P3",
+            "50",
+            "no"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v07-select",
+      "category": "select",
+      "phrasing": "precise",
+      "request": "Read talks.csv and save talk-list.csv with only the columns title and speaker, in that order.",
+      "files": [
+        {
+          "name": "talks.csv",
+          "format": "csv",
+          "text": "id,speaker,title,room\nT1,Ng,Graphs,A\nT2,Oduya,Compilers,B\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:talks.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "talk-list.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "title",
+            "speaker"
+          ],
+          [
+            "Graphs",
+            "Ng"
+          ],
+          [
+            "Compilers",
+            "Oduya"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v08-drop",
+      "category": "drop",
+      "phrasing": "ordinary",
+      "request": "Remove the email and phone columns from volunteers.csv and save volunteers-safe.csv.",
+      "files": [
+        {
+          "name": "volunteers.csv",
+          "format": "csv",
+          "text": "name,email,phone,shift\nIra,i@x.test,555,am\nJo,j@x.test,556,pm\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:volunteers.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "volunteers-safe.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "name",
+            "shift"
+          ],
+          [
+            "Ira",
+            "am"
+          ],
+          [
+            "Jo",
+            "pm"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v09-rename",
+      "category": "rename",
+      "phrasing": "precise",
+      "request": "Read beans.csv and save beans-renamed.csv where the column org is renamed to origin and wt is renamed to weight_g; keep all other columns and the column order.",
+      "files": [
+        {
+          "name": "beans.csv",
+          "format": "csv",
+          "text": "org,roast,wt\nEthiopia,light,250\nBrazil,dark,500\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:beans.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "beans-renamed.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "origin",
+            "roast",
+            "weight_g"
+          ],
+          [
+            "Ethiopia",
+            "light",
+            "250"
+          ],
+          [
+            "Brazil",
+            "dark",
+            "500"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v10-sort",
+      "category": "sort",
+      "phrasing": "precise",
+      "request": "Read results.csv and save ranked.csv with the same columns, sorted by numeric points descending; break ties by team name ascending.",
+      "files": [
+        {
+          "name": "results.csv",
+          "format": "csv",
+          "text": "team,points\nOwls,12\nBears,9\nAnts,12\nCrows,30\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:results.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "ranked.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "team",
+            "points"
+          ],
+          [
+            "Crows",
+            "30"
+          ],
+          [
+            "Ants",
+            "12"
+          ],
+          [
+            "Owls",
+            "12"
+          ],
+          [
+            "Bears",
+            "9"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v11-sort",
+      "category": "sort",
+      "phrasing": "ordinary",
+      "request": "Sort ferry.csv by departure date, earliest first, and save ferry-sorted.csv.",
+      "files": [
+        {
+          "name": "ferry.csv",
+          "format": "csv",
+          "text": "route,departs\nN,2026-05-03\nS,2026-04-28\nE,2026-05-01\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:ferry.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "ferry-sorted.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "route",
+            "departs"
+          ],
+          [
+            "S",
+            "2026-04-28"
+          ],
+          [
+            "E",
+            "2026-05-01"
+          ],
+          [
+            "N",
+            "2026-05-03"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v12-sort",
+      "category": "sort",
+      "phrasing": "vague",
+      "request": "Put the wine list in order of price, most expensive first. Save wines-by-price.csv.",
+      "files": [
+        {
+          "name": "wines.csv",
+          "format": "csv",
+          "text": "wine,price\nRioja,18.5\nBarolo,42\nVinho,9\nChablis,27\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:wines.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "wines-by-price.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "wine",
+            "price"
+          ],
+          [
+            "Barolo",
+            "42"
+          ],
+          [
+            "Chablis",
+            "27"
+          ],
+          [
+            "Rioja",
+            "18.5"
+          ],
+          [
+            "Vinho",
+            "9"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v13-top-n",
+      "category": "top-n",
+      "phrasing": "ordinary",
+      "request": "Keep only the 3 longest songs from vinyl.csv by seconds and save top3.csv.",
+      "files": [
+        {
+          "name": "vinyl.csv",
+          "format": "csv",
+          "text": "track,seconds\nA,201\nB,415\nC,180\nD,305\nE,260\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:vinyl.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "top3.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "track",
+            "seconds"
+          ],
+          [
+            "B",
+            "415"
+          ],
+          [
+            "D",
+            "305"
+          ],
+          [
+            "E",
+            "260"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v14-limit",
+      "category": "limit",
+      "phrasing": "precise",
+      "request": "Save the first 2 rows of queue.csv as head.csv.",
+      "files": [
+        {
+          "name": "queue.csv",
+          "format": "csv",
+          "text": "ticket,who\nQ1,Al\nQ2,Bo\nQ3,Cy\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:queue.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "head.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "ticket",
+            "who"
+          ],
+          [
+            "Q1",
+            "Al"
+          ],
+          [
+            "Q2",
+            "Bo"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v15-dedupe",
+      "category": "dedupe",
+      "phrasing": "precise",
+      "request": "Read museum.csv. Remove rows that repeat an earlier badge number, keeping the first occurrence. Save badges-unique.csv with all columns.",
+      "files": [
+        {
+          "name": "museum.csv",
+          "format": "csv",
+          "text": "badge,name,day\n101,Ana,mon\n102,Bo,mon\n101,Ana,tue\n103,Cid,wed\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:museum.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "badges-unique.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "badge",
+            "name",
+            "day"
+          ],
+          [
+            "101",
+            "Ana",
+            "mon"
+          ],
+          [
+            "102",
+            "Bo",
+            "mon"
+          ],
+          [
+            "103",
+            "Cid",
+            "wed"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v16-dedupe",
+      "category": "dedupe",
+      "phrasing": "ordinary",
+      "request": "The bird sightings in birds.csv repeat the same species with different capitalization. Keep one row per species (case-insensitive), the first seen, and save species.csv.",
+      "files": [
+        {
+          "name": "birds.csv",
+          "format": "csv",
+          "text": "species,site\nRobin,park\nwren,lake\nrobin,lake\nWren,park\nOwl,woods\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:birds.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "species.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "species",
+            "site"
+          ],
+          [
+            "Robin",
+            "park"
+          ],
+          [
+            "wren",
+            "lake"
+          ],
+          [
+            "Owl",
+            "woods"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v17-dedupe",
+      "category": "dedupe",
+      "phrasing": "vague",
+      "request": "Get rid of the exact duplicate rows in picks.csv. Save picks-clean.csv.",
+      "files": [
+        {
+          "name": "picks.csv",
+          "format": "csv",
+          "text": "sku,bin\nS1,A\nS2,B\nS1,A\nS3,C\nS2,B\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:picks.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "picks-clean.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "sku",
+            "bin"
+          ],
+          [
+            "S1",
+            "A"
+          ],
+          [
+            "S2",
+            "B"
+          ],
+          [
+            "S3",
+            "C"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v18-sum-map",
+      "category": "sum-map",
+      "phrasing": "precise",
+      "request": "Read rentals.csv. Sum the numeric hours for each bike. Save bike-hours.json as a JSON object mapping each bike id to its total hours.",
+      "files": [
+        {
+          "name": "rentals.csv",
+          "format": "csv",
+          "text": "bike,hours\nK1,2\nK2,1.5\nK1,0.5\nK3,4\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:rentals.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "bike-hours.json",
+        "format": "json",
+        "value": {
+          "K1": 2.5,
+          "K2": 1.5,
+          "K3": 4
+        }
+      }
+    },
+    {
+      "id": "v19-count-map",
+      "category": "count-map",
+      "phrasing": "ordinary",
+      "request": "How many adoptions per animal type are in adoptions.csv? Save counts.json with each type as a key and its count as the value.",
+      "files": [
+        {
+          "name": "adoptions.csv",
+          "format": "csv",
+          "text": "pet,type\nRex,dog\nMia,cat\nBo,dog\nKit,cat\nZed,rabbit\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:adoptions.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "counts.json",
+        "format": "json",
+        "value": {
+          "dog": 2,
+          "cat": 2,
+          "rabbit": 1
+        }
+      }
+    },
+    {
+      "id": "v20-mean",
+      "category": "mean",
+      "phrasing": "precise",
+      "request": "Read quiz.csv and save quiz-means.csv with columns team,mean_score: the average numeric score per team rounded to 1 decimal, in order of first appearance.",
+      "files": [
+        {
+          "name": "quiz.csv",
+          "format": "csv",
+          "text": "team,score\nRed,7\nBlue,9\nRed,8\nBlue,6\nRed,6\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:quiz.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "quiz-means.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "team",
+            "mean_score"
+          ],
+          [
+            "Red",
+            "7"
+          ],
+          [
+            "Blue",
+            "7.5"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v21-min-max",
+      "category": "min-max",
+      "phrasing": "ordinary",
+      "request": "For each greenhouse in harvest.csv find the smallest and largest yield in kg. Save yields.csv with columns greenhouse, min_kg, max_kg.",
+      "files": [
+        {
+          "name": "harvest.csv",
+          "format": "csv",
+          "text": "greenhouse,kg\nG1,12\nG2,30\nG1,4\nG2,18\nG1,9\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:harvest.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "yields.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "greenhouse",
+            "min_kg",
+            "max_kg"
+          ],
+          [
+            "G1",
+            "4",
+            "12"
+          ],
+          [
+            "G2",
+            "18",
+            "30"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v22-count-distinct",
+      "category": "count-distinct",
+      "phrasing": "precise",
+      "request": "Read games.csv. For each player count how many different openings they used. Save openings.json mapping each player to that number.",
+      "files": [
+        {
+          "name": "games.csv",
+          "format": "csv",
+          "text": "player,opening\nLi,sicilian\nLi,french\nLi,sicilian\nMo,english\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:games.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "openings.json",
+        "format": "json",
+        "value": {
+          "Li": 2,
+          "Mo": 1
+        }
+      }
+    },
+    {
+      "id": "v23-median",
+      "category": "median",
+      "phrasing": "ordinary",
+      "request": "What's the median delivery time per courier in deliveries.csv? Save medians.csv with columns courier, median_minutes.",
+      "files": [
+        {
+          "name": "deliveries.csv",
+          "format": "csv",
+          "text": "courier,minutes\nX,30\nY,20\nX,50\nX,40\nY,40\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:deliveries.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "medians.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "courier",
+            "median_minutes"
+          ],
+          [
+            "X",
+            "40"
+          ],
+          [
+            "Y",
+            "30"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v24-overall-object",
+      "category": "overall-object",
+      "phrasing": "precise",
+      "request": "Read panels.csv. Save summary.json as exactly {\"panels\": number, \"total_watts\": number}, counting the rows and summing numeric watts.",
+      "files": [
+        {
+          "name": "panels.csv",
+          "format": "csv",
+          "text": "id,watts\np1,300\np2,250.5\np3,410\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:panels.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "summary.json",
+        "format": "json",
+        "value": {
+          "panels": 3,
+          "total_watts": 960.5
+        }
+      }
+    },
+    {
+      "id": "v25-group-two-keys",
+      "category": "group-two-keys",
+      "phrasing": "ordinary",
+      "request": "Total the ticket sales per city and day from concerts.csv into sales.csv with columns city, day, tickets.",
+      "files": [
+        {
+          "name": "concerts.csv",
+          "format": "csv",
+          "text": "city,day,tickets\nOslo,fri,120\nOslo,sat,80\nOslo,fri,30\nRiga,sat,60\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:concerts.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "sales.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "city",
+            "day",
+            "tickets"
+          ],
+          [
+            "Oslo",
+            "fri",
+            "150"
+          ],
+          [
+            "Oslo",
+            "sat",
+            "80"
+          ],
+          [
+            "Riga",
+            "sat",
+            "60"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v26-group-sort",
+      "category": "group-sort",
+      "phrasing": "precise",
+      "request": "Read reps.csv. Sum numeric amount per rep, then save rep-totals.csv with columns rep,total sorted by total descending.",
+      "files": [
+        {
+          "name": "reps.csv",
+          "format": "csv",
+          "text": "rep,amount\nKai,100\nLia,250\nKai,175\nMo,90\n"
+        },
+        {
+          "name": "notes.txt",
+          "format": "text",
+          "text": "Reminder: call the plumber\nBuy milk\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:reps.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "rep-totals.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "rep",
+            "total"
+          ],
+          [
+            "Kai",
+            "275"
+          ],
+          [
+            "Lia",
+            "250"
+          ],
+          [
+            "Mo",
+            "90"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v27-window-share",
+      "category": "window-share",
+      "phrasing": "ordinary",
+      "request": "Each district in turnout.csv has a number of voters. Add a column pct with that district's share of all voters as a percentage rounded to 1 decimal. Save turnout-pct.csv.",
+      "files": [
+        {
+          "name": "turnout.csv",
+          "format": "csv",
+          "text": "district,voters\nN,300\nS,100\nE,600\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:turnout.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "turnout-pct.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "district",
+            "voters",
+            "pct"
+          ],
+          [
+            "N",
+            "300",
+            "30"
+          ],
+          [
+            "S",
+            "100",
+            "10"
+          ],
+          [
+            "E",
+            "600",
+            "60"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v28-window-filter",
+      "category": "window-filter",
+      "phrasing": "vague",
+      "request": "List the people in pay.csv who earn more than the average salary. Save above-average.csv.",
+      "files": [
+        {
+          "name": "pay.csv",
+          "format": "csv",
+          "text": "name,salary\nAda,5000\nBen,3000\nCy,4000\nDi,6000\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:pay.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "above-average.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "name",
+            "salary"
+          ],
+          [
+            "Ada",
+            "5000"
+          ],
+          [
+            "Di",
+            "6000"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v29-join-inner",
+      "category": "join-inner",
+      "phrasing": "precise",
+      "request": "Join orders.csv with customers.csv on customer_id and save order-customers.csv with columns order_id,name,total for orders that have a matching customer, in orders.csv order.",
+      "files": [
+        {
+          "name": "orders.csv",
+          "format": "csv",
+          "text": "order_id,customer_id,total\nO1,C2,40\nO2,C9,15\nO3,C1,22\n"
+        },
+        {
+          "name": "customers.csv",
+          "format": "csv",
+          "text": "customer_id,name\nC1,Ana\nC2,Bea\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:orders.csv",
+        "read:customers.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "order-customers.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "order_id",
+            "name",
+            "total"
+          ],
+          [
+            "O1",
+            "Bea",
+            "40"
+          ],
+          [
+            "O3",
+            "Ana",
+            "22"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v30-join-left",
+      "category": "join-left",
+      "phrasing": "ordinary",
+      "request": "Add each book's genre from genres.csv to books.csv (match on isbn), keeping books without a genre with it blank. Save books-genre.csv.",
+      "files": [
+        {
+          "name": "books.csv",
+          "format": "csv",
+          "text": "isbn,title\n111,Kindred\n222,Ubik\n333,Matilda\n"
+        },
+        {
+          "name": "genres.csv",
+          "format": "csv",
+          "text": "isbn,genre\n222,scifi\n111,fiction\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:books.csv",
+        "read:genres.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "books-genre.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "isbn",
+            "title",
+            "genre"
+          ],
+          [
+            "111",
+            "Kindred",
+            "fiction"
+          ],
+          [
+            "222",
+            "Ubik",
+            "scifi"
+          ],
+          [
+            "333",
+            "Matilda",
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v31-join-anti",
+      "category": "join-anti",
+      "phrasing": "vague",
+      "request": "Which students in roster.csv haven't handed anything in (no row in submissions.csv)? Save missing.csv.",
+      "files": [
+        {
+          "name": "roster.csv",
+          "format": "csv",
+          "text": "student_id,name\nS1,Ola\nS2,Pia\nS3,Quin\n"
+        },
+        {
+          "name": "submissions.csv",
+          "format": "csv",
+          "text": "student_id,assignment\nS2,hw1\nS2,hw2\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:roster.csv",
+        "read:submissions.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "missing.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "student_id",
+            "name"
+          ],
+          [
+            "S1",
+            "Ola"
+          ],
+          [
+            "S3",
+            "Quin"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v32-join-semi",
+      "category": "join-semi",
+      "phrasing": "precise",
+      "request": "Keep only the products in products.csv whose sku appears at least once in restock.csv, without duplicating any product. Save restocked.csv with the products.csv columns.",
+      "files": [
+        {
+          "name": "products.csv",
+          "format": "csv",
+          "text": "sku,name\nA,Axe\nB,Bell\nC,Cup\n"
+        },
+        {
+          "name": "restock.csv",
+          "format": "csv",
+          "text": "sku,qty\nC,5\nA,2\nC,1\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:products.csv",
+        "read:restock.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "restocked.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "sku",
+            "name"
+          ],
+          [
+            "A",
+            "Axe"
+          ],
+          [
+            "C",
+            "Cup"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v33-join-aggregate",
+      "category": "join-aggregate",
+      "phrasing": "ordinary",
+      "request": "Using prices.csv for unit prices, compute the total value of each warehouse's stock in stock.csv (quantity times price, matched by item). Save warehouse-value.json mapping warehouse to value.",
+      "files": [
+        {
+          "name": "stock.csv",
+          "format": "csv",
+          "text": "warehouse,item,quantity\nW1,bolt,10\nW2,nut,5\nW1,nut,4\n"
+        },
+        {
+          "name": "prices.csv",
+          "format": "csv",
+          "text": "item,price\nbolt,0.5\nnut,0.25\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:stock.csv",
+        "read:prices.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "warehouse-value.json",
+        "format": "json",
+        "value": {
+          "W1": 6,
+          "W2": 1.25
+        }
+      }
+    },
+    {
+      "id": "v34-union",
+      "category": "union",
+      "phrasing": "precise",
+      "request": "Combine week1.csv and week2.csv, which have the same columns, into weeks.csv with the week1 rows first.",
+      "files": [
+        {
+          "name": "week1.csv",
+          "format": "csv",
+          "text": "day,steps\nmon,4000\ntue,5200\n"
+        },
+        {
+          "name": "week2.csv",
+          "format": "csv",
+          "text": "day,steps\nmon,6100\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:week1.csv",
+        "read:week2.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "weeks.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "day",
+            "steps"
+          ],
+          [
+            "mon",
+            "4000"
+          ],
+          [
+            "tue",
+            "5200"
+          ],
+          [
+            "mon",
+            "6100"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v35-unnest",
+      "category": "unnest",
+      "phrasing": "ordinary",
+      "request": "conf.json lists each talk with its tags. Save tags.csv with one row per talk and tag, with columns talk and tag.",
+      "files": [
+        {
+          "name": "conf.json",
+          "format": "json",
+          "text": "{\"talks\":[{\"talk\":\"Rust 101\",\"tags\":[\"rust\",\"beginner\"]},{\"talk\":\"GPU tricks\",\"tags\":[\"gpu\"]},{\"talk\":\"Q&A\",\"tags\":[]}]}"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:conf.json",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "tags.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "talk",
+            "tag"
+          ],
+          [
+            "Rust 101",
+            "rust"
+          ],
+          [
+            "Rust 101",
+            "beginner"
+          ],
+          [
+            "GPU tricks",
+            "gpu"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v36-nested-json",
+      "category": "nested-json",
+      "phrasing": "precise",
+      "request": "Turn stations.json into stations.csv with columns id, lat, lon, taking lat and lon from each station's location object.",
+      "files": [
+        {
+          "name": "stations.json",
+          "format": "json",
+          "text": "[{\"id\":\"st1\",\"location\":{\"lat\":59.9,\"lon\":10.7}},{\"id\":\"st2\",\"location\":{\"lat\":-12.0,\"lon\":-77.0}}]"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:stations.json",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "stations.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "id",
+            "lat",
+            "lon"
+          ],
+          [
+            "st1",
+            "59.9",
+            "10.7"
+          ],
+          [
+            "st2",
+            "-12",
+            "-77"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v37-json-values",
+      "category": "json-values",
+      "phrasing": "ordinary",
+      "request": "From team.json, save emails.json as a JSON array of the members' emails in lowercase.",
+      "files": [
+        {
+          "name": "team.json",
+          "format": "json",
+          "text": "{\"members\":[{\"name\":\"A\",\"email\":\"Ann@Co.test\"},{\"name\":\"B\",\"email\":\"bo@co.test\"}]}"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:team.json",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "emails.json",
+        "format": "json",
+        "value": [
+          "ann@co.test",
+          "bo@co.test"
+        ]
+      }
+    },
+    {
+      "id": "v38-json-filter-values",
+      "category": "json-filter-values",
+      "phrasing": "precise",
+      "request": "Read trains.json and save delayed.json as a JSON array of the codes of the trains whose delayed field is true.",
+      "files": [
+        {
+          "name": "trains.json",
+          "format": "json",
+          "text": "{\"trains\":[{\"code\":\"T1\",\"delayed\":true},{\"code\":\"T2\",\"delayed\":false},{\"code\":\"T3\",\"delayed\":true}]}"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:trains.json",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "delayed.json",
+        "format": "json",
+        "value": [
+          "T1",
+          "T3"
+        ]
+      }
+    },
+    {
+      "id": "v39-text-prefix",
+      "category": "text-prefix",
+      "phrasing": "ordinary",
+      "request": "In diary.txt, every line that starts with 'MOOD:' records a mood. Save moods.txt with just the mood words, one per line.",
+      "files": [
+        {
+          "name": "diary.txt",
+          "format": "text",
+          "text": "Day 1\nMOOD: calm\nate pasta\nMOOD: tired\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:diary.txt",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "moods.txt",
+        "format": "text",
+        "lines": [
+          "calm",
+          "tired"
+        ]
+      }
+    },
+    {
+      "id": "v40-log-extract",
+      "category": "log-extract",
+      "phrasing": "precise",
+      "request": "From access.log, extract the IP address and path of every GET request into gets.csv with columns ip,path.",
+      "files": [
+        {
+          "name": "access.log",
+          "format": "text",
+          "text": "10.0.0.1 GET /home 200\n10.0.0.2 POST /login 302\n10.0.0.3 GET /about 404\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:access.log",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "gets.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "ip",
+            "path"
+          ],
+          [
+            "10.0.0.1",
+            "/home"
+          ],
+          [
+            "10.0.0.3",
+            "/about"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v41-log-count",
+      "category": "log-count",
+      "phrasing": "ordinary",
+      "request": "Count requests per status code in web.log, where the status is the last number on each line. Save status.json mapping each code to its count.",
+      "files": [
+        {
+          "name": "web.log",
+          "format": "text",
+          "text": "GET /a 200\nGET /b 404\nPOST /c 200\nGET /d 500\nGET /e 200\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:web.log",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "status.json",
+        "format": "json",
+        "value": {
+          "200": 3,
+          "404": 1,
+          "500": 1
+        }
+      }
+    },
+    {
+      "id": "v42-text-normalize",
+      "category": "text-normalize",
+      "phrasing": "precise",
+      "request": "words.txt has messy words. Trim them, uppercase them, drop blank lines and duplicates, and keep first-seen order. Save words-clean.txt with one word per line.",
+      "files": [
+        {
+          "name": "words.txt",
+          "format": "text",
+          "text": " oak\nPine\n\noak \nelm\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:words.txt",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "words-clean.txt",
+        "format": "text",
+        "lines": [
+          "OAK",
+          "PINE",
+          "ELM"
+        ]
+      }
+    },
+    {
+      "id": "v43-text-count",
+      "category": "text-count",
+      "phrasing": "ordinary",
+      "request": "How many non-empty lines are in poem.txt? Save count.json as {\"lines\": number}.",
+      "files": [
+        {
+          "name": "poem.txt",
+          "format": "text",
+          "text": "roses\n\nviolets\nsugar\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:poem.txt",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "count.json",
+        "format": "json",
+        "value": {
+          "lines": 3
+        }
+      }
+    },
+    {
+      "id": "v44-date-filter",
+      "category": "date-filter",
+      "phrasing": "ordinary",
+      "request": "Keep the shifts in shifts.csv that fall in March 2026 and save march-shifts.csv.",
+      "files": [
+        {
+          "name": "shifts.csv",
+          "format": "csv",
+          "text": "worker,date\nAl,2026-02-28\nBo,2026-03-01\nCy,2026-03-31\nDi,2026-04-01\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:shifts.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "march-shifts.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "worker",
+            "date"
+          ],
+          [
+            "Bo",
+            "2026-03-01"
+          ],
+          [
+            "Cy",
+            "2026-03-31"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v45-date-diff",
+      "category": "date-diff",
+      "phrasing": "precise",
+      "request": "Compute how many days each repair in repairs.csv took (closed minus opened). Save repair-days.csv with columns repair,days.",
+      "files": [
+        {
+          "name": "repairs.csv",
+          "format": "csv",
+          "text": "repair,opened,closed\nR1,2026-01-10,2026-01-15\nR2,2026-01-30,2026-02-02\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:repairs.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "repair-days.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "repair",
+            "days"
+          ],
+          [
+            "R1",
+            "5"
+          ],
+          [
+            "R2",
+            "3"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v46-month-group",
+      "category": "month-group",
+      "phrasing": "ordinary",
+      "request": "Sum spending per month (YYYY-MM) in card.csv and save monthly.csv with columns month,total sorted by month.",
+      "files": [
+        {
+          "name": "card.csv",
+          "format": "csv",
+          "text": "date,amount\n2026-01-15,20\n2026-02-03,35.5\n2026-01-28,10\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:card.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "monthly.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "month",
+            "total"
+          ],
+          [
+            "2026-01",
+            "30"
+          ],
+          [
+            "2026-02",
+            "35.5"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v47-multi-step",
+      "category": "multi-step",
+      "phrasing": "precise",
+      "request": "From support.csv take the open requests, total their hours by priority, and save open-hours.csv with columns priority,hours sorted by hours descending.",
+      "files": [
+        {
+          "name": "support.csv",
+          "format": "csv",
+          "text": "id,priority,state,hours\n1,high,open,5\n2,low,open,2\n3,high,closed,8\n4,high,open,1\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:support.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "open-hours.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "priority",
+            "hours"
+          ],
+          [
+            "high",
+            "6"
+          ],
+          [
+            "low",
+            "2"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v48-multi-normalize",
+      "category": "multi-normalize",
+      "phrasing": "precise",
+      "request": "Trim and title-case the name column of riders.csv, lowercase the email column, then keep one row per email (the first). Save riders-clean.csv.",
+      "files": [
+        {
+          "name": "riders.csv",
+          "format": "csv",
+          "text": "name,email\n jo smith ,JO@X.TEST\nann lee,ann@x.test\nJo Smith,jo@x.test\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:riders.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "riders-clean.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "name",
+            "email"
+          ],
+          [
+            "Jo Smith",
+            "jo@x.test"
+          ],
+          [
+            "Ann Lee",
+            "ann@x.test"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v49-json-map",
+      "category": "json-map",
+      "phrasing": "ordinary",
+      "request": "Make a lookup file codes.json from airports.csv mapping each code to its city.",
+      "files": [
+        {
+          "name": "airports.csv",
+          "format": "csv",
+          "text": "code,city,country\nOSL,Oslo,NO\nLIM,Lima,PE\n"
+        },
+        {
+          "name": "notes.txt",
+          "format": "text",
+          "text": "Reminder: call the plumber\nBuy milk\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:airports.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "codes.json",
+        "format": "json",
+        "value": {
+          "OSL": "Oslo",
+          "LIM": "Lima"
+        }
+      }
+    },
+    {
+      "id": "v50-json-rows",
+      "category": "json-rows",
+      "phrasing": "ordinary",
+      "request": "Convert tools.csv into tools.json, a list of objects where count is a number.",
+      "files": [
+        {
+          "name": "tools.csv",
+          "format": "csv",
+          "text": "tool,count\nhammer,3\nsaw,1\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:tools.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "tools.json",
+        "format": "json",
+        "value": [
+          {
+            "tool": "hammer",
+            "count": 3
+          },
+          {
+            "tool": "saw",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "v51-tsv-input",
+      "category": "tsv-input",
+      "phrasing": "precise",
+      "request": "Read scores.tsv (tab separated) and save passed.csv with the rows whose numeric score is at least 50.",
+      "files": [
+        {
+          "name": "scores.tsv",
+          "format": "tsv",
+          "text": "name\tscore\nUma\t49\nVik\t50\nWes\t88\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:scores.tsv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "passed.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "name",
+            "score"
+          ],
+          [
+            "Vik",
+            "50"
+          ],
+          [
+            "Wes",
+            "88"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v52-tsv-output",
+      "category": "tsv-output",
+      "phrasing": "ordinary",
+      "request": "Save parts.csv as a tab-separated file parts.tsv with the same content.",
+      "files": [
+        {
+          "name": "parts.csv",
+          "format": "csv",
+          "text": "part,qty\ngear,4\nbelt,1\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:parts.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "parts.tsv",
+        "format": "tsv",
+        "rows": [
+          [
+            "part",
+            "qty"
+          ],
+          [
+            "gear",
+            "4"
+          ],
+          [
+            "belt",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v53-extract-number",
+      "category": "extract-number",
+      "phrasing": "ordinary",
+      "request": "receipts.csv has a note like 'paid 12.50 cash'. Pull the number out as a numeric amount and save amounts.csv with columns id,amount.",
+      "files": [
+        {
+          "name": "receipts.csv",
+          "format": "csv",
+          "text": "id,note\nr1,paid 12.50 cash\nr2,paid 7 card\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:receipts.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "amounts.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "id",
+            "amount"
+          ],
+          [
+            "r1",
+            "12.5"
+          ],
+          [
+            "r2",
+            "7"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v54-buckets",
+      "category": "buckets",
+      "phrasing": "precise",
+      "request": "Label each order in sizes.csv by weight_kg: small under 1, medium from 1 up to and including 5, large above 5. Save sized.csv with columns order,label.",
+      "files": [
+        {
+          "name": "sizes.csv",
+          "format": "csv",
+          "text": "order,weight_kg\nA,0.4\nB,1\nC,5\nD,7.2\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:sizes.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "sized.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "order",
+            "label"
+          ],
+          [
+            "A",
+            "small"
+          ],
+          [
+            "B",
+            "medium"
+          ],
+          [
+            "C",
+            "medium"
+          ],
+          [
+            "D",
+            "large"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v55-fallback",
+      "category": "fallback",
+      "phrasing": "ordinary",
+      "request": "Some leads in leads.csv have no work_email. Make a contact column from work_email, falling back to personal_email. Save contacts.csv with columns lead,contact.",
+      "files": [
+        {
+          "name": "leads.csv",
+          "format": "csv",
+          "text": "lead,work_email,personal_email\nL1,a@w.test,a@p.test\nL2,,b@p.test\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:leads.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "contacts.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "lead",
+            "contact"
+          ],
+          [
+            "L1",
+            "a@w.test"
+          ],
+          [
+            "L2",
+            "b@p.test"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v56-split",
+      "category": "split",
+      "phrasing": "precise",
+      "request": "Split the full_name column of authors.csv at the space into first and last, and save authors-split.csv with columns first,last.",
+      "files": [
+        {
+          "name": "authors.csv",
+          "format": "csv",
+          "text": "full_name\nOctavia Butler\nUrsula Le_Guin\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:authors.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "authors-split.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "first",
+            "last"
+          ],
+          [
+            "Octavia",
+            "Butler"
+          ],
+          [
+            "Ursula",
+            "Le_Guin"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v57-replace",
+      "category": "replace",
+      "phrasing": "ordinary",
+      "request": "In menu.csv replace every '&' in the dish names with 'and'. Save menu-clean.csv.",
+      "files": [
+        {
+          "name": "menu.csv",
+          "format": "csv",
+          "text": "dish,price\nFish & chips,12\nMac & cheese,9\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:menu.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "menu-clean.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "dish",
+            "price"
+          ],
+          [
+            "Fish and chips",
+            "12"
+          ],
+          [
+            "Mac and cheese",
+            "9"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v58-vague-total",
+      "category": "vague-total",
+      "phrasing": "vague",
+      "request": "Give me the total pages read per reader from reading.csv as reading-totals.csv.",
+      "files": [
+        {
+          "name": "reading.csv",
+          "format": "csv",
+          "text": "reader,pages\nNia,30\nOmar,12\nNia,8\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:reading.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "reading-totals.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "reader",
+            "pages"
+          ],
+          [
+            "Nia",
+            "38"
+          ],
+          [
+            "Omar",
+            "12"
+          ]
+        ],
+        "anyHeader": true
+      }
+    },
+    {
+      "id": "v59-vague-list",
+      "category": "vague-list",
+      "phrasing": "vague",
+      "request": "Tidy up cities.txt into one clean alphabetical list without repeats, saved as cities-clean.txt.",
+      "files": [
+        {
+          "name": "cities.txt",
+          "format": "text",
+          "text": " paris\nLIMA\nparis\n\nOslo\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:cities.txt",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "cities-clean.txt",
+        "format": "text",
+        "lines": [
+          "Lima",
+          "Oslo",
+          "Paris"
+        ],
+        "alternatives": [
+          [
+            "lima",
+            "oslo",
+            "paris"
+          ],
+          [
+            "LIMA",
+            "OSLO",
+            "PARIS"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v60-vague-threshold",
+      "category": "vague-threshold",
+      "phrasing": "vague",
+      "request": "Show me only the big transactions in ledger.csv, the ones over 1,000, as big.csv.",
+      "files": [
+        {
+          "name": "ledger.csv",
+          "format": "csv",
+          "text": "id,amount\nT1,\"1,250.00\"\nT2,980\nT3,5000\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:ledger.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "big.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "id",
+            "amount"
+          ],
+          [
+            "T1",
+            "1,250.00"
+          ],
+          [
+            "T3",
+            "5000"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "v61-vague-count",
+      "category": "vague-count",
+      "phrasing": "vague",
+      "request": "Count how many reviews each product got in reviews.csv; save review-counts.csv.",
+      "files": [
+        {
+          "name": "reviews.csv",
+          "format": "csv",
+          "text": "product,stars\nA,5\nB,3\nA,4\n"
+        }
+      ],
+      "expectedRoute": "SYNTHESIZE",
+      "expectedPermissions": [
+        "read:reviews.csv",
+        "write:outputs"
+      ],
+      "expected": {
+        "kind": "file",
+        "name": "review-counts.csv",
+        "format": "csv",
+        "rows": [
+          [
+            "product",
+            "count"
+          ],
+          [
+            "A",
+            "2"
+          ],
+          [
+            "B",
+            "1"
+          ]
+        ],
+        "anyHeader": true
+      }
+    },
+    {
+      "id": "v62-connect-sms",
+      "category": "connect-sms",
+      "phrasing": "ordinary",
+      "request": "Text each volunteer in shifts-roster.csv a reminder about their shift.",
+      "files": [
+        {
+          "name": "shifts-roster.csv",
+          "format": "csv",
+          "text": "name,phone,shift\nIra,555-0101,am\n"
+        }
+      ],
+      "expectedRoute": "CONNECT",
+      "expected": {
+        "kind": "connection",
+        "serviceTerms": [
+          "sms",
+          "text"
+        ]
+      }
+    },
+    {
+      "id": "v63-connect-chat",
+      "category": "connect-chat",
+      "phrasing": "ordinary",
+      "request": "Post the weekly totals from weekly.csv to our Slack channel.",
+      "files": [
+        {
+          "name": "weekly.csv",
+          "format": "csv",
+          "text": "week,total\n1,400\n"
+        }
+      ],
+      "expectedRoute": "CONNECT",
+      "expected": {
+        "kind": "connection",
+        "serviceTerms": [
+          "slack",
+          "chat"
+        ]
+      }
+    },
+    {
+      "id": "v64-connect-web",
+      "category": "connect-web",
+      "phrasing": "precise",
+      "request": "Download today's exchange rates from https://rates.example.test and convert the prices in pricelist.csv to euros.",
+      "files": [
+        {
+          "name": "pricelist.csv",
+          "format": "csv",
+          "text": "item,usd\npen,2\n"
+        }
+      ],
+      "expectedRoute": "CONNECT",
+      "expected": {
+        "kind": "connection",
+        "serviceTerms": [
+          "internet",
+          "web",
+          "fetch"
+        ]
+      }
+    },
+    {
+      "id": "v65-connect-email",
+      "category": "connect-email",
+      "phrasing": "vague",
+      "request": "Email each customer in balances.csv their balance.",
+      "files": [
+        {
+          "name": "balances.csv",
+          "format": "csv",
+          "text": "customer,email,balance\nAl,al@x.test,20\n"
+        }
+      ],
+      "expectedRoute": "CONNECT",
+      "expected": {
+        "kind": "connection",
+        "serviceTerms": [
+          "email"
+        ]
+      }
+    },
+    {
+      "id": "v66-clarify-file",
+      "category": "clarify-file",
+      "phrasing": "vague",
+      "request": "Total the hours per project.",
+      "files": [],
+      "expectedRoute": "CLARIFY",
+      "expected": {
+        "kind": "clarify"
+      }
+    },
+    {
+      "id": "v67-clarify-file",
+      "category": "clarify-file",
+      "phrasing": "ordinary",
+      "request": "Remove duplicate rows and save the result.",
+      "files": [],
+      "expectedRoute": "CLARIFY",
+      "expected": {
+        "kind": "clarify"
+      }
+    },
+    {
+      "id": "v68-clarify-file",
+      "category": "clarify-file",
+      "phrasing": "vague",
+      "request": "Make a chart of sales by region.",
+      "files": [],
+      "expectedRoute": "CLARIFY",
+      "expected": {
+        "kind": "clarify"
+      }
+    },
+    {
+      "id": "v69-unsupported",
+      "category": "unsupported",
+      "phrasing": "ordinary",
+      "request": "Generate a logo image for each brand in brands.csv.",
+      "files": [
+        {
+          "name": "brands.csv",
+          "format": "csv",
+          "text": "brand\nAcme\nZest\n"
+        }
+      ],
+      "expectedRoute": "UNSUPPORTED",
+      "expected": {
+        "kind": "unsupported"
+      }
+    },
+    {
+      "id": "v70-unsupported",
+      "category": "unsupported",
+      "phrasing": "vague",
+      "request": "Predict next month's sales from history.csv using a neural network.",
+      "files": [
+        {
+          "name": "history.csv",
+          "format": "csv",
+          "text": "month,sales\n2026-01,100\n2026-02,120\n"
+        }
+      ],
+      "expectedRoute": "UNSUPPORTED",
+      "expected": {
+        "kind": "unsupported"
+      }
+    },
+    {
+      "id": "v71-unsupported",
+      "category": "unsupported",
+      "phrasing": "ordinary",
+      "request": "Translate every comment in comments.csv into Japanese.",
+      "files": [
+        {
+          "name": "comments.csv",
+          "format": "csv",
+          "text": "id,comment\n1,Great service\n"
+        }
+      ],
+      "expectedRoute": "UNSUPPORTED",
+      "expected": {
+        "kind": "unsupported"
+      }
+    }
+  ]
+}
