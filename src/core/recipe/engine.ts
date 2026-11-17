@@ -336,7 +336,9 @@ function compileAggregate(e: Expr, ctx: Ctx, source: string, keys: string[]): { 
           source,
           e.s,
           `"${name}" differs between rows in a group`,
-          `summarize it, for example sum(${name}), first(${name}) or count()`,
+          keys.length
+            ? `summarize it, for example sum(${name}), first(${name}) or count()`
+            : `this summarize has no "by", so it makes one row for the whole table: add "by": ["<column>"] for one row per group, or compute per-row values in a derive step first`,
           "NOT_GROUPED",
         );
       const { get, type } = resolveColumn(e.path, ctx, source, e.s);
@@ -1026,7 +1028,9 @@ export function compileRecipe(recipe: Recipe, inputs: InputSchemas, options: { n
         if (col === undefined) return;
         if (!cols.includes(col)) {
           const guess = didYouMean(col, cols);
-          diagnostics.push({ code: "UNKNOWN_COLUMN", where: `${where}.${at}`, message: `output uses unknown column "${col}"`, hint: guess ? `did you mean ${guess}?` : `insert a step {"op":"derive","set":{"${col}":"<expression>"}} before saving; the columns now are ${cols.slice(0, 12).join(", ")}` });
+          // A column lost to a summarize without "by" is the commonest cause.
+          const lost = steps.find((st) => st.op === "summarize" && !(recipe.steps[st.index] as { by?: string[] }).by?.length && (tableSchemas[st.source] ?? []).some((c) => c.name === col));
+          diagnostics.push({ code: "UNKNOWN_COLUMN", where: `${where}.${at}`, message: `output uses unknown column "${col}"`, hint: lost ? `step ${lost.index + 1} summarizes without "by", which drops ${col}; add "by": ["${col}"] to that summarize` : guess ? `did you mean ${guess}?` : `insert a step {"op":"derive","set":{"${col}":"<expression>"}} before saving; the columns now are ${cols.slice(0, 12).join(", ")}` });
         }
       };
       if (output.kind === "file") {
@@ -1123,7 +1127,16 @@ export function encodeFile(output: FileOutput, table: TableData, columns: string
     value = o;
   } else if (typeof shape === "object" && "values" in shape) value = table.rows.map((r) => cell(r, shape.values));
   else value = table.rows.map((r) => Object.fromEntries(columns.map((c) => [c, cell(r, c)])));
+  value = cleanNumbers(value);
   return { text: JSON.stringify(value, null, 2) + "\n", value };
+}
+
+/** Visible numbers lose binary noise: 31.199999999999996 is written as 31.2. */
+function cleanNumbers(v: Json): Json {
+  if (typeof v === "number") return Number(numberText(v));
+  if (Array.isArray(v)) return v.map(cleanNumbers);
+  if (v && typeof v === "object") return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, cleanNumbers(x)]));
+  return v;
 }
 
 export function runPlan(plan: Plan, inputs: Record<string, Table>, options: RunOptions = {}): RunResult {

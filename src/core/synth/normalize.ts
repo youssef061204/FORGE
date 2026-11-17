@@ -167,11 +167,14 @@ export function normalizeRecipe(raw: unknown): unknown {
           delete step.limit;
         }
       }
+      if (step.op === "rename" && isObj(step.map)) step.map = Object.fromEntries(Object.entries(step.map).filter(([a, b]) => a !== b));
       // Empty optional fields from grammar-constrained output.
       for (const [k, v] of Object.entries(step)) if (v === "" && ["as", "from", "into", "note", "keep", "kind"].includes(k)) delete step[k];
       if (Array.isArray(step.by) && step.by.length === 0 && step.op !== "dedupe") delete step.by;
       return step;
     });
+  // A rename that renames nothing is dropped.
+  if (Array.isArray(r.steps)) r.steps = (r.steps as unknown[]).filter((s) => !(isObj(s) && s.op === "rename" && isObj(s.map) && Object.keys(s.map).length === 0));
   // select ["pricing.price as price", "name"] -> derive {price: pricing.price} + select [price, name]
   if (Array.isArray(r.steps))
     r.steps = (r.steps as unknown[]).flatMap((s) => {

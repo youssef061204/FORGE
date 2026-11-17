@@ -1,0 +1,242 @@
+[
+  {
+    "name": "catalog-1",
+    "sample": "catalog",
+    "level": 1,
+    "request": "Flatten catalog.json into catalog.csv with sku, name, category and price.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:34:22.170Z"
+  },
+  {
+    "name": "catalog-2",
+    "sample": "catalog",
+    "level": 2,
+    "request": "List the names of products under 40 dollars that are available, as cheap.json (a JSON array of names).",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:34:31.061Z"
+  },
+  {
+    "name": "catalog-3",
+    "sample": "catalog",
+    "level": 3,
+    "request": "Average price per category, rounded to 2 decimals, as a bar chart; save category-prices.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:34:45.819Z"
+  },
+  {
+    "name": "contacts-1",
+    "sample": "contacts",
+    "level": 1,
+    "request": "Remove duplicate contacts: treat emails as the same when they only differ in case or spaces, keep the first row. Save clean-contacts.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:31:48.273Z"
+  },
+  {
+    "name": "contacts-2",
+    "sample": "contacts",
+    "level": 2,
+    "request": "Count how many unique contacts each company has (by email, ignoring case and spaces). Save per-company.json.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:31:59.142Z"
+  },
+  {
+    "name": "contacts-3",
+    "sample": "contacts",
+    "level": 3,
+    "request": "List the contacts with no phone number as missing-phone.csv with name and email, one row per person.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:32:10.936Z"
+  },
+  {
+    "name": "expenses-1",
+    "sample": "expenses",
+    "level": 1,
+    "request": "Sum spending by category and save by-category.csv, biggest first.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:31:02.864Z"
+  },
+  {
+    "name": "expenses-2",
+    "sample": "expenses",
+    "level": 2,
+    "request": "Total spending per month (YYYY-MM) as a line chart; save monthly.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:31:18.957Z"
+  },
+  {
+    "name": "expenses-3",
+    "sample": "expenses",
+    "level": 3,
+    "request": "List every expense over 100 with its merchant, largest first, as big-spends.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:31:39.975Z"
+  },
+  {
+    "name": "inventory-1",
+    "sample": "inventory",
+    "level": 1,
+    "request": "Which items are below their reorder point? Save low-stock.csv with sku, name and stock.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:33:41.226Z"
+  },
+  {
+    "name": "inventory-2",
+    "sample": "inventory",
+    "level": 2,
+    "request": "Total stock per supplier as a bar chart; save stock-by-supplier.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:33:47.947Z"
+  },
+  {
+    "name": "inventory-3",
+    "sample": "inventory",
+    "level": 3,
+    "request": "Make reorder.csv for items below their reorder point with sku, supplier and order_qty = 2 times reorder_point minus stock.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:34:10.168Z"
+  },
+  {
+    "name": "orders-1",
+    "sample": "orders",
+    "level": 1,
+    "request": "Total sales by item, as quantity times price. Save totals.json mapping each item to its total.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:29:36.975Z"
+  },
+  {
+    "name": "orders-2",
+    "sample": "orders",
+    "level": 2,
+    "request": "Show total sales per region as a bar chart, and save region-sales.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:30:01.058Z"
+  },
+  {
+    "name": "orders-3",
+    "sample": "orders",
+    "level": 3,
+    "request": "Find the 3 items with the most revenue in March 2026 and save top-march.csv with item and revenue.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:30:48.415Z"
+  },
+  {
+    "name": "serverlog-1",
+    "sample": "serverlog",
+    "level": 1,
+    "request": "Count the log lines per level (INFO, WARN, ERROR). Save levels.json.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:33:00.128Z"
+  },
+  {
+    "name": "serverlog-2",
+    "sample": "serverlog",
+    "level": 2,
+    "request": "Extract every ERROR line into errors.csv with time, path and message.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:33:11.191Z"
+  },
+  {
+    "name": "serverlog-3",
+    "sample": "serverlog",
+    "level": 3,
+    "request": "Which paths had warnings or errors, and how many of each? Save trouble.csv with path, level and count.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:33:18.729Z"
+  },
+  {
+    "name": "survey-1",
+    "sample": "survey",
+    "level": 1,
+    "request": "Average satisfaction by age group, rounded to 1 decimal. Save satisfaction.csv in age group order.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:35:09.021Z"
+  },
+  {
+    "name": "survey-2",
+    "sample": "survey",
+    "level": 2,
+    "request": "What share of respondents would recommend us? Save recommend.json as {\"yes_percent\": number} rounded to a whole number.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:35:25.974Z"
+  },
+  {
+    "name": "survey-3",
+    "sample": "survey",
+    "level": 3,
+    "request": "Pull out the comments that mention price (any capitalization) with respondent and satisfaction. Save price-comments.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:35:36.686Z"
+  },
+  {
+    "name": "tickets-1",
+    "sample": "tickets",
+    "level": 1,
+    "request": "Count the tickets that are not closed, by priority. Save open-by-priority.json.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:32:17.730Z"
+  },
+  {
+    "name": "tickets-2",
+    "sample": "tickets",
+    "level": 2,
+    "request": "For closed tickets, average the days from opened to closed per agent, rounded to 1 decimal. Save agent-speed.csv.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "failed",
+    "recordedAt": "2026-11-17T06:32:27.944Z"
+  },
+  {
+    "name": "tickets-3",
+    "sample": "tickets",
+    "level": 3,
+    "request": "Which open or waiting tickets were opened on or before 2026-10-10? Save stale.csv sorted by opened date.",
+    "provenance": "recorded",
+    "model": "qwen2.5:7b-instruct",
+    "outcome": "review",
+    "recordedAt": "2026-11-17T06:32:49.136Z"
+  }
+]

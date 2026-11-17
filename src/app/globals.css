@@ -1,1 +1,132 @@
 @import "tailwindcss";
+
+/* Color means temperature. Molten: being made now. Steel: settled fact.
+   Brass: authority (permissions, approval). Slag: failure or refusal. */
+@theme static {
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  --color-ink: #0c0a09;
+  --color-coal: #14110f;
+  --color-iron: #1b1714;
+  --color-ash: #26211c;
+  --color-line: rgb(255 236 210 / 0.09);
+  --color-line-strong: rgb(255 236 210 / 0.18);
+  --color-paper: #f2eadf;
+  --color-dim: #a99d8f;
+  --color-faint: #766b60;
+
+  --color-molten: #ff6a1f;
+  --color-amber: #ffb04a;
+  --color-hot: #fff1d2;
+  --color-steel: #8ea2b2;
+  --color-steel-hi: #d4e3ee;
+  --color-steel-deep: #2b3641;
+  --color-brass: #caa24c;
+  --color-brass-hi: #f0d48c;
+  --color-slag: #c0523f;
+  --color-slag-deep: #3a1c17;
+
+  --ease-forge: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* Fine grain over everything; static, no animation cost. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+::selection {
+  background: rgb(255 106 31 / 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.molten-text {
+  background: linear-gradient(90deg, var(--color-molten), var(--color-amber) 55%, var(--color-hot));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes ember {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.ember {
+  animation: ember 1.6s ease-in-out infinite;
+}
+
+@keyframes cool {
+  from {
+    color: var(--color-amber);
+    text-shadow: 0 0 12px rgb(255 120 40 / 0.6);
+  }
+  to {
+    color: var(--color-steel-hi);
+    text-shadow: none;
+  }
+}
+.cooling {
+  animation: cool 1.4s var(--ease-forge) forwards;
+}
+
+@keyframes flow {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.flow {
+  stroke-dasharray: 4 8;
+  animation: flow 0.9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

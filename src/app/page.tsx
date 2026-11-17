@@ -1,3 +1,10 @@
-export default function Home() {
-  return <main className="p-8">FORGE 2 is being rebuilt.</main>;
+import { Suspense } from "react";
+import { Home } from "@/ui/home";
+
+export default function Page() {
+  return (
+    <Suspense>
+      <Home showcase={process.env.FORGE_MODE === "showcase"} />
+    </Suspense>
+  );
 }

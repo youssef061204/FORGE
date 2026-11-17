@@ -5,17 +5,7 @@
  */
 import { mkdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
-import type { DatabaseSync as DB } from "node:sqlite";
-
-// node:sqlite prints an ExperimentalWarning once; FORGE reads that as noise.
-const originalEmit = process.emitWarning;
-function quietSqliteWarning() {
-  process.emitWarning = ((warning: string | Error, ...rest: unknown[]) => {
-    const text = typeof warning === "string" ? warning : warning.message;
-    if (/SQLite is an experimental feature/.test(text)) return;
-    return (originalEmit as (...a: unknown[]) => void).call(process, warning, ...rest);
-  }) as typeof process.emitWarning;
-}
+import { DatabaseSync, type DatabaseSync as DB } from "node:sqlite";
 
 const MIGRATIONS: string[] = [
   `CREATE TABLE files (
@@ -62,9 +52,6 @@ export function forgeHome(): string {
 }
 
 export function openDatabase(path = join(forgeHome(), "forge.db")): DB {
-  quietSqliteWarning();
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { DatabaseSync } = require("node:sqlite") as typeof import("node:sqlite");
   if (path !== ":memory:") mkdirSync(dirname(path), { recursive: true });
   const db = new DatabaseSync(path);
   db.exec("PRAGMA journal_mode = WAL; PRAGMA synchronous = NORMAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;");

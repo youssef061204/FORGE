@@ -6,9 +6,9 @@
   "scripts": {
     "forge": "tsx scripts/forge.ts",
     "doctor": "tsx scripts/doctor.ts",
-    "dev": "next dev --hostname 127.0.0.1 --port 3108",
+    "dev": "next dev --hostname 127.0.0.1 --port 3110",
     "build": "next build",
-    "start": "next start --hostname 127.0.0.1 --port 3108",
+    "start": "next start --hostname 127.0.0.1 --port 3110",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
