@@ -112,3 +112,13 @@ folder) but never adds or widens a grant.
 change was made in response to a validation failure. Later changes came from
 dev-set runs and sample-tape recordings; each validation result names its
 commit.
+
+**D20. One fix informed by validation analysis, disclosed.** Reading the
+first validation run's failures (after the run, per D19) exposed a bug in the
+CSV read-back property: an empty cell written for a null was counted as a
+mismatch, rejecting correct left joins. The check contradicted the engine's
+own encoding, so it was fixed with a test (`tests/core/readback.test.ts`).
+Validation runs after this commit are therefore not fully blind to that one
+failure; the first run (27b8ed7) remains the clean number. Other weaknesses
+the analysis found (a numeric-sort lint firing on unrequested sorts, a
+column-list cue false positive, two routing misses) were left as they are.

@@ -280,7 +280,9 @@ export function checkProperties(args: {
     try {
       const back = parseDelimited(o.text, { delimiter: o.format === "tsv" ? "\t" : "," });
       const cols = o.table.columns;
-      const same = back.rows.length === o.table.rows.length && back.rows.every((cells, i) => cols.every((c, j) => (toText(o.table.rows[i][c] ?? null) ?? (typeof o.table.rows[i][c] === "object" ? JSON.stringify(o.table.rows[i][c]) : "")) === cells[j] || (o.table.rows[i][c] !== null && typeof o.table.rows[i][c] === "object")));
+      // The cell text the encoder writes: null and missing are empty, objects are JSON.
+      const expected = (v: unknown) => (v === null || v === undefined ? "" : typeof v === "object" ? JSON.stringify(v) : (toText(v as never) as string));
+      const same = back.rows.length === o.table.rows.length && back.rows.every((cells, i) => cols.every((c, j) => expected(o.table.rows[i][c]) === cells[j]));
       results.push({ name: `${o.name} reads back exactly`, passed: same, fatal: !same });
     } catch {
       results.push({ name: `${o.name} reads back exactly`, passed: false, fatal: true });
