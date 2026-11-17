@@ -18,7 +18,7 @@ export function XRay({ recipe, run }: { recipe: Recipe; run: BrowserRun }) {
   const input = run.inputs[slot];
   const offset = run.offsets[slot] ?? 0;
   const out = run.outputs[0];
-  const outLineage = out?.table.lineage ?? [];
+  const outLineage = useMemo(() => out?.table.lineage ?? [], [out]);
   // Backward: output row -> input rows. Forward: input row -> output rows.
   const litInputs = useMemo(() => new Set(outRow === null ? [] : (outLineage[outRow] ?? [])), [outRow, outLineage]);
   const litOutputs = useMemo(() => {
