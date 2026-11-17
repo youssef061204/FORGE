@@ -167,7 +167,7 @@ export function Hood({ view, events }: { view: BuildView; events: { seq: number;
           )}
           {view.review?.typescript && (
             <div>
-              <Eyebrow className="mb-2">TypeScript emitted from forge-ir (differentially tested)</Eyebrow>
+              <Eyebrow className="mb-2">Emitted TypeScript (differentially tested against the interpreter)</Eyebrow>
               <pre className="max-h-64 overflow-auto rounded-lg bg-ink p-3 font-mono text-[12px] text-paper/70">{view.review.typescript}</pre>
             </div>
           )}

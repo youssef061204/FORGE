@@ -21,7 +21,7 @@ const csp = [
 
 const config: NextConfig = {
   poweredByHeader: false,
-  serverExternalPackages: ["typescript"],
+  serverExternalPackages: ["typescript", "esbuild"],
   async headers() {
     return [
       {

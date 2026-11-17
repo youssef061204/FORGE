@@ -394,7 +394,12 @@ export class SafeRegex {
         add(fresh, 0, new Int32Array(slots).fill(-1), pos);
         clist.push(...fresh);
       }
-      if (!clist.length) break;
+      // No live threads: stop only once a match is found; otherwise a fresh
+      // attempt starts at the next position (an anchor may fail here only).
+      if (!clist.length) {
+        if (matched) break;
+        continue;
+      }
       generation++;
       nlist = [];
       const ch = input[pos];

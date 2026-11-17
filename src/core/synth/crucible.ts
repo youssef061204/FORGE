@@ -50,7 +50,7 @@ export type CrucibleOptions = {
   ask?: (question: { options: AmbiguityOption[] }) => Promise<AmbiguityAnswer>;
   /** Extra checks the host can run (e.g. emitted-TypeScript differential). */
   verify?: (recipe: Recipe, plan: Plan, inputs: Inputs[]) => Promise<{ kind: "differential" | "replay"; name: string; passed: boolean; detail?: string }[]>;
-  lower?: (recipe: Recipe, plan: Plan) => { irHash: string; ir: unknown; typescript?: string } | undefined;
+  lower?: (recipe: Recipe, plan: Plan) => { irHash?: string; ir?: unknown; typescript?: string } | undefined;
   signal?: AbortSignal;
   /** "live" only when a model really generates right now. */
   provenance?: "live" | "recorded" | "scripted";
