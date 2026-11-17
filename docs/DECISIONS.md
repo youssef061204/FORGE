@@ -54,3 +54,61 @@ architecture runs the holdout missions it can represent through a new adapter,
 and the report states exactly which missions and predicates were not run and
 why. The adapter classifies missions generically from their resource handlers,
 never by ID or wording.
+
+**D10. Translation validation by emitting TypeScript, not by lowering to
+forge-ir/v1.** The brief asked recipes to lower to the IR and approval to bind
+the IR hash. Lowering needs IR scalars with recipe semantics (lenient number
+reading, null-propagating arithmetic, the linear regex engine) and type-checker
+support for each; that work would have measured the IR more than the product.
+Instead `core/recipe/emit-ts.ts` emits plain TypeScript that shares only value
+semantics with the interpreter, `server/verify.ts` compiles it with `tsc` and
+requires byte-identical outputs on real data, variants and fuzz, and the same
+emitter powers eject. Approval binds `sha256(canonical recipe + "forge-recipe/1")`.
+forge-ir/v1 stays in `core/ir`, executable, with its 39 evaluator tests.
+
+**D11. Host repairs are visible and only taken when exactly one fix fits.**
+Two exist: aligning a JSON output's shape with the separate intent reading when
+the final columns admit only one reading, and adding `by: [col]` to a summarize
+that dropped a column the output names. Each emits a "Host repair" check on the
+draft. Measured on the dev set: summarize-without-by was the commonest
+unrepaired failure; the model copied its own draft despite a precise hint.
+
+**D12. Port 3110.** 3108 belongs to the owner's running legacy container.
+
+**D13. No model means local mode with recordings, not showcase.** A fresh
+clone without Ollama starts the full local app: recorded builds, the tour,
+installed tools and the Safety Lab all work, and a banner explains how to turn
+on live generation. Showcase mode (`FORGE_MODE=showcase`) is for static/
+serverless hosting and is also tested end to end.
+
+**D14. Phone e2e uses a 390×844 viewport without touch emulation.**
+Playwright's `isMobile` hit-testing reported a table cell over a visible,
+enabled button inside a scroll container; the layout itself is correct.
+
+**D15. Tapes are whatever the model did.** Sample tapes are recorded live by
+`npm run tapes:record` and kept as recorded, including a genuine failure
+(`tickets-2`) and low-agreement builds. The tour's tape was re-recorded after
+D11 because the earlier recording failed; the tour text derives its numbers
+from the tape.
+
+**D16. Holdout: capture before score.** The sealed corpus was written for the
+legacy runtime (connector writes, scheduler ticks, installed programs). The
+FORGE 2 runner (`evaluation/holdout-capture.ts`) was written from `schema.json`
+and `PROTOCOL.md` only, frozen with the source (`evaluation/results/
+holdout-freeze.json`, tag `holdout-freeze`), and captures every mission's
+behavior before the oracle is opened. The scorer was written after unsealing,
+to the oracle's field names; product source did not change between freeze and
+run. Predicates FORGE 2 cannot represent are reported per mission as not
+applicable.
+
+**D17. MCP names use underscores** (`forge_build`, `total_sales_by_item_a1b2`):
+some clients reject dots; the four-character id suffix keeps names unique.
+
+**D18. Approval can only narrow.** The approve route re-derives grants from
+the recipe and accepts scope narrowing (any file → exact file or watched
+folder) but never adds or widens a grant.
+
+**D19. Validation discipline.** After the first validation run (27b8ed7), no
+change was made in response to a validation failure. Later changes came from
+dev-set runs and sample-tape recordings; each validation result names its
+commit.

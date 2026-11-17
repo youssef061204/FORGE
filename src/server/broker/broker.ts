@@ -122,6 +122,12 @@ export class Broker {
           continue;
         }
         views.push({ name: out.name, view: out.view, rows: out.preview, columns: out.columns });
+        // The latest view is kept so the tool's dashboard can show it.
+        const viewKey = sha256Hex(`${toolId}|${version.hash}|${eventKey}|view:${out.name}`);
+        if (!this.repo.receiptFor(viewKey)) {
+          const artifact = this.repo.addArtifact({ runId, toolId, name: out.name, format: "view", text: JSON.stringify({ view: out.view, columns: out.columns, rows: out.preview }) });
+          receipts.push(this.repo.addReceipt({ runId, toolId, version: version.version, kind: "view", target: out.name, detail: `${out.rows} rows on the dashboard`, status: "committed", effectKey: viewKey, artifactId: artifact.id }));
+        }
         continue;
       }
       const grant = version.grants.find((g): g is Extract<Grant, { kind: "write" }> => g.kind === "write" && g.output === out.name);

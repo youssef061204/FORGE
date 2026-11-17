@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-11-17T07:40:46.709Z",
+  "commit": "354d463ba670354714045b1465212626ae11ef6b",
+  "freeze": {
+    "frozenAt": "2026-11-17T07:40:32.085Z",
+    "commit": "c8d9788f10990dc780d7b7cce61e848aa7c1e7d8",
+    "tree": "e426023cb18b024aa9c649323c901f2897acd8cd",
+    "srcTree": "6708efc77b18a38942a09880a7db0a916d43b71f",
+    "evaluationRunner": "f483b2a72b428d362a0136e0af4370b36dcebcd2",
+    "holdoutSealSha256": "a11da48b82f9db9e171237325924815684eca36d606e63ffb57313d459f1dad9",
+    "contentSealSha256": "a11da48b82f9db9e171237325924815684eca36d606e63ffb57313d459f1dad9",
+    "notes": "FORGE 2 source frozen before opening missions.sealed.jsonl, expected.sealed.jsonl, recorded-solutions.sealed.jsonl and author-sealed.cjs."
+  },
+  "model": "qwen2.5:7b-instruct",
+  "hardware": "NVIDIA GeForce RTX 5050 Laptop GPU (8 GB)",
+  "missions": 100,
+  "oracleOpened": false
+}

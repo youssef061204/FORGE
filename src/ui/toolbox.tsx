@@ -6,7 +6,11 @@ import type { Example } from "@/core/events/types";
 import type { Recipe } from "@/core/recipe/schema";
 import type { Format } from "@/core/codec";
 import { runInBrowser, type BrowserRun } from "./browser-runner";
+import type { Row } from "@/core/table";
 import {
+  BarChart,
+  LineChart,
+  cell,
   Button,
   DataTable,
   EmptyState,
@@ -62,7 +66,8 @@ type Receipt = {
   artifactId?: string;
 };
 type Detail = {
-  tool: Tool;
+  tool: Tool & { schedule?: { kind: "manual" } | { kind: "interval"; minutes: number } | { kind: "folder"; folder: string } };
+  view?: { at: string; view: { type: string; x?: string; y?: string; title?: string }; columns: string[]; rows: Record<string, unknown>[] };
   versions: Version[];
   runs: Run[];
   receipts: Receipt[];
@@ -160,6 +165,7 @@ const TABS = [
   "Access",
   "History",
   "Examples",
+  "Schedule",
 ] as const;
 
 export function ToolDetail({ id }: { id: string }) {
@@ -176,6 +182,9 @@ export function ToolDetail({ id }: { id: string }) {
   );
   useEffect(() => {
     void load();
+    // A scheduled tool's dashboard updates by itself.
+    const t = setInterval(() => void load(), 5000);
+    return () => clearInterval(t);
   }, [load]);
   if (err)
     return <p className="mx-auto max-w-[1320px] p-6 text-[#f1a99b]">{err}</p>;
@@ -220,6 +229,7 @@ export function ToolDetail({ id }: { id: string }) {
           </span>
         </div>
       </div>
+      {d.view && <Dashboard view={d.view} />}
       <div
         role="tablist"
         className="mt-6 flex gap-1 overflow-x-auto border-b border-line"
@@ -250,6 +260,7 @@ export function ToolDetail({ id }: { id: string }) {
         )}
         {tab === "History" && <HistoryTab d={d} />}
         {tab === "Examples" && <ExamplesTab d={d} />}
+        {tab === "Schedule" && <ScheduleTab d={d} onChange={load} />}
       </div>
     </div>
   );
@@ -738,5 +749,72 @@ function ExamplesTab({ d }: { d: Detail }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+function Dashboard({ view }: { view: NonNullable<Detail["view"]> }) {
+  const v = view.view;
+  const rows = view.rows as Row[];
+  return (
+    <Panel tone="steel" className="mt-6 p-5">
+      <div className="flex items-baseline justify-between">
+        <Eyebrow>Dashboard{v.title ? ` · ${v.title}` : ""}</Eyebrow>
+        <span className="text-[12px] text-faint">updated {new Date(view.at).toLocaleString()}</span>
+      </div>
+      <div className="mt-4">
+        {v.type === "bar" && v.x && v.y ? (
+          <BarChart rows={rows} x={v.x} y={v.y} />
+        ) : v.type === "line" && v.x && v.y ? (
+          <LineChart rows={rows} x={v.x} y={v.y} />
+        ) : v.type === "stat" ? (
+          <div className="num text-5xl text-steel-hi">{cell(rows[0]?.[v.y ?? view.columns.at(-1)!] ?? null)}</div>
+        ) : (
+          <DataTable columns={view.columns} rows={rows} maxRows={10} dense />
+        )}
+      </div>
+    </Panel>
+  );
+}
+
+function ScheduleTab({ d, onChange }: { d: Detail; onChange: () => void }) {
+  const s = d.tool.schedule ?? { kind: "manual" as const };
+  const [kind, setKind] = useState<"manual" | "interval" | "folder">(s.kind);
+  const [minutes, setMinutes] = useState(s.kind === "interval" ? s.minutes : 60);
+  const [folder, setFolder] = useState(s.kind === "folder" ? s.folder : "");
+  const [msg, setMsg] = useState<string>();
+  const save = async () => {
+    const payload = kind === "manual" ? { kind } : kind === "interval" ? { kind, minutes } : { kind, folder };
+    const res = await fetch(`/api/tools/${d.tool.id}/schedule`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+    const data = await res.json();
+    setMsg(res.ok ? "Saved." : data.error);
+    onChange();
+  };
+  return (
+    <Panel className="grid max-w-2xl gap-4 p-5">
+      <p className="text-[14px] text-dim">
+        Scheduled runs go through the same broker and permissions as a manual run. A watched folder reruns the tool when a new or changed file appears; the same file never runs twice.
+      </p>
+      {(["manual", "interval", "folder"] as const).map((k) => (
+        <label key={k} className="flex flex-wrap items-center gap-3 text-[15px]">
+          <input type="radio" name="schedule" checked={kind === k} onChange={() => setKind(k)} />
+          {k === "manual" ? "Only when I run it" : k === "interval" ? "Every" : "When a file lands in"}
+          {k === "interval" && (
+            <>
+              <input type="number" min={1} value={minutes} onChange={(e) => setMinutes(Number(e.target.value))} className="h-9 w-20 rounded-lg border border-line-strong bg-iron px-2" aria-label="Minutes" />
+              minutes
+            </>
+          )}
+          {k === "folder" && (
+            <input value={folder} onChange={(e) => setFolder(e.target.value)} placeholder="a folder on this computer" className="h-9 min-w-0 flex-1 rounded-lg border border-line-strong bg-iron px-2 font-mono text-[13px]" aria-label="Folder" />
+          )}
+        </label>
+      ))}
+      <div className="flex items-center gap-3">
+        <Button tone="molten" onClick={save}>
+          Save schedule
+        </Button>
+        {msg && <span className="text-[13px] text-dim">{msg}</span>}
+      </div>
+    </Panel>
   );
 }

@@ -324,6 +324,10 @@ export class Repo {
       ? { id: r.id, runId: r.run_id, toolId: r.tool_id, name: r.name, format: r.format, bytes: Number(r.bytes), sha256: r.sha256, text: r.text, createdAt: r.created_at }
       : undefined;
   }
+  latestView(toolId: string): ArtifactRow | undefined {
+    const row = this.db.prepare("SELECT id FROM artifacts WHERE tool_id = ? AND format = 'view' ORDER BY created_at DESC LIMIT 1").get(toolId) as { id: string } | undefined;
+    return row ? this.artifact(row.id) : undefined;
+  }
   artifacts(runId: string): ArtifactRow[] {
     return (this.db.prepare("SELECT * FROM artifacts WHERE run_id = ?").all(runId) as Record<string, string>[]).map((r) => this.artifact(r.id)!);
   }

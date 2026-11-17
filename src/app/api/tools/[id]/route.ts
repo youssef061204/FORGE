@@ -11,6 +11,8 @@ export async function GET(req: Request, ctx: RouteContext<"/api/tools/[id]">) {
       .map((f) => repo.file(f))
       .filter((f) => !!f)
       .map((f) => ({ id: f.id, name: f.name, format: f.format, bytes: f.bytes }));
-    return json({ tool, versions: repo.versions(id), runs: repo.runs(id, 30), receipts: repo.receipts(id, 60), lastFiles });
+    const latest = repo.latestView(id);
+    const view = latest ? { at: latest.createdAt, ...JSON.parse(latest.text) } : undefined;
+    return json({ tool, versions: repo.versions(id), runs: repo.runs(id, 30), receipts: repo.receipts(id, 60), lastFiles, view });
   });
 }
