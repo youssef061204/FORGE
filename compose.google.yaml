@@ -1,4 +1,0 @@
-services:
-  forge:
-    env_file:
-      - .env.google

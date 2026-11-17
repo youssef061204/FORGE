@@ -1,0 +1,170 @@
+{
+  "kind": "legacy-baseline",
+  "description": "Legacy grounded IR pipeline (ProductRuntime + GroundedMissionModel) at commit c8b172f, run unmodified by scripts/benchmark-core-missions.ts before the FORGE 2 overhaul.",
+  "commit": "c8b172f",
+  "runId": "2026-11-17T01-47-52-537Z-7e9aa294",
+  "startedAt": "2026-11-17T01:47:52.552Z",
+  "updatedAt": "2026-11-17T02:01:59.827Z",
+  "provider": "ollama-local",
+  "model": "qwen2.5:7b-instruct",
+  "hardware": "NVIDIA GeForce RTX 5050 Laptop GPU (8 GB), Windows 11",
+  "corpus": "evaluation/local-missions.json",
+  "corpusHash": "f8284be04ceda8c9ac477be34f399c58872f6afc71e1142019b2a811e4070361",
+  "summary": {
+    "recorded": 18,
+    "passed": 1,
+    "failed": 15,
+    "blocked": 2,
+    "correctRoutes": 15,
+    "modelRequests": 42,
+    "p50Ms": 57705,
+    "p95Ms": 103707
+  },
+  "results": [
+    {
+      "id": "active-tasks",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 63716,
+      "error": "IRCompileError: /effects/0/arguments/fields/text: Expected array"
+    },
+    {
+      "id": "sort-invoices",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 56144,
+      "error": "IRCompileError: /effects/0/arguments/fields/text/value/steps/0: Expected boolean"
+    },
+    {
+      "id": "expense-totals",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 59586,
+      "error": "IRCompileError: /result/summary/fields/categoryTotals/fields/category/items/0/fields/category/root: Unknown or forward root \"row\""
+    },
+    {
+      "id": "inventory-reorder",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 62660,
+      "error": "IRCompileError: /effects/0/arguments/fields/text/value/items/0/fields/sku/root: Unknown or forward root \"row\""
+    },
+    {
+      "id": "deduplicate-contacts",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 57705,
+      "error": "IRCompileError: /bindings/1/value/args/0/args/0/root: Unknown or forward root \"row\""
+    },
+    {
+      "id": "attendance-join",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 103707,
+      "error": "IRCompileError: /effects/0/arguments/fields/text/value/steps/0: Binding \"attendance\" shadows an existing root"
+    },
+    {
+      "id": "flatten-catalog",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 66252,
+      "error": "IRCompileError: /effects/0/arguments/fields/text: CSV encoding requires explicit ordered columns"
+    },
+    {
+      "id": "remaining-study-time",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 72564,
+      "error": "IRCompileError: /effects/0/arguments/fields/text: Expected array"
+    },
+    {
+      "id": "rank-applicants",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 42116,
+      "error": "IRCompileError: /effects/0/arguments/fields/text/value/items/0/root: Unknown or forward root \"row\""
+    },
+    {
+      "id": "ticket-counts",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 47769,
+      "error": "IRCompileError: /effects/0/arguments/fields/text/value/fields/status/fields/count/args/0/steps/0: Expected boolean"
+    },
+    {
+      "id": "extract-todos",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 47288,
+      "error": "IRCompileError: /bindings/1/value/steps/0: Expected array"
+    },
+    {
+      "id": "normalize-list",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 60871,
+      "error": "IRCompileError: /bindings/1/value/fields/rows/steps/0: Expected array"
+    },
+    {
+      "id": "date-window",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 1,
+      "durationMs": 27865,
+      "error": "Frozen route, permission, semantic output or expected model-request count did not match; failure retained"
+    },
+    {
+      "id": "untrusted-source",
+      "status": "failed",
+      "route": "SYNTHESIZE",
+      "modelRequests": 3,
+      "durationMs": 63330,
+      "error": "IRCompileError: /effects/0/arguments/fields/text/value/items/0/fields/line/args/0/steps/0: Expected array"
+    },
+    {
+      "id": "reuse-invoice-tool",
+      "status": "blocked",
+      "route": null,
+      "modelRequests": 0,
+      "durationMs": 0,
+      "error": "Error: Base mission did not produce a verified installed tool; dependency not fabricated"
+    },
+    {
+      "id": "extend-invoice-tool",
+      "status": "blocked",
+      "route": null,
+      "modelRequests": 0,
+      "durationMs": 0,
+      "error": "Error: Base mission did not produce a verified installed tool; dependency not fabricated"
+    },
+    {
+      "id": "missing-calendar",
+      "status": "passed",
+      "route": "CONNECT",
+      "modelRequests": 1,
+      "durationMs": 5698
+    },
+    {
+      "id": "missing-mail",
+      "status": "failed",
+      "route": "CLARIFY",
+      "modelRequests": 1,
+      "durationMs": 9238,
+      "error": "Frozen route, permission, semantic output or expected model-request count did not match; failure retained"
+    }
+  ],
+  "reproduce": "git checkout legacy-v0 && FORGE_LOCAL_MODEL_URL=http://127.0.0.1:11435 npx tsx scripts/benchmark-core-missions.ts",
+  "previouslyPublished": "7 of 18 (older two-stage TypeScript path, October 23 2026; see legacy-v0 docs/CORE_RELIABILITY_BASELINE.md)"
+}

@@ -1,31 +1,22 @@
 import { defineConfig, devices } from "@playwright/test";
+
 export default defineConfig({
   testDir: "./e2e",
-  testIgnore: ["product.spec.ts", "local-files.spec.ts", "core-reliability.spec.ts"],
-  timeout: 120000,
-  expect: { timeout: 30000 },
+  timeout: 120_000,
+  expect: { timeout: 20_000 },
   fullyParallel: false,
   workers: 1,
   reporter: [["list"], ["html", { open: "never" }]],
-  use: {
-    baseURL: "http://127.0.0.1:3107",
-    trace: "retain-on-failure",
-    screenshot: "only-on-failure",
-  },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  use: { baseURL: "http://127.0.0.1:3119", trace: "retain-on-failure", screenshot: "only-on-failure" },
+  projects: [
+    { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    { name: "phone", use: { ...devices["Pixel 7"], viewport: { width: 390, height: 844 } } },
+  ],
   webServer: {
-    command: "npm run dev -- --port 3107",
-    url: "http://127.0.0.1:3107/api/health",
+    command: "npx next dev --hostname 127.0.0.1 --port 3119",
+    url: "http://127.0.0.1:3119/",
     reuseExistingServer: false,
-    timeout: 120000,
-    env: {
-      FORGE_DATA_DIR: `./artifacts/e2e-state-${Date.now()}`,
-      DEMO_MODE: "true",
-      FORGE_RUNTIME_MODE: "fixture",
-      MODEL_PROVIDER: "demo",
-      STORE_PROVIDER: "local",
-      SANDBOX_PROVIDER: "process",
-      FORGE_FUTURES_MODE: "exhaustive",
-    },
+    timeout: 180_000,
+    env: { FORGE_HOME: `./artifacts/e2e-${Date.now()}`, FORGE_MODEL_TRANSPORT: "scripted", NEXT_TELEMETRY_DISABLED: "1" },
   },
 });

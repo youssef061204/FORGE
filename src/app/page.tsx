@@ -1,4 +1,3 @@
-import { ForgeHome } from "@/components/forge-product";
-export default function Page() {
-  return <ForgeHome />;
+export default function Home() {
+  return <main className="p-8">FORGE 2 is being rebuilt.</main>;
 }
