@@ -220,11 +220,23 @@ describe("recipe engine on hand-written recipes", () => {
     }
   });
 
-  it("rejects aggregates outside summarize and ungrouped columns", () => {
-    const files = { t: "t.csv\n---\na,b\n1,2\n" };
+  it("treats aggregates outside summarize as whole-table values, and rejects ungrouped columns", () => {
+    const files = { t: "t.csv\n---\na,b\n1,2\n3,4\n" };
+    const share = run(
+      {
+        inputs: [{ slot: "t" }],
+        steps: [
+          { op: "derive", set: { share: "num(a) / sum(a)" } },
+          { op: "filter", where: "num(b) == max(b)" },
+        ],
+        outputs: [{ kind: "file", name: "x.csv", format: "csv" }],
+      },
+      files,
+    );
+    expect(share.outputs[0].kind === "file" && share.outputs[0].text).toBe("a,b,share\n3,4,0.75\n");
     expect(() =>
-      run({ inputs: [{ slot: "t" }], steps: [{ op: "derive", set: { s: "sum(a)" } }], outputs: [{ kind: "file", name: "x.csv", format: "csv" }] }, files),
-    ).toThrow(/only works inside a summarize/);
+      run({ inputs: [{ slot: "t" }], steps: [{ op: "derive", set: { s: "sum(sum(a))" } }], outputs: [{ kind: "file", name: "x.csv", format: "csv" }] }, files),
+    ).toThrow(/cannot contain another summary/);
     expect(() =>
       run({ inputs: [{ slot: "t" }], steps: [{ op: "summarize", by: ["a"], set: { s: "b" } }], outputs: [{ kind: "file", name: "x.csv", format: "csv" }] }, files),
     ).toThrow(/differs between rows/);

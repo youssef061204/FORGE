@@ -612,7 +612,8 @@ export function lookup(
 ): { fn: Fn; name: string } | undefined {
   const n = resolveName(name);
   if (inSummary && AGGREGATES[n]) return { fn: AGGREGATES[n], name: n };
-  if ((n === "min" || n === "max") && !inSummary)
+  // min(a, b) compares values; min(x) is the smallest x across rows.
+  if ((n === "min" || n === "max") && args !== 1)
     return { fn: SCALARS[n === "min" ? "least" : "greatest"], name: n === "min" ? "least" : "greatest" };
   if (SCALARS[n]) return { fn: SCALARS[n], name: n };
   if (AGGREGATES[n]) return { fn: AGGREGATES[n], name: n };

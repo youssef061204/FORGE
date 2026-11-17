@@ -84,7 +84,9 @@ function lex(src: string): Tok[] {
         const ch = src[i];
         if (ch === "\\") {
           const nx = src[i + 1];
-          v += nx === "n" ? "\n" : nx === "t" ? "\t" : (nx ?? "");
+          // Only quotes, backslash, \n and \t are escapes; anything else keeps
+          // its backslash so regex classes like '\d' survive.
+          v += nx === "n" ? "\n" : nx === "t" ? "\t" : nx === "\\" || nx === "'" || nx === '"' ? nx : "\\" + (nx ?? "");
           i += 2;
           continue;
         }
@@ -110,6 +112,14 @@ function lex(src: string): Tok[] {
       i = end + 1;
       continue;
     }
+    // Regex-style references to a named group, ?<task> or \task, can only mean
+    // the column that group became, so read them as that column.
+    const groupRef = /^(?:\?<([A-Za-z_][A-Za-z0-9_]*)>|\\([A-Za-z_][A-Za-z0-9_]*))/.exec(src.slice(i));
+    if (groupRef) {
+      i += groupRef[0].length;
+      out.push({ t: "id", v: groupRef[1] ?? groupRef[2], s, e: i });
+      continue;
+    }
     if (/[A-Za-z_\u00c0-\uffff]/.test(c)) {
       const m = /^[A-Za-z_\u00c0-\uffff][A-Za-z0-9_\u00c0-\uffff]*/.exec(src.slice(i))!;
       i += m[0].length;
@@ -127,7 +137,7 @@ function lex(src: string): Tok[] {
       i++;
       continue;
     }
-    throw new ExprError(`unexpected character "${c}"`, src, i);
+    throw new ExprError(`unexpected character "${c}"`, src, i, c === "\\" || c === "?" || c === "$" || c === "@" ? "refer to a column by its plain name, e.g. task (no backslash, ? or <>)" : c === "{" || c === "}" ? "an expression is one value; build objects with separate columns instead" : undefined);
   }
   out.push({ t: "eof", s: src.length, e: src.length });
   return out;

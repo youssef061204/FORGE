@@ -37,12 +37,15 @@ type RowFn = (row: Row) => Json;
 type AggFn = (rows: Row[]) => Json;
 type Env = EvalContext;
 
+type Windows = { list: AggFn[]; values: Json[]; columns: ColumnInfo[] };
 type Ctx = {
   columns: ColumnInfo[];
   tables: string[];
   where: string;
   step?: number;
   env: Env;
+  /** Whole-table aggregates allowed here (filter, derive, sort), computed once per run. */
+  windows?: Windows;
 };
 
 class Fail extends Error {
@@ -258,15 +261,23 @@ function compileScalar(e: Expr, ctx: Ctx, source: string): { fn: RowFn; type: Va
         const guess = didYouMean(e.fn, ALL_FUNCTION_NAMES);
         throw exprDiag(ctx, source, e.s, `unknown function ${e.fn}()`, guess ? `did you mean ${guess}()?` : undefined, "UNKNOWN_FUNCTION");
       }
-      if (found.fn.kind === "aggregate")
-        throw exprDiag(
-          ctx,
-          source,
-          e.s,
-          `${e.fn}() summarizes many rows, so it only works inside a summarize step`,
-          undefined,
-          "AGGREGATE_OUTSIDE_SUMMARY",
-        );
+      if (found.fn.kind === "aggregate") {
+        const windows = ctx.windows;
+        if (!windows)
+          throw exprDiag(
+            ctx,
+            source,
+            e.s,
+            `${e.fn}() summarizes many rows, so it cannot be used here`,
+            undefined,
+            "AGGREGATE_OUTSIDE_SUMMARY",
+          );
+        // A whole-table value such as sum(votes) inside a derive or filter.
+        const agg = compileAggregate(e, { ...ctx, columns: windows.columns, windows: undefined }, source, []);
+        const slot = windows.list.length;
+        windows.list.push(agg.fn);
+        return { fn: () => windows.values[slot], type: agg.type };
+      }
       const fn = found.fn as ScalarFn;
       if (e.args.length < fn.min || e.args.length > fn.max)
         throw exprDiag(
@@ -316,6 +327,9 @@ function compileAggregate(e: Expr, ctx: Ctx, source: string, keys: string[]): { 
     }
     case "col": {
       const name = e.path.join(".");
+      // A bare aggregate name such as "count" means count(), unless it is a real column.
+      if (e.path.length === 1 && !ctx.columns.some((c) => c.name === name) && AGGREGATES[name] && AGGREGATES[name].min === 0)
+        return compileAggregate({ k: "call", fn: name, args: [], s: e.s, e: e.e }, ctx, source, keys);
       if (!keys.includes(name) && !keys.includes(e.path[0]))
         throw exprDiag(
           ctx,
@@ -344,7 +358,7 @@ function compileAggregate(e: Expr, ctx: Ctx, source: string, keys: string[]): { 
           }),
         );
         if (nested) throw exprDiag(ctx, source, e.s, "a summary cannot contain another summary", undefined, "NESTED_AGGREGATE");
-        const arg = e.args[0] ? compileScalar(e.args[0], { ...ctx }, source) : undefined;
+        const arg = e.args[0] ? compileScalar(e.args[0], { ...ctx, windows: undefined }, source) : undefined;
         const type = typeof agg.type === "function" ? agg.type([arg?.type ?? "any"]) : agg.type;
         if (!arg) return { fn: (rows) => agg.reduce(rows), type };
         const f = arg.fn;
@@ -512,6 +526,21 @@ function guard<T>(step: number, f: () => T): T {
 }
 
 function compileStep(step: Step, index: number, ctxBase: Omit<Ctx, "columns" | "where" | "step">, columns: ColumnInfo[], tableSchemas: Record<string, ColumnInfo[]>): { columns: ColumnInfo[]; run: CompiledStep["run"] } {
+  const windows: Windows = { list: [], values: [], columns };
+  const compiled = compileStepBody(step, index, { ...ctxBase, windows: step.op === "summarize" ? undefined : windows }, columns, tableSchemas);
+  if (!windows.list.length) return compiled;
+  const inner = compiled.run;
+  return {
+    columns: compiled.columns,
+    run: (t, tables, meter, track) => {
+      meter.add(t.rows.length * windows.list.length, index);
+      windows.values = guard(index, () => windows.list.map((f) => f(t.rows)));
+      return inner(t, tables, meter, track);
+    },
+  };
+}
+
+function compileStepBody(step: Step, index: number, ctxBase: Omit<Ctx, "columns" | "where" | "step">, columns: ColumnInfo[], tableSchemas: Record<string, ColumnInfo[]>): { columns: ColumnInfo[]; run: CompiledStep["run"] } {
   const where = `steps[${index}]`;
   const ctx: Ctx = { ...ctxBase, columns, where, step: index };
   const names = () => ctx.columns.map((c) => c.name);
@@ -691,7 +720,7 @@ function compileStep(step: Step, index: number, ctxBase: Omit<Ctx, "columns" | "
       for (const [col, source] of Object.entries(step.set)) {
         if (UNSAFE_KEYS.has(col)) throw new Fail({ code: "NAME", where, step: index, message: `"${col}" is not allowed as a column name` });
         if (by.includes(col))
-          throw new Fail({ code: "NAME", where: `${where}.set.${col}`, step: index, message: `"${col}" is already a group column` });
+          throw new Fail({ code: "NAME", where: `${where}.set.${col}`, step: index, message: `"${col}" is already a group column`, hint: `give the summary its own name, e.g. "${col === "count" ? "n" : "count"}": "count()"` });
         const sub = { ...ctx, where: `${where}.set.${col}` };
         const c = compileAggregate(parse(source, sub), sub, source, by);
         sets.push([col, c.fn]);
@@ -997,7 +1026,7 @@ export function compileRecipe(recipe: Recipe, inputs: InputSchemas, options: { n
         if (col === undefined) return;
         if (!cols.includes(col)) {
           const guess = didYouMean(col, cols);
-          diagnostics.push({ code: "UNKNOWN_COLUMN", where: `${where}.${at}`, message: `output uses unknown column "${col}"`, hint: guess ? `did you mean ${guess}?` : `columns are ${cols.slice(0, 12).join(", ")}` });
+          diagnostics.push({ code: "UNKNOWN_COLUMN", where: `${where}.${at}`, message: `output uses unknown column "${col}"`, hint: guess ? `did you mean ${guess}?` : `insert a step {"op":"derive","set":{"${col}":"<expression>"}} before saving; the columns now are ${cols.slice(0, 12).join(", ")}` });
         }
       };
       if (output.kind === "file") {
@@ -1080,7 +1109,7 @@ export function encodeFile(output: FileOutput, table: TableData, columns: string
   }
   let value: Json;
   if (shape === "row") {
-    if (table.rows.length !== 1) throw new ValueError(`${output.name} should hold one object, but there are ${table.rows.length} rows`);
+    if (table.rows.length !== 1) throw new ValueError(`${output.name} should hold one object, but there are ${table.rows.length} rows; for a list use "shape": {"values": "<column>"}, or omit shape for a list of rows`);
     value = Object.fromEntries(columns.map((c) => [c, cell(table.rows[0], c)]));
   } else if (typeof shape === "object" && "map" in shape) {
     const o: Record<string, Json> = {};
