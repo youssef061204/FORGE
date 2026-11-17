@@ -1,0 +1,72 @@
+{
+  "format": "forge-core-holdout-seal/v1",
+  "createdAt": "2026-11-15T02:23:55.873Z",
+  "author": "separate Codex evaluation agent",
+  "total": 100,
+  "categoryCounts": {
+    "local-files": 20,
+    "gmail": 8,
+    "calendar": 8,
+    "cross-service": 10,
+    "monitoring": 10,
+    "installed-programs": 15,
+    "missing-connection": 8,
+    "clarification": 8,
+    "unsupported": 5,
+    "unseen-api": 8
+  },
+  "sourceStatus": "No product/planner/source edits made during authoring",
+  "cost": {
+    "incrementalPaidUsd": 0,
+    "providerRequests": 0,
+    "networkRequests": 0
+  },
+  "separation": {
+    "type": "developer-role separation and precommitment; not independent human/blind review",
+    "promptInputs": "Mission request, described resources, structured prior context, installed program metadata; NEVER expected outcomes or authored recordings",
+    "recordings": "Model-authored offline integration fixtures; not live or fresh model inference"
+  },
+  "files": [
+    {
+      "path": "missions.sealed.jsonl",
+      "bytes": 342080,
+      "sha256": "1d0409808d27f9b3d4d8909f7715aeafe30a58656d72263dfb50468e96611be9"
+    },
+    {
+      "path": "expected.sealed.jsonl",
+      "bytes": 49489,
+      "sha256": "27b3c471a550f30e151c2789615ff338b64a8dcf430ef47bcc45f94350150c2b"
+    },
+    {
+      "path": "recorded-solutions.sealed.jsonl",
+      "bytes": 146585,
+      "sha256": "9094add4d720fedfbecc8a915bf038d40a50276bec462ded23caba51e478a41c"
+    },
+    {
+      "path": "author-sealed.cjs",
+      "bytes": 70022,
+      "sha256": "275e0713f29b21389525a11532a3f06f83017c39c5ce6237a1c11472bf616ab8"
+    },
+    {
+      "path": "schema.json",
+      "bytes": 3516,
+      "sha256": "3898b6baa1fc7886a815ef0436378eee3f4c3e92b9517d3311e505cb80a5793c"
+    },
+    {
+      "path": "PROTOCOL.md",
+      "bytes": 7524,
+      "sha256": "198b0bf94e0070569914b5db03db4e89bb80c0ecdd7ab73c5f71273b1e996e5c"
+    },
+    {
+      "path": "AUTHORING.md",
+      "bytes": 2816,
+      "sha256": "008053f10db4a3bf57ced31920b939e98977645c4f8f8773d45aa2092557d6fb"
+    },
+    {
+      "path": "validate-seal.cjs",
+      "bytes": 2478,
+      "sha256": "a1e2df570ac088227bed5d032416988e5dc6591cefebee1c1392c47f39e6b53e"
+    }
+  ],
+  "contentSealSha256": "a11da48b82f9db9e171237325924815684eca36d606e63ffb57313d459f1dad9"
+}

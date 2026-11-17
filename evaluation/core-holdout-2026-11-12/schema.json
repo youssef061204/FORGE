@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge-core-holdout-case-v1",
+  "title": "Public sealed holdout runner input format",
+  "type": "object",
+  "required": ["id", "family", "request", "now", "evidenceClass", "resources", "installedPrograms", "conversation", "missionInput", "initialProgramState", "schedulerTicks", "repeatEvent"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^core-[0-9]{3}$" },
+    "family": { "type": "string" },
+    "request": { "type": "string", "minLength": 1 },
+    "now": { "type": "string" },
+    "evidenceClass": { "const": "synthetic-offline-fixture" },
+    "resources": { "type": "array", "items": { "$ref": "#/definitions/resource" } },
+    "installedPrograms": { "type": "array", "items": { "type": "object", "required": ["id", "version", "description", "draft"] } },
+    "conversation": { "type": "array", "items": { "type": "object", "required": ["role", "text"] } },
+    "lastToolId": { "type": "string" },
+    "missionInput": { "type": "object" },
+    "initialProgramState": { "type": "object" },
+    "schedulerTicks": {
+      "type": "array",
+      "items": { "type": "object", "required": ["at", "eventId", "replace"], "properties": {
+        "at": { "type": "string" }, "eventId": { "type": "string" },
+        "replace": { "type": "array", "items": { "type": "object", "required": ["connector", "collection", "value"], "properties": { "connector": { "type": "string" }, "collection": { "type": "string" }, "value": { "type": "array" } } } }
+      } }
+    },
+    "repeatEvent": { "type": "boolean" }
+  },
+  "definitions": {
+    "resource": {
+      "type": "object", "required": ["descriptor", "collections", "handlers"], "additionalProperties": false,
+      "properties": {
+        "descriptor": { "type": "object", "required": ["id", "name", "kind", "status", "mode", "binding", "setup", "constraints", "operations"], "properties": {
+          "id": { "type": "string" }, "name": { "type": "string" }, "kind": { "enum": ["builtin", "openapi", "mcp"] }, "status": { "enum": ["connected", "needs_consent", "not_configured", "error"] }, "mode": { "const": "test" }, "binding": { "type": "string" }, "setup": { "type": "string" }, "constraints": { "type": "object" },
+          "operations": { "type": "array", "items": { "type": "object", "required": ["id", "connector", "name", "description", "inputSchema", "outputSchema", "permission", "kind", "sideEffect", "idempotent"], "properties": { "id": { "type": "string" }, "connector": { "type": "string" }, "inputSchema": { "type": "object" }, "outputSchema": { "type": "object" }, "permission": { "type": "string" }, "kind": { "enum": ["read", "write"] }, "sideEffect": { "enum": ["none", "reversible", "irreversible"] }, "idempotent": { "type": "boolean" } } } }
+        } },
+        "collections": { "type": "object", "additionalProperties": { "type": "array" } },
+        "handlers": { "type": "object", "additionalProperties": { "type": "object", "required": ["kind"], "properties": { "kind": { "enum": ["constant", "list", "artifact", "append", "update"] }, "collection": { "type": "string" }, "value": {}, "resultKey": { "type": "string" }, "constants": { "type": "object" }, "idField": { "type": "string" }, "idPrefix": { "type": "string" }, "result": { "type": "object" }, "selector": { "type": "object", "required": ["argument", "field"] }, "fields": { "type": "object", "additionalProperties": { "type": "string" } } } } }
+      }
+    }
+  }
+}

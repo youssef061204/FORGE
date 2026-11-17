@@ -1,0 +1,9 @@
+services:
+  forge:
+    environment:
+      FORGE_FREE_ONLY: "true"
+      FORGE_APP_MODE: product
+      FORGE_PLANNER_PROVIDER: local
+      FORGE_INTERACTIVE_PROVIDER: local
+      FORGE_LOCAL_MODEL: qwen2.5:7b-instruct
+      FORGE_LOCAL_MODEL_URL: http://host.docker.internal:11435

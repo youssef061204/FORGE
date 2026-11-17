@@ -1,0 +1,159 @@
+{
+  "version": "core-mutations/v1",
+  "createdForClientDate": "2026-11-16",
+  "evidenceClass": "deterministic-local-model-output-mutations",
+  "description": "Systematic mutations of one generic record-processing program and one operation-grounded plan. These are repeated engineering defect families, not independent natural-language missions or live model outputs.",
+  "variants": [13, 17, 19],
+  "families": [
+    {
+      "id": "valid_program",
+      "kind": "control",
+      "expected": "verified",
+      "description": "Original program must execute and verify committed state."
+    },
+    {
+      "id": "valid_monitor_guard",
+      "kind": "control",
+      "expected": "verified",
+      "description": "The unmutated state guard suppresses a second distinct event for the same record."
+    },
+    {
+      "id": "valid_plan",
+      "kind": "control",
+      "expected": "grounded",
+      "description": "Original operation plan must derive the exact two permissions."
+    },
+    {
+      "id": "missing_connection",
+      "kind": "control",
+      "expected": "connect",
+      "description": "An actually absent required connector must become a connection request."
+    },
+    {
+      "id": "syntax_error",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "Malformed source is rejected by the real compiler."
+    },
+    {
+      "id": "type_error",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "An incompatible action argument is rejected by strict typing."
+    },
+    {
+      "id": "invented_operation",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "A declared operation absent from the resource registry is rejected."
+    },
+    {
+      "id": "runtime_schema",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "A type-asserted wrong runtime argument must not pass the broker schema."
+    },
+    {
+      "id": "partial_solution",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "A self-consistent empty output cannot satisfy the required effect."
+    },
+    {
+      "id": "runtime_exception",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "An input-dependent exception must fail before a write."
+    },
+    {
+      "id": "timeout",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "An input-dependent unbounded loop must be stopped by the sandbox deadline."
+    },
+    {
+      "id": "unsafe_access",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "Prohibited raw host access is rejected without evaluating it."
+    },
+    {
+      "id": "unsafe_proposed_operation",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "A type-asserted undeclared write must be atomically rejected by the broker."
+    },
+    {
+      "id": "duplicate_write",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "Two identical proposed writes are rejected rather than both committed."
+    },
+    {
+      "id": "removed_idempotency_guard",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "A removed business-state guard is exposed across distinct events by a committed-state cardinality condition."
+    },
+    {
+      "id": "permission_missing",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "The proposed plan omits a required permission."
+    },
+    {
+      "id": "permission_excess",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "The proposed plan adds unrelated authority."
+    },
+    {
+      "id": "unnecessary_connector",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "An extra connected operation has no required-outcome witness."
+    },
+    {
+      "id": "wrong_operation_direction",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "A read operation is presented as a required write."
+    },
+    {
+      "id": "omitted_plan_effect",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "The plan omits a necessary declared write from implementation."
+    },
+    {
+      "id": "false_missing_connection",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "An available exact operation is falsely labeled missing."
+    },
+    {
+      "id": "self_consistent_wrong_computation",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "Source and authored tests agree on the wrong arithmetic; independent readback must detect it."
+    },
+    {
+      "id": "vacuous_readback",
+      "kind": "defect",
+      "expected": "not_verified",
+      "description": "A no-op connector acknowledgement plus a vacuous same-connector readback must not establish outcome verification."
+    },
+    {
+      "id": "no_postconditions",
+      "kind": "defect",
+      "expected": "not_verified",
+      "description": "A source/test pair with incorrect semantics and no outcome contract must remain explicitly unverified."
+    },
+    {
+      "id": "missing_approval_permission",
+      "kind": "defect",
+      "expected": "reject_or_fail",
+      "description": "Partial approval must not enable execution."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+node_modules
+.next
+data
+artifacts
+test-results
+playwright-report
+package-lock.json
+.venv-ml
+__pycache__
+src/forge/*-model.json
+src/forge/maps/*.json

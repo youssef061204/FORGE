@@ -1,0 +1,33 @@
+services:
+  forge:
+    image: forge-app:local
+    build:
+      context: .
+      dockerfile: infra/Dockerfile
+    ports:
+      - "127.0.0.1:${FORGE_PORT:-3108}:3000"
+    environment:
+      DEMO_MODE: "true"
+      FORGE_RUNTIME_MODE: fixture
+      FORGE_FREE_ONLY: "true"
+      MODEL_PROVIDER: demo
+      STORE_PROVIDER: local
+      SANDBOX_PROVIDER: process
+      FORGE_DATA_DIR: /app/data
+    volumes:
+      - forge-data:/app/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 3s
+      start_period: 15s
+      retries: 6
+    restart: unless-stopped
+volumes:
+  forge-data:

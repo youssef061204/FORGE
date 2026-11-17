@@ -1,0 +1,1296 @@
+{
+  "createdAt": "2026-10-10T22:07:17.679Z",
+  "dataset": {
+    "episodes": 640,
+    "hash": "3fe6d1ad40bcde92bfe1aae275b05ad5e6e6a69025f2c388ef5ab1441c624949",
+    "splitHash": "315668bb94d97a9d702d5aed6340b150cb49dcc0c3f6f06341ab1c5c92cacafd",
+    "splitCounts": {
+      "train": 384,
+      "validation": 80,
+      "heldout": 80,
+      "shift": 48,
+      "compositional": 48
+    }
+  },
+  "forecasting": {
+    "selected": {
+      "queue": {
+        "mae": 0.5835820601641097,
+        "rmse": 0.9606952234815248,
+        "r2": 0.7618263808158539,
+        "mae95CI": [
+          0.5582812503806175,
+          0.6091822804385275
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "delay": {
+        "mae": 4.1562856299003945,
+        "rmse": 7.669248799477842,
+        "r2": 0.8819483699176531,
+        "mae95CI": [
+          4.005822050364409,
+          4.328034837272712
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "congestion": {
+        "mae": 0.061476089931696794,
+        "rmse": 0.10598813378945174,
+        "r2": 0.8278181274348616,
+        "mae95CI": [
+          0.059213440185932865,
+          0.06376143426917324
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "water": {
+        "mae": 0.0016673436594256028,
+        "rmse": 0.0029726615715087784,
+        "r2": 0.9937103899207816,
+        "mae95CI": [
+          0.00153649241979885,
+          0.0018655942400531516
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "fire": {
+        "mae": 0.0004516703044508646,
+        "rmse": 0.008971477740272906,
+        "r2": 0.9138774587024077,
+        "mae95CI": [
+          0.00009855802646965884,
+          0.000826130677262837
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "smoke": {
+        "mae": 0.0015338169635124737,
+        "rmse": 0.01178439656306904,
+        "r2": 0.9803154814097516,
+        "mae95CI": [
+          0.000905699986084984,
+          0.0021429117098302323
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "power": {
+        "mae": 0.05010184018690118,
+        "rmse": 0.12345670181673506,
+        "r2": 0.8389498041289599,
+        "mae95CI": [
+          0.04323253926650992,
+          0.05894899081292631
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "hospitalDemand": {
+        "mae": 0.0000900022918935301,
+        "rmse": 0.0012940977145449086,
+        "r2": 0.9993503219665503,
+        "mae95CI": [
+          0.00006535833880344758,
+          0.00011892875544431043
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "emergencyDemand": {
+        "mae": 0.0164007022183311,
+        "rmse": 0.12682560963191322,
+        "r2": 0.19698309782017698,
+        "mae95CI": [
+          0.01057726489124301,
+          0.024347535263287496
+        ],
+        "samples": 34560,
+        "episodes": 80
+      }
+    },
+    "persistence": {
+      "queue": {
+        "mae": 0.7135995626449585,
+        "rmse": 1.3859413224332064,
+        "r2": 0.504307746887207,
+        "mae95CI": [
+          0.6667599692940712,
+          0.7569972723722458
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "delay": {
+        "mae": 6.211343288421631,
+        "rmse": 15.486474319250986,
+        "r2": 0.5186383724212646,
+        "mae95CI": [
+          5.804516077041626,
+          6.727662909030914
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "congestion": {
+        "mae": 0.07863296568393707,
+        "rmse": 0.1447231140446606,
+        "r2": 0.6789677143096924,
+        "mae95CI": [
+          0.07458449713885784,
+          0.08271277267485856
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "water": {
+        "mae": 0.01586432382464409,
+        "rmse": 0.021976223629535045,
+        "r2": 0.6562529802322388,
+        "mae95CI": [
+          0.014939714595675469,
+          0.01702218488790095
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "fire": {
+        "mae": 0.0007701468421146274,
+        "rmse": 0.014085977174422172,
+        "r2": 0.7876937389373779,
+        "mae95CI": [
+          0.00022934182197786868,
+          0.0013840970117598769
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "smoke": {
+        "mae": 0.0037801857106387615,
+        "rmse": 0.035419439255187514,
+        "r2": 0.8221747279167175,
+        "mae95CI": [
+          0.0018589797226013615,
+          0.005878928373567758
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "power": {
+        "mae": 0.051975637674331665,
+        "rmse": 0.1919922519190885,
+        "r2": 0.6105073690414429,
+        "mae95CI": [
+          0.03308861674740911,
+          0.06841529011726379
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "hospitalDemand": {
+        "mae": 0.00013183493865653872,
+        "rmse": 0.0022683404736943483,
+        "r2": 0.9980039000511169,
+        "mae95CI": [
+          0.00009303630668000551,
+          0.0001755394445353886
+        ],
+        "samples": 34560,
+        "episodes": 80
+      },
+      "emergencyDemand": {
+        "mae": 0.02552083320915699,
+        "rmse": 0.2389938377434878,
+        "r2": -1.8515710830688477,
+        "mae95CI": [
+          0.01643518633209169,
+          0.0372699661180377
+        ],
+        "samples": 34560,
+        "episodes": 80
+      }
+    },
+    "horizons": {
+      "30": {
+        "queue": {
+          "mae": 0.53616127082925,
+          "rmse": 0.7835145881187788,
+          "r2": 0.7896132946948266,
+          "mae95CI": [
+            0.5135917292417237,
+            0.5582837419055945
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "delay": {
+          "mae": 3.406501755146672,
+          "rmse": 4.969275753344805,
+          "r2": 0.884959676991277,
+          "mae95CI": [
+            3.2772339535270447,
+            3.556653672212586
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "congestion": {
+          "mae": 0.05366579195348701,
+          "rmse": 0.07823907248833191,
+          "r2": 0.8694005410652788,
+          "mae95CI": [
+            0.05166139049349618,
+            0.05556418350390029
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "water": {
+          "mae": 0.0011295055795926602,
+          "rmse": 0.001778072753072334,
+          "r2": 0.9976141433254685,
+          "mae95CI": [
+            0.0010501770488998672,
+            0.0012311015907147925
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "fire": {
+          "mae": 0.0003793958890786298,
+          "rmse": 0.008450722414933153,
+          "r2": 0.8877126793279774,
+          "mae95CI": [
+            0.00007663127867533833,
+            0.0007251412318200891
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "smoke": {
+          "mae": 0.0009095719336355415,
+          "rmse": 0.007228678934033483,
+          "r2": 0.9887182390350733,
+          "mae95CI": [
+            0.0005012079666198441,
+            0.0013267065852559001
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "power": {
+          "mae": 0.049984490703186356,
+          "rmse": 0.12310852078895154,
+          "r2": 0.8397670510048583,
+          "mae95CI": [
+            0.04311314269119166,
+            0.058873950026091915
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "hospitalDemand": {
+          "mae": 0.00009931842779968043,
+          "rmse": 0.00139148141784337,
+          "r2": 0.9992556051618421,
+          "mae95CI": [
+            0.00007345590786524104,
+            0.00012809922319605724
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "emergencyDemand": {
+          "mae": 0.021150138633870844,
+          "rmse": 0.15902546410898644,
+          "r2": 0.2625687432287712,
+          "mae95CI": [
+            0.013934344736568677,
+            0.030486270516573027
+          ],
+          "samples": 11520,
+          "episodes": 80
+        }
+      },
+      "60": {
+        "queue": {
+          "mae": 0.5844183534126328,
+          "rmse": 0.9244627955049546,
+          "r2": 0.7619242093038877,
+          "mae95CI": [
+            0.5595892823199862,
+            0.6115048415889869
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "delay": {
+          "mae": 3.8326413559831747,
+          "rmse": 6.11682195234954,
+          "r2": 0.9008770516900152,
+          "mae95CI": [
+            3.6984637116770185,
+            4.00135822093076
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "congestion": {
+          "mae": 0.061660641396883875,
+          "rmse": 0.10076453863118183,
+          "r2": 0.8332859192832777,
+          "mae95CI": [
+            0.05934418990479673,
+            0.0640989993748533
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "water": {
+          "mae": 0.001547276282346704,
+          "rmse": 0.0025659734823028388,
+          "r2": 0.9950888183334851,
+          "mae95CI": [
+            0.0014382196533794438,
+            0.0017162921763519989
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "fire": {
+          "mae": 0.00042273864916860296,
+          "rmse": 0.008691011709204024,
+          "r2": 0.9131015629401023,
+          "mae95CI": [
+            0.00008033482343382905,
+            0.0007955542361371996
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "smoke": {
+          "mae": 0.0012714750848089591,
+          "rmse": 0.0103960608816297,
+          "r2": 0.9829734566918595,
+          "mae95CI": [
+            0.0006958853618208765,
+            0.0018414977933408014
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "power": {
+          "mae": 0.05003739502965446,
+          "rmse": 0.12332720085260528,
+          "r2": 0.8392387480963519,
+          "mae95CI": [
+            0.04319427388080831,
+            0.058895667742441794
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "hospitalDemand": {
+          "mae": 0.00008646946504632122,
+          "rmse": 0.001227052717782279,
+          "r2": 0.9994152132243714,
+          "mae95CI": [
+            0.00006124390926157807,
+            0.00011676479702499599
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "emergencyDemand": {
+          "mae": 0.01586098863510419,
+          "rmse": 0.11965105553944286,
+          "r2": 0.16642417589522873,
+          "mae95CI": [
+            0.009845129145248413,
+            0.024979639389453766
+          ],
+          "samples": 11520,
+          "episodes": 80
+        }
+      },
+      "120": {
+        "queue": {
+          "mae": 0.6301665562504462,
+          "rmse": 1.1402979291364497,
+          "r2": 0.7456230526551959,
+          "mae95CI": [
+            0.6010224593714019,
+            0.660038821749927
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "delay": {
+          "mae": 5.2297137785713375,
+          "rmse": 10.693124853631476,
+          "r2": 0.8721376939065829,
+          "mae95CI": [
+            5.002130245315709,
+            5.504972110679877
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "congestion": {
+          "mae": 0.06910183644471948,
+          "rmse": 0.1320060938105615,
+          "r2": 0.8017102215130953,
+          "mae95CI": [
+            0.06614895954671535,
+            0.07226892417105975
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "water": {
+          "mae": 0.002325249116337444,
+          "rmse": 0.004094433761715475,
+          "r2": 0.9887081434636074,
+          "mae95CI": [
+            0.0020964247887524027,
+            0.0026586118457716007
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "fire": {
+          "mae": 0.0005528763751053609,
+          "rmse": 0.009721823114460664,
+          "r2": 0.9271870511013623,
+          "mae95CI": [
+            0.000140108893354923,
+            0.0009720066893174248
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "smoke": {
+          "mae": 0.002420403872092921,
+          "rmse": 0.016008876477789733,
+          "r2": 0.9747988573906892,
+          "mae95CI": [
+            0.0015185524137530462,
+            0.003363712041422859
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "power": {
+          "mae": 0.05028363482786274,
+          "rmse": 0.12393290648337164,
+          "r2": 0.8378442560293582,
+          "mae95CI": [
+            0.043387209470852006,
+            0.059187095277644236
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "hospitalDemand": {
+          "mae": 0.00008421898283458864,
+          "rmse": 0.0012578504585008489,
+          "r2": 0.9993813252370927,
+          "mae95CI": [
+            0.00005718317798013726,
+            0.00011842709569170523
+          ],
+          "samples": 11520,
+          "episodes": 80
+        },
+        "emergencyDemand": {
+          "mae": 0.012190979386018267,
+          "rmse": 0.09299856154122997,
+          "r2": -0.009692241508526767,
+          "mae95CI": [
+            0.007477642866337389,
+            0.018319543865582613
+          ],
+          "samples": 11520,
+          "episodes": 80
+        }
+      }
+    },
+    "risk": {
+      "outage": {
+        "boostingRaw": {
+          "auroc": 0.9952619640704815,
+          "auprc": 0.8169391806914548,
+          "brier": 0.014203552210210205,
+          "ece": 0.014207329188615819,
+          "precision": 0.7476979742173112,
+          "recall": 0.9297709923664123,
+          "f1": 0.8288533514800953,
+          "falseNegativeRate": 0.07022900763358779,
+          "falsePositiveRate": 0.012360902255639098,
+          "positives": 1310,
+          "samples": 34560
+        },
+        "boostingCalibrated": {
+          "auroc": 0.9952251621419962,
+          "auprc": 0.8110371419056585,
+          "brier": 0.010634980163194925,
+          "ece": 0.008971002673736156,
+          "precision": 0.7268184342032205,
+          "recall": 0.999236641221374,
+          "f1": 0.8415300546448088,
+          "falseNegativeRate": 0.0007633587786259542,
+          "falsePositiveRate": 0.014796992481203008,
+          "positives": 1310,
+          "samples": 34560
+        },
+        "linear": {
+          "auroc": 0.9993712678643173,
+          "auprc": 0.984221478703427,
+          "brier": 0.003242693652716046,
+          "ece": 0.0036661136775879154,
+          "precision": 0.9159074982480728,
+          "recall": 0.9977099236641221,
+          "f1": 0.9550602849835587,
+          "falseNegativeRate": 0.0022900763358778627,
+          "falsePositiveRate": 0.0036090225563909775,
+          "positives": 1310,
+          "samples": 34560
+        }
+      },
+      "blocked": {
+        "boostingRaw": {
+          "auroc": 0.9985276198212836,
+          "auprc": 0.7906745619749184,
+          "brier": 0.0010794827899575767,
+          "ece": 0.0005224395113701876,
+          "precision": 0.7692307692307693,
+          "recall": 0.6521739130434783,
+          "f1": 0.7058823529411765,
+          "falseNegativeRate": 0.34782608695652173,
+          "falsePositiveRate": 0.0005222235116629918,
+          "positives": 92,
+          "samples": 34560
+        },
+        "boostingCalibrated": {
+          "auroc": 0.9932021068060608,
+          "auprc": 0.7296918731097666,
+          "brier": 0.0011277309821562814,
+          "ece": 0.0005870609855420592,
+          "precision": 0.759493670886076,
+          "recall": 0.6521739130434783,
+          "f1": 0.7017543859649122,
+          "falseNegativeRate": 0.34782608695652173,
+          "falsePositiveRate": 0.0005512359289776024,
+          "positives": 92,
+          "samples": 34560
+        },
+        "linear": {
+          "auroc": 0.9974866416739407,
+          "auprc": 0.5886318003654172,
+          "brier": 0.0016965211309967405,
+          "ece": 0.0007451773901581678,
+          "precision": 0.5925925925925926,
+          "recall": 0.34782608695652173,
+          "f1": 0.4383561643835616,
+          "falseNegativeRate": 0.6521739130434783,
+          "falsePositiveRate": 0.0006382731809214344,
+          "positives": 92,
+          "samples": 34560
+        }
+      }
+    },
+    "uncertainty": {
+      "method": "validation residual conformal 95% marginal interval; episode correlation means no exchangeability guarantee",
+      "coverage": {
+        "queue": 0.9499131944444444,
+        "delay": 0.9514467592592593,
+        "congestion": 0.9432002314814815,
+        "water": 0.9466145833333334,
+        "fire": 0.9724537037037037,
+        "smoke": 0.9499421296296297,
+        "power": 0.963744212962963,
+        "hospitalDemand": 0.979224537037037,
+        "emergencyDemand": 0.9523148148148148
+      }
+    }
+  },
+  "graph": {
+    "queueSharedMAE": 0.5869683027267456,
+    "queueTemporalMAE": 0.6017611026763916,
+    "queueIndependentMAE": 0.5993326902389526
+  },
+  "adaptive": {
+    "episodes": 6,
+    "winnerAgreement": 0.8333333333333334,
+    "unsafeMisses": 0,
+    "actualTests": 880,
+    "exhaustiveTests": 1200,
+    "savedFraction": 0.2666666666666667
+  },
+  "controllers": {
+    "episodes": 24,
+    "summaries": {
+      "fixed": {
+        "mean": 0.4527935606060607,
+        "median": 0.4460227272727273,
+        "p95": 0.675,
+        "worst": 0.675,
+        "failureRate": 0,
+        "constraintViolations": 0,
+        "metricsMean": {
+          "exposedPeople": 1.4166666666666667,
+          "evacuationSeconds": 2.4895833333333335,
+          "congestion": 0.45279356060606063,
+          "hospitalPower": 0.9920188155104978,
+          "gridLoad": 0.700400629988221,
+          "responseSeconds": 100,
+          "energyDemand": 96.14366781692685,
+          "evacuatedPeople": 0,
+          "shelterOccupancy": 0
+        }
+      },
+      "pressure": {
+        "mean": 0.4515625000000001,
+        "median": 0.4431818181818182,
+        "p95": 0.65,
+        "worst": 0.6625,
+        "failureRate": 0,
+        "constraintViolations": 0,
+        "metricsMean": {
+          "exposedPeople": 1.5416666666666667,
+          "evacuationSeconds": 2.5130208333333335,
+          "congestion": 0.45156249999999987,
+          "hospitalPower": 0.9920188155104978,
+          "gridLoad": 0.7003009287411239,
+          "responseSeconds": 100,
+          "energyDemand": 96.14469910152191,
+          "evacuatedPeople": 0,
+          "shelterOccupancy": 0
+        }
+      },
+      "optimizer": {
+        "mean": 0.4515625000000001,
+        "median": 0.4431818181818182,
+        "p95": 0.65,
+        "worst": 0.6625,
+        "failureRate": 0,
+        "constraintViolations": 0,
+        "metricsMean": {
+          "exposedPeople": 1.5416666666666667,
+          "evacuationSeconds": 2.5130208333333335,
+          "congestion": 0.45156249999999987,
+          "hospitalPower": 0.9920188155104978,
+          "gridLoad": 0.7003009287411239,
+          "responseSeconds": 100,
+          "energyDemand": 96.14469910152191,
+          "evacuatedPeople": 0,
+          "shelterOccupancy": 0
+        }
+      },
+      "rl": {
+        "mean": 0.4523200757575758,
+        "median": 0.4431818181818182,
+        "p95": 0.65,
+        "worst": 0.6625,
+        "failureRate": 0,
+        "constraintViolations": 0,
+        "metricsMean": {
+          "exposedPeople": 1.5416666666666667,
+          "evacuationSeconds": 2.5130208333333335,
+          "congestion": 0.4523200757575756,
+          "hospitalPower": 0.9920188155104978,
+          "gridLoad": 0.7003009287411194,
+          "responseSeconds": 100,
+          "energyDemand": 96.14469910152127,
+          "evacuatedPeople": 0,
+          "shelterOccupancy": 0
+        }
+      },
+      "hybrid": {
+        "mean": 0.4523200757575758,
+        "median": 0.4431818181818182,
+        "p95": 0.65,
+        "worst": 0.6625,
+        "failureRate": 0,
+        "constraintViolations": 0,
+        "metricsMean": {
+          "exposedPeople": 1.5416666666666667,
+          "evacuationSeconds": 2.5130208333333335,
+          "congestion": 0.4523200757575756,
+          "hospitalPower": 0.9920188155104978,
+          "gridLoad": 0.7003009287411194,
+          "responseSeconds": 100,
+          "energyDemand": 96.14469910152127,
+          "evacuatedPeople": 0,
+          "shelterOccupancy": 0
+        }
+      },
+      "generated-fixture": {
+        "mean": 0.48873106060606064,
+        "median": 0.5414772727272728,
+        "p95": 0.625,
+        "worst": 0.675,
+        "failureRate": 0,
+        "constraintViolations": 0,
+        "metricsMean": {
+          "exposedPeople": 1.1666666666666667,
+          "evacuationSeconds": 2.0338541666666665,
+          "congestion": 0.4887310606060606,
+          "hospitalPower": 0.9920182170474177,
+          "gridLoad": 0.6180389804221501,
+          "responseSeconds": 100,
+          "energyDemand": 84.84693239766823,
+          "evacuatedPeople": 2.125,
+          "shelterOccupancy": 2.125
+        }
+      }
+    }
+  },
+  "placement": {
+    "training": {
+      "version": "placement-demand-1",
+      "trained": true,
+      "columns": [
+        8,
+        21,
+        25,
+        26,
+        15,
+        16,
+        13,
+        4,
+        3,
+        12
+      ],
+      "weights": [
+        0.2940014078504525,
+        0.0002592205025540225,
+        -0.15226535967229682,
+        0.3822063707188999,
+        0.0027149873346275564,
+        -0.00313412692896374,
+        -0.07971141337169692,
+        0.6032690876379034,
+        0.10564745231772966,
+        -0.03700976028483491
+      ],
+      "bias": -0.006401542409439539,
+      "alphaSelectedOnValidation": 100,
+      "datasetHash": "3fe6d1ad40bcde92bfe1aae275b05ad5e6e6a69025f2c388ef5ab1441c624949",
+      "target": "Actual local exposed-person demand at +60 seconds",
+      "metrics": {
+        "train": {
+          "episodes": 384,
+          "rows": 55296,
+          "learnedMAE": 0.019856303368841116,
+          "persistenceMAE": 0.022587528935185185,
+          "mae95CI": [
+            0.016678983361980128,
+            0.0230106439909424
+          ]
+        },
+        "validation": {
+          "episodes": 80,
+          "rows": 11520,
+          "learnedMAE": 0.023313836389329864,
+          "persistenceMAE": 0.02769097222222222,
+          "mae95CI": [
+            0.014015545400279052,
+            0.03820962928374702
+          ]
+        },
+        "heldout": {
+          "episodes": 80,
+          "rows": 11520,
+          "learnedMAE": 0.019637897596787645,
+          "persistenceMAE": 0.025434027777777778,
+          "mae95CI": [
+            0.013885062214312046,
+            0.028037311455092223
+          ]
+        },
+        "shift": {
+          "episodes": 48,
+          "rows": 6912,
+          "learnedMAE": 0.08355161386368752,
+          "persistenceMAE": 0.0669849537037037,
+          "mae95CI": [
+            0.06104443912925676,
+            0.10470585532218439
+          ]
+        },
+        "compositional": {
+          "episodes": 48,
+          "rows": 6912,
+          "learnedMAE": 0.03225580340953308,
+          "persistenceMAE": 0.03501157407407408,
+          "mae95CI": [
+            0.023340582647353312,
+            0.04165843729794514
+          ]
+        }
+      },
+      "modelHash": "a3111d25c07dca1a3e8edea12887ebb558b0c5001ee0a0804d02e3df65105ea6"
+    },
+    "benchmark": {
+      "scope": "Real isolated-worker/broker execution on 24 paired full City scenes. Learned +60-second demand prioritizes exact enumeration of three locations among twelve graph sites, using safe graph routes. All strategies share the same tactical dispatch phase at simulation seconds modulo 120 >=80. Actual incident response and every failure are retained.",
+      "episodes": 24,
+      "kinds": [
+        "random",
+        "demand",
+        "optimization",
+        "learned"
+      ],
+      "summaries": {
+        "random": {
+          "mean": 0.6395833333333334,
+          "median": 0.6333333333333333,
+          "p95": 0.9,
+          "worst": 0.9,
+          "failureRate": 0,
+          "constraintViolations": 0,
+          "metricsMean": {
+            "exposedPeople": 4.208333333333333,
+            "evacuationSeconds": 5.533854166666667,
+            "congestion": 0.4356060606060606,
+            "hospitalPower": 0.9873073961455693,
+            "gridLoad": 0.6957525073441496,
+            "responseSeconds": 76.75,
+            "energyDemand": 95.98699417370263,
+            "evacuatedPeople": 0,
+            "shelterOccupancy": 0
+          }
+        },
+        "demand": {
+          "mean": 0.6597222222222223,
+          "median": 0.6499999999999999,
+          "p95": 0.9,
+          "worst": 0.9,
+          "failureRate": 0,
+          "constraintViolations": 0,
+          "metricsMean": {
+            "exposedPeople": 4.166666666666667,
+            "evacuationSeconds": 5.5390625,
+            "congestion": 0.44469696969696976,
+            "hospitalPower": 0.9873438771212077,
+            "gridLoad": 0.6958828065592241,
+            "responseSeconds": 79.16666666666667,
+            "energyDemand": 95.98685879170888,
+            "evacuatedPeople": 0,
+            "shelterOccupancy": 0
+          }
+        },
+        "optimization": {
+          "mean": 0.595138888888889,
+          "median": 0.5833333333333333,
+          "p95": 0.9,
+          "worst": 0.9,
+          "failureRate": 0,
+          "constraintViolations": 0,
+          "metricsMean": {
+            "exposedPeople": 4.166666666666667,
+            "evacuationSeconds": 5.528645833333333,
+            "congestion": 0.4431818181818182,
+            "hospitalPower": 0.9873423942301347,
+            "gridLoad": 0.6958689780202197,
+            "responseSeconds": 71.41666666666667,
+            "energyDemand": 95.9867551555105,
+            "evacuatedPeople": 0,
+            "shelterOccupancy": 0
+          }
+        },
+        "learned": {
+          "mean": 0.5055555555555556,
+          "median": 0.5166666666666667,
+          "p95": 0.9,
+          "worst": 0.9,
+          "failureRate": 0,
+          "constraintViolations": 0,
+          "metricsMean": {
+            "exposedPeople": 4.166666666666667,
+            "evacuationSeconds": 5.526041666666667,
+            "congestion": 0.4492424242424242,
+            "hospitalPower": 0.9873263434697993,
+            "gridLoad": 0.6958923148214025,
+            "responseSeconds": 60.666666666666664,
+            "energyDemand": 95.98651647161178,
+            "evacuatedPeople": 0,
+            "shelterOccupancy": 0
+          }
+        }
+      },
+      "learnedResponseDeltaVsOptimization": {
+        "mean": 10.75,
+        "paired95CI": [
+          3.25,
+          18.75
+        ]
+      },
+      "limitations": [
+        "Bounded three-site hop-distance surrogate; not global optimal emergency planning.",
+        "Only vehicle placement is modeled; mobile generators and shelter supplies have no movement actuators."
+      ]
+    }
+  },
+  "perception": {
+    "heldout": {
+      "flood": {
+        "precision": 0.875,
+        "recall": 0.9333333333333333,
+        "f1": 0.9032258064516129,
+        "auroc": 0.9971717171717172,
+        "auprc": 0.9716666666666667,
+        "brier": 0.009880270808935165,
+        "positives": 15,
+        "frames": 180,
+        "episodes": 20
+      },
+      "fire": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "auroc": 1,
+        "auprc": 1.0000000000000002,
+        "brier": 0.0007285026949830353,
+        "positives": 9,
+        "frames": 180,
+        "episodes": 20
+      },
+      "smoke": {
+        "precision": 0.8125,
+        "recall": 0.8666666666666667,
+        "f1": 0.8387096774193549,
+        "auroc": 0.9874747474747475,
+        "auprc": 0.8431675639412212,
+        "brier": 0.027148909866809845,
+        "positives": 15,
+        "frames": 180,
+        "episodes": 20
+      },
+      "congestion": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "auroc": 0.2162921348314607,
+        "auprc": 0.010348360655737705,
+        "brier": 0.01103406585752964,
+        "positives": 2,
+        "frames": 180,
+        "episodes": 20
+      }
+    },
+    "device": "cpu",
+    "datasetHash": "77e0a79ca16173839cb68d83f3b236d6c10b982467a14506da5c7293fd9030db"
+  },
+  "gpu": {
+    "gpu": null,
+    "parity": {
+      "cpuMaxError": 4.5549376481712756e-7,
+      "gpuMaxError": null
+    },
+    "component": "Physical hazard-field transition, matched against TypeScript reference; full worker/broker City Futures remain separate.",
+    "largeBatch": {
+      "batch": 1024,
+      "horizonSeconds": 120,
+      "dtSeconds": 2,
+      "cpu": {
+        "seconds": 2.7258048998191953,
+        "fieldFuturesPerSecond": 375.66885292044293,
+        "repeats": [
+          2.711534900125116,
+          2.8309947000816464,
+          2.7258048998191953
+        ],
+        "peakAllocatedBytes": null,
+        "utilization": null
+      }
+    }
+  },
+  "adaptation": {
+    "createdAt": 1791668905.8021667,
+    "candidateVersion": "queue-adapted-2",
+    "candidateHash": "758ee8748bf840113b5ca7b6427808f5e1bdf06a2886d68eb9b99a1b8c018172",
+    "trainingScope": "Original training episodes plus 32 fresh shift training episodes; no original shift/heldout labels used for retraining",
+    "states": [
+      "TRAINED",
+      "VALIDATED",
+      "SHADOW"
+    ],
+    "validated": true,
+    "metrics": {
+      "validation": {
+        "episodes": 8,
+        "rows": 1152,
+        "baseQueueMAE": 0.844663405750153,
+        "candidateQueueMAE": 0.7949011539258752,
+        "interval95": 2.599543667428888
+      },
+      "heldout": {
+        "episodes": 16,
+        "rows": 2304,
+        "baseQueueMAE": 0.853361930304244,
+        "candidateQueueMAE": 0.8164842682108358,
+        "interval95": null
+      }
+    },
+    "promotion": "Explicit owner action only; forecasts have no broker authority"
+  },
+  "formal": {
+    "createdAt": "2026-10-10T22:05:17.833166+00:00",
+    "solver": "Z3 5.1.0",
+    "encoding": "Manually reviewed bounded guard model; source-to-SMT equivalence is not proved.",
+    "results": [
+      {
+        "property": "Accepted power action cannot set critical power below 0.9",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "Single accepted grid.allocate/grid.shed output; physical disasters remain outside this guarantee."
+      },
+      {
+        "property": "New shelter reservation stays within capacity",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "One new reservation; existing same-shelter assignment does not add occupancy."
+      },
+      {
+        "property": "Accepted route segment is connected, open and below risk threshold",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "Every concrete segment checked by the host; does not prove future road passability."
+      },
+      {
+        "property": "Requested operations are declared and allowed by the Mission",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "Structured operation masks, independent of generated source."
+      },
+      {
+        "property": "Critical building closure is rejected",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "building.mode host safety rule."
+      },
+      {
+        "property": "Only responder vehicles can be dispatched",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "Current host type gate; ongoing responder availability is a separate restriction."
+      },
+      {
+        "property": "Demand-increasing actions stay within available supply plus numerical tolerance",
+        "state": "PROVED",
+        "solver": "unsat",
+        "scope": "Host grid-capacity increase rule, with its actual 0.001 tolerance."
+      },
+      {
+        "property": "Every accepted action makes the whole physical grid non-overloaded",
+        "state": "NOT PROVABLE WITH CURRENT MODEL",
+        "solver": "sat",
+        "scope": "Deliberately stronger property; a pre-existing overload may remain after safe load reduction. A counterexample must be retained.",
+        "counterexample": {
+          "total": "1001/1000",
+          "oldDemand": "0",
+          "newDemand": "0",
+          "available": "0"
+        }
+      }
+    ],
+    "proven": 7,
+    "failed": 0,
+    "notProvable": 1,
+    "limitations": [
+      "No proof of arbitrary generated TypeScript.",
+      "No proof that a physical hazard cannot destroy infrastructure.",
+      "Concrete worker/sandbox/broker and stochastic tests remain mandatory.",
+      "A stronger whole-grid invariant intentionally produces a saved counterexample."
+    ]
+  },
+  "synthesis": {
+    "localCases": 100,
+    "liveCases": 12,
+    "scope": "100 frozen template-produced executable variants on distinct scenes; NOT 100 independently synthesized natural-language missions",
+    "livePrograms": 36,
+    "liveExecutingPrograms": 31
+  },
+  "external": {
+    "createdAt": "2026-10-10T22:07:16.184Z",
+    "source": "https://raw.githubusercontent.com/numenta/NAB/master/data/realKnownCause/nyc_taxi.csv",
+    "dataset": "Numenta Anomaly Benchmark NYC taxi demand, actual recorded counts",
+    "license": "NAB repository AGPL-3.0; cached research input only",
+    "datasetHash": "d8fa6f7f0734bf5c8be12c52a94e20a82664c397d9dec4449156bd453d32856d",
+    "totalSamples": 10320,
+    "split": {
+      "train": 6192,
+      "validation": 2064,
+      "heldout": 2064
+    },
+    "results": {
+      "validation": {
+        "persistence": {
+          "mae": 1311.4375,
+          "rmse": 1717.952536067912,
+          "samples": 2064
+        },
+        "seasonal": {
+          "mae": 2760.8391472868216,
+          "rmse": 4435.406682585316,
+          "samples": 2064
+        },
+        "average": {
+          "mae": 5687.080941133729,
+          "rmse": 6849.736486058433,
+          "samples": 2064
+        }
+      },
+      "heldout": {
+        "persistence": {
+          "mae": 1190.4796511627908,
+          "rmse": 1569.560799613118,
+          "samples": 2064
+        },
+        "seasonal": {
+          "mae": 3396.9244186046512,
+          "rmse": 5184.751138690751,
+          "samples": 2064
+        },
+        "average": {
+          "mae": 5629.699006782952,
+          "rmse": 6710.560214075769,
+          "samples": 2064
+        }
+      }
+    },
+    "scope": "Chronological external demand forecasting baselines only. Northbank neural forecasts have incompatible units and inputs and are NOT claimed to transfer.",
+    "physicalDisasterValidation": false
+  },
+  "map": {
+    "createdAt": "2026-10-10T22:07:16.506Z",
+    "source": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-76.489,44.228,-76.485,44.232",
+    "sourceHash": "18049bafa1656b4dd8a2f4dd07e5871006592d43f21cf77a85a71e1d9f8cb324",
+    "bounds": [
+      -76.489,
+      44.228,
+      -76.485,
+      44.232
+    ],
+    "attribution": "© OpenStreetMap contributors · ODbL",
+    "roadGeometry": "Actual OSM nodes/ways, bounded connected BFS subset; coordinates retain bends, remaining streets omitted",
+    "originalComponentNodes": 82,
+    "nodes": 64,
+    "roads": 65,
+    "executedSimulationSeconds": 60,
+    "metrics": {
+      "exposedPeople": 0,
+      "evacuationSeconds": 0,
+      "congestion": 0.92,
+      "hospitalPower": 0.9944488039638595,
+      "gridLoad": 0.6890109570321027,
+      "energyDemand": 96.46153398449438,
+      "responseSeconds": 0,
+      "evacuatedPeople": 0,
+      "shelterOccupancy": 0
+    },
+    "claim": "Real geometry, simulated conditions. Not live traffic or disaster prediction.",
+    "cityHash": "9304125f484d5ff938bd0230467e14ce2b023fcead54b16b968f9455e1d6d248"
+  },
+  "onnx": {
+    "model": "signal-dqn-1",
+    "onnxHash": "813fc1b1def174a3c4bc6de26b48cdf4158a0a6747249205406b29cce700a8e2",
+    "providers": [
+      "AzureExecutionProvider",
+      "CPUExecutionProvider"
+    ],
+    "cases": [
+      {
+        "batch": 1,
+        "maxAbsoluteError": 0.0000019073486328125,
+        "timings": {
+          "numpy": {
+            "p50Ms": 0.008800067007541656,
+            "p95Ms": 0.009704753756523132
+          },
+          "onnxRuntime": {
+            "p50Ms": 0.008699949830770493,
+            "p95Ms": 0.00890018418431282
+          }
+        }
+      },
+      {
+        "batch": 64,
+        "maxAbsoluteError": 0,
+        "timings": {
+          "numpy": {
+            "p50Ms": 0.01109996810555458,
+            "p95Ms": 0.011300202459096909
+          },
+          "onnxRuntime": {
+            "p50Ms": 0.009300187230110168,
+            "p95Ms": 0.009899958968162537
+          }
+        }
+      },
+      {
+        "batch": 1024,
+        "maxAbsoluteError": 0,
+        "timings": {
+          "numpy": {
+            "p50Ms": 0.02950010821223259,
+            "p95Ms": 0.03250534646213055
+          },
+          "onnxRuntime": {
+            "p50Ms": 0.027499860152602196,
+            "p95Ms": 0.030620000325143337
+          }
+        }
+      }
+    ],
+    "TensorRT": "UNVERIFIED: no TensorRT provider is installed; no acceleration claim",
+    "scope": "Exported real trained six-input/two-output DQN; forecast tree ensembles remain portable TypeScript."
+  },
+  "recordedBedrock": {
+    "scope": "Recorded successful real compiler calls; the current default runtime remains fixture",
+    "city": [
+      {
+        "provider": "Amazon Bedrock",
+        "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+        "region": "ca-central-1",
+        "profile": "forge",
+        "requestIds": [
+          "9b980d36-b2e3-412d-9a5f-bdb680cb1a83"
+        ],
+        "durationMs": 46588,
+        "inputTokens": 31341,
+        "outputTokens": 4080,
+        "schemaValid": true
+      }
+    ],
+    "capability": {
+      "provider": "bedrock",
+      "profile": "forge",
+      "region": "ca-central-1",
+      "modelId": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "schemaValidationPassed": true,
+      "requests": [
+        {
+          "operation": "Converse",
+          "durationMs": 14078,
+          "succeeded": true,
+          "requestId": "7f132b73-7e03-4563-ad48-049ff52d942a",
+          "httpStatusCode": 200
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "CUDA accelerates hazard fields only; worker/broker and complete City remain CPU.",
+    "No real disaster safety or real-camera validity claim.",
+    "Native Alexa+ preview and real Google Calendar writes remain unverified.",
+    "One actual Bedrock model configured; no multi-model routing or fabricated price estimate.",
+    "The camera congestion head failed held-out testing. Adaptive winner agreement is empirical, not a guarantee."
+  ]
+}
