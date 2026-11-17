@@ -15,7 +15,7 @@
   --color-line-strong: rgb(255 236 210 / 0.18);
   --color-paper: #f2eadf;
   --color-dim: #a99d8f;
-  --color-faint: #766b60;
+  --color-faint: #8a7f73; /* 5:1 on ink, WCAG AA for small text */
 
   --color-molten: #ff6a1f;
   --color-amber: #ffb04a;

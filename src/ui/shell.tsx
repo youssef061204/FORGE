@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { cx } from "./primitives";
+import { Kbd, cx } from "./primitives";
+import { Palette } from "./palette";
 
 export type Status = {
   mode: "local" | "showcase";
@@ -62,6 +63,7 @@ export function Shell({ children, mode }: { children: React.ReactNode; mode: "lo
   const [menu, setMenu] = useState(false);
   return (
     <div className="relative z-10 flex min-h-dvh flex-col">
+      <Palette />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-ash focus:px-3 focus:py-2">
         Skip to content
       </a>
@@ -102,6 +104,9 @@ export function Shell({ children, mode }: { children: React.ReactNode; mode: "lo
             })}
           </nav>
           <div className="ml-auto flex items-center gap-3">
+            <span className="hidden text-[12px] text-faint lg:inline">
+              <Kbd>Ctrl</Kbd> <Kbd>K</Kbd>
+            </span>
             <StatusPill status={status} />
             <button className="rounded-md p-2 text-dim hover:bg-iron md:hidden" aria-label="Menu" aria-expanded={menu} onClick={() => setMenu(!menu)}>
               <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden>
