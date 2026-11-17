@@ -171,6 +171,32 @@ export default function Scorecard() {
         </Panel>
       )}
       <Panel className="p-5">
+        <Eyebrow>Model arena (development set, latest run per model)</Eyebrow>
+        <table className="mt-3 w-full text-left text-[13px]">
+          <thead>
+            <tr className="text-faint">
+              <th className="py-1 font-medium">model</th>
+              <th className="py-1 font-medium">passed</th>
+              <th className="py-1 font-medium">time to preview p50</th>
+              <th className="py-1 font-medium">commit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...new Map(all.filter((r) => r.summary.corpus === "dev").map((r) => [r.summary.model, r])).values()].map((r) => (
+              <tr key={r.summary.model} className="border-t border-line">
+                <td className="py-1.5 font-mono">{r.summary.model}</td>
+                <td className="num py-1.5">
+                  {r.summary.passed}/{r.summary.n}
+                </td>
+                <td className="num py-1.5">{secs(r.summary.timeToPreviewP50Ms)}</td>
+                <td className="num py-1.5 text-faint">{r.summary.commit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="mt-2 text-[12px] text-faint">Add a row: npx tsx evaluation/runner.ts --corpus=dev --model=&lt;installed model&gt;</p>
+      </Panel>
+      <Panel className="p-5">
         <Eyebrow>All committed runs</Eyebrow>
         <ul className="mt-3 space-y-1 font-mono text-[12.5px] text-dim">
           {all.map((r) => (
